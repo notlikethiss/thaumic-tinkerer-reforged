@@ -10,6 +10,9 @@ import thaumictinkerer.test.DecorGameTests;
 import thaumictinkerer.test.GasGameTests;
 import thaumictinkerer.test.TransvectorGameTests;
 import thaumictinkerer.transvector.TransvectorFeature;
+import thaumictinkerer.foci.FociFeature;
+import thaumictinkerer.test.DarkQuartzGameTests;
+import thaumictinkerer.test.FociGameTests;
 
 public final class Features {
     private Features() {
@@ -20,18 +23,21 @@ public final class Features {
         DecorFeature.load();
         GasFeature.load();
         TransvectorFeature.load();
+        FociFeature.load();
     }
 
     public static void research() {
         DarkQuartzFeature.research();
         GasFeature.research();
         TransvectorFeature.research();
+        FociFeature.research();
     }
 
     public static void recipes() {
         DarkQuartzFeature.recipes();
         GasFeature.recipes();
         TransvectorFeature.recipes();
+        FociFeature.recipes();
     }
 
     public static void aspects(AspectRegistry registry) {
@@ -42,5 +48,6 @@ public final class Features {
         DecorGameTests.register(modEventBus);
         GasGameTests.register(modEventBus);
         TransvectorGameTests.register(modEventBus);
+        FociGameTests.register(modEventBus);
     }
 }
