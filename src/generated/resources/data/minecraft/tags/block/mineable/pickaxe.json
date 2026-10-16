@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:chiseled_dark_quartz_block",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:dark_quartz_block",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:dark_quartz_pillar",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:dark_quartz_slab",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:dark_quartz_stairs",
+      "required": false
+    }
+  ]
+}

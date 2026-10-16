@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:dark_quartz_stairs",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:registered",
+      "value": "thaumictinkerer:dark_quartz"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "Q": "minecraft:quartz",
+    "C": "minecraft:coal"
+  },
+  "pattern": [
+    "Q Q",
+    " C ",
+    "Q Q"
+  ],
+  "result": {
+    "id": "thaumictinkerer:dark_quartz",
+    "count": 4
+  }
+}
