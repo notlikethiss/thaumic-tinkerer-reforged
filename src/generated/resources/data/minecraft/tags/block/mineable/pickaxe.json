@@ -20,6 +20,14 @@
     {
       "id": "thaumictinkerer:dark_quartz_stairs",
       "required": false
+    },
+    {
+      "id": "thaumictinkerer:transvector_dislocator",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:transvector_interface",
+      "required": false
     }
   ]
 }

@@ -9,5 +9,6 @@ public final class TtPlatform {
     public static void register(IEventBus bus) {
         TtStackData.register(bus);
         TtAttachments.register(bus);
+        TtTransfer.register(bus);
     }
 }
