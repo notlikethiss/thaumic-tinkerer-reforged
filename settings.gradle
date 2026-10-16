@@ -10,4 +10,12 @@ plugins {
 
 rootProject.name = 'thaumic-tinkerer-reforged'
 
-includeBuild("../thaumcraft-4-reforged")
+def thaumcraftDir = providers.gradleProperty("thaumcraftDir").orNull
+if (thaumcraftDir == null) {
+    def dir = settingsDir
+    while (dir.parentFile != null && !new File(dir.parentFile, "thaumcraft-4-reforged").isDirectory()) {
+        dir = dir.parentFile
+    }
+    thaumcraftDir = new File(dir.parentFile, "thaumcraft-4-reforged").path
+}
+includeBuild(thaumcraftDir)
