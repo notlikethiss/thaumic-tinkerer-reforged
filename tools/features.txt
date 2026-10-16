@@ -4,3 +4,4 @@ decor
 gas
 transvector
 foci
+enchanting

@@ -22,6 +22,10 @@
       "required": false
     },
     {
+      "id": "thaumictinkerer:osmotic_enchanter",
+      "required": false
+    },
+    {
       "id": "thaumictinkerer:transvector_dislocator",
       "required": false
     },
