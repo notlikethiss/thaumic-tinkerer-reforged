@@ -1,6 +1,7 @@
 package thaumictinkerer.mechanism;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -57,7 +58,7 @@ public abstract class ItemHolderBlock extends Block implements EntityBlock {
         }
         ItemStack taken = holder.removeTheItem();
         if (!player.getInventory().add(taken)) {
-            player.drop(taken, false);
+            player.drop(taken, false, Prediction.PREDICTED);
         }
     }
 }

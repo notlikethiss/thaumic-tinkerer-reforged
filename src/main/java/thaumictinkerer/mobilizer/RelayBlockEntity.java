@@ -107,7 +107,7 @@ public class RelayBlockEntity extends TcBlockEntity implements MovableTile {
         other.sync();
     }
 
-    private void linkMobilizers(Level level) {
+    public void linkMobilizers(Level level) {
         int x = worldPosition.getX();
         int z = worldPosition.getZ();
         int stepX = step(partnerX - x);

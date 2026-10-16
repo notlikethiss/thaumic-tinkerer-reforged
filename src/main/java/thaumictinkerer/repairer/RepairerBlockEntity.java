@@ -67,7 +67,7 @@ public class RepairerBlockEntity extends ItemHolderBlockEntity implements Aspect
         return !stack.isEmpty() && stack.isDamageableItem();
     }
 
-    private void repairCycle(Level level) {
+    public void repairCycle(Level level) {
         boolean previous = tookLastTick;
         ItemStack stack = getTheItem();
         if (!stack.isEmpty() && stack.getDamageValue() > 0) {
@@ -90,7 +90,7 @@ public class RepairerBlockEntity extends ItemHolderBlockEntity implements Aspect
         }
     }
 
-    int drawEssentia(Level level) {
+    public int drawEssentia(Level level) {
         Direction orientation = orientation();
         EssentiaTransport source = Essentia.getConnectable(level, worldPosition, orientation);
         if (source == null) {
