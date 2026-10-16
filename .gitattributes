@@ -3,3 +3,4 @@ src/main/java/thaumictinkerer/client/ClientFeatures.java merge=union
 tools/features.txt merge=union
 src/main/java/thaumictinkerer/network/ModPayloads.java merge=union
 src/main/java/thaumictinkerer/client/ClientPayloadHandlers.java merge=union
+src/generated/** merge=ours
