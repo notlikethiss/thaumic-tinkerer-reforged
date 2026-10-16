@@ -21,7 +21,7 @@ import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import thaumcraft.registry.ModSounds;
 import thaumictinkerer.ThaumicTinkerer;
@@ -159,7 +159,7 @@ public final class TtEnchantmentEvents {
     }
 
     @SubscribeEvent
-    static void onBreak(BlockEvent.BreakEvent event) {
+    static void onBreak(BreakBlockEvent event) {
         Player player = event.getPlayer();
         if (TtEnchantments.level(player.level().registryAccess(), player.getMainHandItem(), TtEnchantments.TUNNEL) > 0) {
             EnchantingFeature.TUNNEL_DIRECTION.set(player, player.getYRot());
