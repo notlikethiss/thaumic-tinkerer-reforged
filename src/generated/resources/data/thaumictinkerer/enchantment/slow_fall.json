@@ -1,0 +1,24 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.thaumictinkerer.slow_fall"
+  },
+  "effects": {},
+  "max_cost": {
+    "base": 61,
+    "per_level_above_first": 10
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 20,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "feet"
+  ],
+  "supported_items": "#thaumictinkerer:enchantable/feet",
+  "weight": 1,
+  "exclusive_set": [
+    "minecraft:feather_falling"
+  ]
+}

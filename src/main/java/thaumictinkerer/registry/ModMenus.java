@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import thaumictinkerer.ThaumicTinkerer;
 
 public final class ModMenus {
-    private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, ThaumicTinkerer.MODID);
+    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, ThaumicTinkerer.MODID);
 
     private ModMenus() {
     }

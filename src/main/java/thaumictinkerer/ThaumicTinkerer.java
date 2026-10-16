@@ -17,6 +17,7 @@ import thaumictinkerer.registry.ModEffects;
 import thaumictinkerer.registry.ModEntities;
 import thaumictinkerer.registry.ModItems;
 import thaumictinkerer.registry.ModMenus;
+import thaumictinkerer.registry.ModRecipes;
 import thaumictinkerer.registry.ModSounds;
 import thaumictinkerer.research.TtResearch;
 import thaumictinkerer.test.CoreGameTests;
@@ -39,6 +40,7 @@ public class ThaumicTinkerer {
         ModCreativeTabs.register(modEventBus);
         ModSounds.register(modEventBus);
         ModMenus.register(modEventBus);
+        ModRecipes.register(modEventBus);
         ModPayloads.register();
         TtResearch.init();
         Features.recipes();
