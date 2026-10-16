@@ -16,6 +16,9 @@ import thaumictinkerer.test.MobilizerGameTests;
 import thaumictinkerer.test.RepairerGameTests;
 import thaumictinkerer.test.TransvectorGameTests;
 import thaumictinkerer.transvector.TransvectorFeature;
+import thaumictinkerer.foci.FociFeature;
+import thaumictinkerer.test.DarkQuartzGameTests;
+import thaumictinkerer.test.FociGameTests;
 
 public final class Features {
     private Features() {
@@ -29,6 +32,7 @@ public final class Features {
         MobilizerFeature.load();
         RepairerFeature.load();
         TransvectorFeature.load();
+        FociFeature.load();
     }
 
     public static void research() {
@@ -38,6 +42,7 @@ public final class Features {
         MobilizerFeature.research();
         RepairerFeature.research();
         TransvectorFeature.research();
+        FociFeature.research();
     }
 
     public static void recipes() {
@@ -47,6 +52,7 @@ public final class Features {
         MobilizerFeature.recipes();
         RepairerFeature.recipes();
         TransvectorFeature.recipes();
+        FociFeature.recipes();
     }
 
     public static void aspects(AspectRegistry registry) {
@@ -60,5 +66,6 @@ public final class Features {
         MobilizerGameTests.register(modEventBus);
         RepairerGameTests.register(modEventBus);
         TransvectorGameTests.register(modEventBus);
+        FociGameTests.register(modEventBus);
     }
 }
