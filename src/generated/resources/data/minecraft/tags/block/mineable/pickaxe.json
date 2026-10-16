@@ -6,6 +6,10 @@
       "required": false
     },
     {
+      "id": "thaumictinkerer:corporeal_attractor",
+      "required": false
+    },
+    {
       "id": "thaumictinkerer:dark_quartz_block",
       "required": false
     },
@@ -19,6 +23,14 @@
     },
     {
       "id": "thaumictinkerer:dark_quartz_stairs",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:dynamism_tablet",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:kinetic_attractor",
       "required": false
     },
     {

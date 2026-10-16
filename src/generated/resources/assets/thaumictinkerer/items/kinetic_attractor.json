@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "thaumictinkerer:item/kinetic_attractor",
+    "model": {
+      "type": "thaumictinkerer:attractor",
+      "corporeal": false
+    }
+  }
+}

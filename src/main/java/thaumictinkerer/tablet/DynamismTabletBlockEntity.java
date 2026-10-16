@@ -83,6 +83,10 @@ public class DynamismTabletBlockEntity extends TcBlockEntity implements Containe
         return swingProgress;
     }
 
+    public int swingMod() {
+        return swingMod;
+    }
+
     public double ticksExisted() {
         return ticksExisted;
     }

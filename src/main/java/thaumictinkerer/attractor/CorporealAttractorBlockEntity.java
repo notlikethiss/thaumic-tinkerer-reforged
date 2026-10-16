@@ -43,7 +43,7 @@ public class CorporealAttractorBlockEntity extends AttractorBlockEntity implemen
     }
 
     @Override
-    protected boolean applies(Entity entity) {
+    public boolean applies(Entity entity) {
         if (!(entity instanceof LivingEntity living) || entity instanceof Player) {
             return false;
         }

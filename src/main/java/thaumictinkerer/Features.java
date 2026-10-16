@@ -2,6 +2,10 @@ package thaumictinkerer;
 
 import net.neoforged.bus.api.IEventBus;
 import thaumcraft.aspect.AspectRegistry;
+import thaumictinkerer.attractor.AttractorFeature;
+import thaumictinkerer.tablet.TabletFeature;
+import thaumictinkerer.test.AttractorGameTests;
+import thaumictinkerer.test.TabletGameTests;
 import thaumictinkerer.darkquartz.DarkQuartzFeature;
 import thaumictinkerer.decor.DecorFeature;
 import thaumictinkerer.gas.GasFeature;
@@ -24,6 +28,8 @@ public final class Features {
         GasFeature.load();
         TransvectorFeature.load();
         FociFeature.load();
+        AttractorFeature.load();
+        TabletFeature.load();
     }
 
     public static void research() {
@@ -31,6 +37,8 @@ public final class Features {
         GasFeature.research();
         TransvectorFeature.research();
         FociFeature.research();
+        AttractorFeature.research();
+        TabletFeature.research();
     }
 
     public static void recipes() {
@@ -38,6 +46,8 @@ public final class Features {
         GasFeature.recipes();
         TransvectorFeature.recipes();
         FociFeature.recipes();
+        AttractorFeature.recipes();
+        TabletFeature.recipes();
     }
 
     public static void aspects(AspectRegistry registry) {
@@ -49,5 +59,7 @@ public final class Features {
         GasGameTests.register(modEventBus);
         TransvectorGameTests.register(modEventBus);
         FociGameTests.register(modEventBus);
+        AttractorGameTests.register(modEventBus);
+        TabletGameTests.register(modEventBus);
     }
 }

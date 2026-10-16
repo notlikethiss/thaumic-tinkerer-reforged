@@ -25,7 +25,7 @@ public class AttractorBlockEntity extends TcBlockEntity {
         super(type, pos, state);
     }
 
-    protected boolean applies(Entity entity) {
+    public boolean applies(Entity entity) {
         return entity instanceof ItemEntity;
     }
 
