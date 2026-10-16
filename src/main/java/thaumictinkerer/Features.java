@@ -5,12 +5,14 @@ import thaumcraft.aspect.AspectRegistry;
 import thaumictinkerer.darkquartz.DarkQuartzFeature;
 import thaumictinkerer.decor.DecorFeature;
 import thaumictinkerer.funnel.FunnelFeature;
+import thaumictinkerer.gear.GearFeature;
 import thaumictinkerer.gas.GasFeature;
 import thaumictinkerer.mobilizer.MobilizerFeature;
 import thaumictinkerer.repairer.RepairerFeature;
 import thaumictinkerer.test.DarkQuartzGameTests;
 import thaumictinkerer.test.DecorGameTests;
 import thaumictinkerer.test.FunnelGameTests;
+import thaumictinkerer.test.GearGameTests;
 import thaumictinkerer.test.GasGameTests;
 import thaumictinkerer.test.MobilizerGameTests;
 import thaumictinkerer.test.RepairerGameTests;
@@ -33,6 +35,7 @@ public final class Features {
         RepairerFeature.load();
         TransvectorFeature.load();
         FociFeature.load();
+        GearFeature.load();
     }
 
     public static void research() {
@@ -43,6 +46,7 @@ public final class Features {
         RepairerFeature.research();
         TransvectorFeature.research();
         FociFeature.research();
+        GearFeature.research();
     }
 
     public static void recipes() {
@@ -53,6 +57,7 @@ public final class Features {
         RepairerFeature.recipes();
         TransvectorFeature.recipes();
         FociFeature.recipes();
+        GearFeature.recipes();
     }
 
     public static void aspects(AspectRegistry registry) {
@@ -67,5 +72,6 @@ public final class Features {
         RepairerGameTests.register(modEventBus);
         TransvectorGameTests.register(modEventBus);
         FociGameTests.register(modEventBus);
+        GearGameTests.register(modEventBus);
     }
 }

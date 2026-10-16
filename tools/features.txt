@@ -7,3 +7,4 @@ funnel
 mobilizer
 repairer
 foci
+gear
