@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-BASE = ROOT.parent / "thaumcraft-4-reforged"
+BASE = next(parent / "thaumcraft-4-reforged" for parent in ROOT.parents if (parent / "thaumcraft-4-reforged").is_dir())
 CONFIG = BASE / "reference" / "decompiled" / "thaumcraft" / "common" / "config"
 ID_MAP = BASE / "tools" / "id_map.json"
 OUTPUT = ROOT / "tools" / "tc4_refs.json"
