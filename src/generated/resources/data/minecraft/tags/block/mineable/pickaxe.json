@@ -22,6 +22,22 @@
       "required": false
     },
     {
+      "id": "thaumictinkerer:essentia_funnel",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:levitational_locomotive",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:levitational_locomotive_relay",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:thaumic_restorer",
+      "required": false
+    },
+    {
       "id": "thaumictinkerer:transvector_dislocator",
       "required": false
     },

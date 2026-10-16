@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "thaumictinkerer:item/thaumic_restorer",
+    "model": {
+      "type": "thaumictinkerer:thaumic_restorer"
+    }
+  }
+}

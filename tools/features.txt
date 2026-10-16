@@ -3,3 +3,6 @@ dark_quartz
 decor
 gas
 transvector
+funnel
+mobilizer
+repairer
