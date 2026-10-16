@@ -4,6 +4,10 @@
     {
       "id": "thaumictinkerer:dark_quartz_stairs",
       "required": false
+    },
+    {
+      "id": "thaumictinkerer:travel_stairs",
+      "required": false
     }
   ]
 }

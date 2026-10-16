@@ -4,6 +4,14 @@
     {
       "id": "thaumictinkerer:dark_quartz_slab",
       "required": false
+    },
+    {
+      "id": "thaumictinkerer:travel_slab",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:ward_slab",
+      "required": false
     }
   ]
 }

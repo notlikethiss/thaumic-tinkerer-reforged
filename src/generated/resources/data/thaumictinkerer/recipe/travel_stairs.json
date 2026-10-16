@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:registered",
+      "value": "thaumictinkerer:travel_stairs"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "Q": "thaumcraft:travel_paving_stone"
+  },
+  "pattern": [
+    "  Q",
+    " QQ",
+    "QQQ"
+  ],
+  "result": {
+    "id": "thaumictinkerer:travel_stairs",
+    "count": 4
+  }
+}
