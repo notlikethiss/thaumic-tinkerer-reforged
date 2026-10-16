@@ -31,6 +31,8 @@ import net.minecraft.world.entity.monster.zombie.ZombifiedPiglin;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import org.jspecify.annotations.Nullable;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.entity.monster.BrainyZombie;
 import thaumcraft.entity.monster.FireBat;
@@ -75,7 +77,7 @@ public final class SoulDrops {
     private SoulDrops() {
     }
 
-    public static Aspect[] aspectsFor(Entity entity) {
+    public static Aspect @Nullable [] aspectsFor(Entity entity) {
         for (Entry entry : ENTRIES) {
             if (entry.type().isInstance(entity)) {
                 return entry.aspects();
@@ -86,10 +88,10 @@ public final class SoulDrops {
 
     public static ItemStack soul(Aspect aspect) {
         Item item = BuiltInRegistries.ITEM.getValue(ThaumicTinkerer.id(aspect.getTag() + "_soul_aspect"));
-        return item == net.minecraft.world.item.Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
+        return item == Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
     }
 
-    public static List<ItemStack> soulsFor(Entity entity) {
+    public static @Nullable List<ItemStack> soulsFor(Entity entity) {
         Aspect[] aspects = aspectsFor(entity);
         if (aspects == null) {
             return null;
