@@ -1,0 +1,18 @@
+{
+  "thaumictinkerer.configuration.kami_enabled": "Включить KAMI",
+  "thaumictinkerer.configuration.kami_enabled.tooltip": "Включает весь контент KAMI.",
+  "thaumictinkerer.configuration.imbued_fire": "Насыщенный огонь",
+  "thaumictinkerer.configuration.imbued_fire.tooltip": "Выключает насыщенный огонь.",
+  "thaumictinkerer.configuration.imbued_fire_cake": "Торт из насыщенного огня",
+  "thaumictinkerer.configuration.imbued_fire_cake.tooltip": "Выключает создание торта насыщенным огнём.",
+  "thaumictinkerer.configuration.share_tome_survival": "Том обмена знаниями в выживании",
+  "thaumictinkerer.configuration.share_tome_survival.tooltip": "Выключает рецепт крафта Тома обмена знаниями.",
+  "thaumictinkerer.configuration.crops_allow_bonemeal": "Костная мука для посевов",
+  "thaumictinkerer.configuration.crops_allow_bonemeal.tooltip": "Позволяет выращивать посевы костной мукой. Полезно для отладки.",
+  "thaumictinkerer.configuration.mod_flight": "Полёт от мода",
+  "thaumictinkerer.configuration.mod_flight.tooltip": "Включает полёт, добавляемый модом.",
+  "thaumictinkerer.configuration.placement_mirror_blocks": "Блоки зеркала размещения",
+  "thaumictinkerer.configuration.placement_mirror_blocks.tooltip": "Выключает призрачные блоки, которые показывает Зеркало Мирозодчего.",
+  "thaumictinkerer.configuration.tooltip_indicators": "Индикаторы в подсказках",
+  "thaumictinkerer.configuration.tooltip_indicators.tooltip": "Выключает метки [TT] в Таумономиконе."
+}

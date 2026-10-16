@@ -1,0 +1,18 @@
+{
+  "thaumictinkerer.configuration.kami_enabled": "Enable KAMI",
+  "thaumictinkerer.configuration.kami_enabled.tooltip": "Set to true to enable all kami content.",
+  "thaumictinkerer.configuration.imbued_fire": "Imbued Fire",
+  "thaumictinkerer.configuration.imbued_fire.tooltip": "Set to false to disable imbued fire.",
+  "thaumictinkerer.configuration.imbued_fire_cake": "Imbued Fire Cake",
+  "thaumictinkerer.configuration.imbued_fire_cake.tooltip": "Set to false to disable imbued fire making cake. For those people who don't like cake.",
+  "thaumictinkerer.configuration.share_tome_survival": "Survival Share Tome",
+  "thaumictinkerer.configuration.share_tome_survival.tooltip": "Set to false to disable the crafting recipe for the Tome of Research Sharing.",
+  "thaumictinkerer.configuration.crops_allow_bonemeal": "Crops Allow Bonemeal",
+  "thaumictinkerer.configuration.crops_allow_bonemeal.tooltip": "Allows crops to be grown using bonemeal. Useful for debug purposes.",
+  "thaumictinkerer.configuration.mod_flight": "Mod Flight",
+  "thaumictinkerer.configuration.mod_flight.tooltip": "Set to true to enable flight in this mod.",
+  "thaumictinkerer.configuration.placement_mirror_blocks": "Placement Mirror Blocks",
+  "thaumictinkerer.configuration.placement_mirror_blocks.tooltip": "Set to false to remove the phantom blocks displayed by the Worldshaper's Seeing Glass.",
+  "thaumictinkerer.configuration.tooltip_indicators": "Tooltip Indicators",
+  "thaumictinkerer.configuration.tooltip_indicators.tooltip": "Set to false to disable the [TT] tooltips in the Thaumonomicon."
+}
