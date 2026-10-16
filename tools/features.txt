@@ -10,3 +10,4 @@ foci
 enchanting
 attractor
 tablet
+gear
