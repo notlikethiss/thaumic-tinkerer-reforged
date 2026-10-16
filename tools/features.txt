@@ -8,3 +8,5 @@ mobilizer
 repairer
 foci
 enchanting
+attractor
+tablet
