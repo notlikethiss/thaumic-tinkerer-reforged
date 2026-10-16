@@ -50,10 +50,36 @@
 
 ## Раскладка по фичам
 
-- Каждая фича живёт в `thaumictinkerer/<feature>/` со своим `tools/gen_<feature>.py` и `tools/lang/<feature>/{en_us,ru_ru}.json`, чтобы параллельная работа не конфликтовала.
-- В общих реестрах (`ModItems`, `ModBlocks`, `ModBlockEntities`, `ModMenus`, `ModEntities`, `ModEffects`, `ModSounds`, `ModPayloads`) фича добавляет по одной строке.
-- Генератор фичи подключается строкой в `FEATURES` в `tools/gen_resources.py`. Модуль экспортирует `generate(ctx)`, где `ctx` это модуль `gen_resources` с хелперами (`generated_item`, `block_item`, `cube_all`, `simple_state`, `self_drop`, `mineable`, `shaped`, `shapeless`, `smelting`, `tag_both`, `stairs`, `slab`).
-- Исследования и рецепты фичи регистрируются из её `init()`, вызываемого из конструктора `ThaumicTinkerer`.
+Образец: `darkquartz/DarkQuartzFeature`, `test/DarkQuartzGameTests`, `tools/gen_dark_quartz.py`, `tools/lang/dark_quartz/`.
+
+- Фича живёт в `thaumictinkerer/<feature>/` и отдаёт один класс `<Feature>Feature`: статические `DeferredHolder` в общие реестры (`ModItems.ITEMS`, `ModBlocks.BLOCKS` через `ModBlocks.withItem`, `ModBlockEntities` и т.д.), методы `load()` (пустой, нужен для загрузки класса), `research()`, `recipes()`, при необходимости `aspects(AspectRegistry)`.
+- В общих файлах фича добавляет по одной строке: `Features.java` (в `load`, `research`, `recipes`, `aspects`, `tests`), `client/ClientFeatures.java` (экраны, рендереры), `tools/features.txt` (имя генератора). Эти файлы с `merge=union` в `.gitattributes`, строки писать отдельными операторами. Клиентские хуки фичи в `client/<feature>/`, прочие клиентские события через собственный `@EventBusSubscriber(value = Dist.CLIENT)`.
+- `Features.load()` вызывается в конструкторе до привязки реестров к шине, `recipes()` и `research()` после (рецепты первыми, как в базе), aspects через `AspectSync.addRegistrar(Features::aspects)`.
+- Генератор `tools/gen_<feature>.py` экспортирует `generate(ctx)` (`ctx` это модуль `gen_resources`: `generated_item`, `block_item`, `cube_all`, `cube_column`, `cube_bottom_top`, `simple_state`, `blockstate`, `self_drop`, `mineable`, `shaped`, `shapeless`, `smelting`, `tag_both`, `stairs(name, top, side)`, `slab(name, top, side, double_model)`). Ручной lang в `tools/lang/<feature>/{en_us,ru_ru}.json`, ru_ru берётся из переведённого TT, недостающее переводится самостоятельно.
+- GameTest фичи в `test/<Feature>GameTests.java` на `TtGameTestSuite` (`new TtGameTestSuite("name").add("test", body)`, регистрация `register(bus)` строкой в `Features.tests`). Общие проверки инфраструктуры в `CoreGameTests`.
+- Новая фича не правит `ModItems`/`ModBlocks`/`gen_resources.py`/`convert_assets.py`, если нужного хелпера нет, его добавляют отдельным коммитом.
+
+## Исследования
+
+- `research/TtResearch`: категория `TT_CATEGORY` (регистрируется в `TtResearch.init()`), фабрики `item(...)`/`kami(...)` и страницы `text(i)`, `recipe`, `arcane`, `infusion(name[, count])`, `enchant`, `crucible`. Порт кода TT почти построчный: `new ResearchPage("0")` это `TtResearch.text(0)`, `ResearchHelper.recipePage(KEY)` это `TtResearch.recipe(KEY)`.
+- Ключи страниц в базе нумеруются с 1, в TT с 0. `convert_assets.py` сдвигает `ttresearch.page.KEY.N` в `tc.research_page.KEY.N+1`, а `TtResearch.text(i)` в Java принимает индекс TT и сам ставит `i+1`. Нечисловые страницы TT (`FOCUS_ENDER_CHEST.ES`, вариант Ender Storage) остаются под `ttinkerer.`.
+- `TtResearchItem` при странице инфузии добавляет скрытого родителя `INFUSION` (кроме KAMI), `.when(BooleanSupplier)` прячет исследование по конфигу, `.setWarp(n)` из базы. Сложность передаётся как в TT (5), база сама ограничивает до 3.
+- `KamiResearchItem`: concealed, скрытые родители считаются лениво в `parentsHidden()` (все исследования `TT_CATEGORY`, BASICS, GOLEMANCY, ARTIFICE, ALCHEMY, THAUMATURGY без потерянных, виртуальных, триггерных, без родителей, KAMI, MINILITH*, *KAMI), потому что конструктор аддона идёт до тегов и фильтр `isAvailable` в конструкторе даёт неверный результат. Исследование доступно только при `Config.kamiEnabled()`, KAMI-контент регистрируется всегда.
+- Конфиг в конструкторе недоступен: условия читаются в момент запроса (`Config.kamiEnabled()`, `imbuedFire()` и т.д. возвращают умолчание, пока `SPEC` не загружен). Блоки и предметы регистрируются всегда, отключается доступность исследований и поведение.
+- Префиксы `[TT]`/`[TTKami]` в тексте исследования воспроизведены ключами `ttinkerer.research_text(_kami).KEY`, которые `convert_assets.py` строит из `tc.research_text.KEY`; `textKey()` выбирает их при `Config.tooltipIndicators()`.
+- `TtResearch.kamiResearch()`/`setKamiResearch` хранит исследование KAMI для команды `KamiUnlocked`.
+
+## Рецепты
+
+- `crafting/TtRecipes` поверх `TcRecipes.register`: `arcane(key, research, result, aspects, pattern, 'A', ingredient, ...)`, `arcaneShapeless`, `infusion(key[, research], result, instability, aspects, central, components...)`, `crucible(key, result, catalyst, aspects)`, `vanilla(key, research, recipePath, result)` (`CraftingRecipeRef` на обычный рецепт из `data/thaumictinkerer/recipe`). Ключи TT сохраняются как есть, повтор ключа (в том числе с базой) бросает `IllegalStateException`.
+- Обычные рецепты верстака пишет генератор (`ctx.shaped`), зеркальные варианты TT (лестницы) не дублируются, ваниль зеркалит сама. Если у TT два рецепта с одним ключом, регистрируются оба ключа (`DARK_QUARTZ0`, `DARK_QUARTZ0_COAL`) и обе ссылки идут в одну страницу.
+- `python3 tools/tc4_ref.py ConfigItems.itemResource 14` печатает id и состояние базы (`ConfigBlocks.x meta`, `Items.x meta`, `Blocks.x`, имя oredict, мета `*` для всех). `--all` пишет `tools/tc4_refs.json` (коммитится). Oredict даёт теги `#c:...` как в `convert_recipes.py` базы.
+
+## Прочее
+
+- `TtRarity.kami()` это `Rarity` KAMI (светло-фиолетовый) через расширение enum NeoForge: `META-INF/enumextensions.json`, ключ `enumExtensions` в `neoforge.mods.toml` обязателен. Вызывать только как метод, поле `Rarity` в статике нельзя (циклическая инициализация).
+- Вкладка творчества своя, иконка `dark_quartz` пока, потом ичор.
+- Аддон-регистратор аспектов один (`AspectSync.addRegistrar(Features::aspects)`), фича добавляет строку в `Features.aspects`. Для предметов без аспектов TT база выводит аспекты по рецептам сама.
 
 ## Генерируемые файлы (руками не править)
 

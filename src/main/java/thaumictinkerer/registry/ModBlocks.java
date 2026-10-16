@@ -14,12 +14,12 @@ public final class ModBlocks {
     private ModBlocks() {
     }
 
-    private static <B extends Block> DeferredBlock<B> withItem(DeferredBlock<B> block) {
+    public static <B extends Block> DeferredBlock<B> withItem(DeferredBlock<B> block) {
         ModItems.ITEMS.registerSimpleBlockItem(block);
         return block;
     }
 
-    private static <B extends Block> DeferredBlock<B> withItem(
+    public static <B extends Block> DeferredBlock<B> withItem(
         DeferredBlock<B> block,
         UnaryOperator<Item.Properties> itemProperties
     ) {

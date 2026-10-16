@@ -76,7 +76,8 @@ def active_ids(data, kind):
 
 
 def registry_text():
-    return "\n".join(path.read_text(encoding="utf-8") for path in sorted((REGISTRY / "registry").rglob("*.java")))
+    paths = [path for path in sorted(REGISTRY.rglob("*.java")) if "test" not in path.relative_to(REGISTRY).parts and "client" not in path.relative_to(REGISTRY).parts]
+    return "\n".join(path.read_text(encoding="utf-8") for path in paths)
 
 
 def load_lang():

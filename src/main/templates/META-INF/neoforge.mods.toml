@@ -8,6 +8,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 authors="${mod_authors}"
 credits="${mod_credits}"
+enumExtensions="META-INF/enumextensions.json"
 description='''
 Addon for Thaumcraft 4: Reforged. Unofficial port of Thaumic Tinkerer 2.5.
 '''

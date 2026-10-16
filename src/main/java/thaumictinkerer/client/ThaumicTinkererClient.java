@@ -22,9 +22,11 @@ public final class ThaumicTinkererClient {
 
     @SubscribeEvent
     static void registerScreens(RegisterMenuScreensEvent event) {
+        ClientFeatures.registerScreens(event);
     }
 
     @SubscribeEvent
     static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        ClientFeatures.registerRenderers(event);
     }
 }

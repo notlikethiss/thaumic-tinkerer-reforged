@@ -16,7 +16,7 @@ DATA = OUT / "data"
 NS = "thaumictinkerer"
 SOURCE_TEXTURES = ROOT / "src" / "main" / "resources" / "assets" / NS / "textures"
 
-FEATURES = ["core"]
+FEATURES = (ROOT / "tools" / "features.txt").read_text(encoding="utf-8").split()
 
 ASPECT_TINT = {"type": "thaumcraft:aspect"}
 
@@ -68,6 +68,10 @@ def simple_state(name, model=None):
 
 def cube_all(name, texture):
     block_model(name, {"parent": "minecraft:block/cube_all", "textures": {"all": ref(texture)}})
+
+
+def cube_bottom_top(name, top, bottom, side):
+    block_model(name, {"parent": "minecraft:block/cube_bottom_top", "textures": {"top": ref(top), "bottom": ref(bottom), "side": ref(side)}})
 
 
 def cube_column(name, end, side):
@@ -192,8 +196,8 @@ def stairs_state(name):
     blockstate(name, {"variants": variants})
 
 
-def stairs(name, texture):
-    textures = {"bottom": ref(texture), "top": ref(texture), "side": ref(texture)}
+def stairs(name, texture, side=None):
+    textures = {"bottom": ref(texture), "top": ref(texture), "side": ref(side or texture)}
     for suffix, parent in (("", "stairs"), ("_inner", "inner_stairs"), ("_outer", "outer_stairs")):
         block_model(name + suffix, {"parent": f"minecraft:block/{parent}", "textures": textures})
     stairs_state(name)
@@ -201,15 +205,16 @@ def stairs(name, texture):
     self_drop(name)
 
 
-def slab(name, texture, double_texture=None):
-    textures = {"bottom": ref(texture), "top": ref(texture), "side": ref(texture)}
+def slab(name, texture, side=None, double_model=None):
+    textures = {"bottom": ref(texture), "top": ref(texture), "side": ref(side or texture)}
     block_model(name, {"parent": "minecraft:block/slab", "textures": textures})
     block_model(f"{name}_top", {"parent": "minecraft:block/slab_top", "textures": textures})
-    block_model(f"{name}_double", {"parent": "minecraft:block/cube_all", "textures": {"all": ref(texture)}})
+    if double_model is None:
+        block_model(f"{name}_double", {"parent": "minecraft:block/cube_all", "textures": {"all": ref(texture)}})
     blockstate(name, {"variants": {
         "type=bottom": {"model": ref(name)},
         "type=top": {"model": ref(f"{name}_top")},
-        "type=double": {"model": ref(f"{name}_double")},
+        "type=double": {"model": ref(double_model or f"{name}_double")},
     }})
     block_item(name)
     slab_drop(name)

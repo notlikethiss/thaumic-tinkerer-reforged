@@ -1,0 +1,3 @@
+src/main/java/thaumictinkerer/Features.java merge=union
+src/main/java/thaumictinkerer/client/ClientFeatures.java merge=union
+tools/features.txt merge=union

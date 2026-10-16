@@ -26,11 +26,16 @@ FORMAT_PATTERN = re.compile(r"%(?:(\d+)\$)?([A-Za-z%]|$)")
 INVALID_PATH = re.compile(r"[^a-z0-9_.\-/]")
 RESEARCH_NAME = re.compile(r"^ttresearch\.name\.(.+)$")
 RESEARCH_LORE = re.compile(r"^ttresearch\.lore\.(.+)$")
-RESEARCH_PAGE = re.compile(r"^ttresearch\.page\.(.+)$")
+RESEARCH_PAGE = re.compile(r"^ttresearch\.page\.(.+)\.(\d+)$")
 ENCHANTMENT = re.compile(r"^enchantment\.ttinkerer:(\w+)$")
 PASS_THROUGH = re.compile(r"^(tc\.research_category\.|item\.Wand\.)")
 FIXED_KEYS = {"itemGroup.ThaumicTinkerer": "itemGroup.thaumictinkerer"}
 UNMAPPED_PREFIX = "ttinkerer."
+PREFIX_KEY = "ttinkerer.ttresearch.prefix"
+PREFIX_KAMI_KEY = "ttinkerer.ttresearch.prefix.kami"
+DEFAULT_PREFIX = "[TT] "
+DEFAULT_PREFIX_KAMI = "[TTKami] "
+RESEARCH_TEXT_PREFIX = "tc.research_text."
 NAME_KEY = re.compile(r"^(tile|item)\..+\.name$")
 
 report = {
@@ -182,12 +187,24 @@ def research_key(key):
     for pattern, template in (
         (RESEARCH_NAME, "tc.research_name.{}"),
         (RESEARCH_LORE, "tc.research_text.{}"),
-        (RESEARCH_PAGE, "tc.research_page.{}"),
     ):
         match = pattern.match(key)
         if match:
             return template.format(match.group(1))
+    match = RESEARCH_PAGE.match(key)
+    if match:
+        return f"tc.research_page.{match.group(1)}.{int(match.group(2)) + 1}"
     return None
+
+
+def add_prefixed_research_text(result):
+    prefix = result.get(PREFIX_KEY, DEFAULT_PREFIX)
+    prefix_kami = result.get(PREFIX_KAMI_KEY, DEFAULT_PREFIX_KAMI)
+    for key, value in list(result.items()):
+        if key.startswith(RESEARCH_TEXT_PREFIX):
+            name = key[len(RESEARCH_TEXT_PREFIX):]
+            result[f"ttinkerer.research_text.{name}"] = prefix + value
+            result[f"ttinkerer.research_text_kami.{name}"] = prefix_kami + value
 
 
 def convert_lang(id_map):
@@ -233,6 +250,7 @@ def convert_lang(id_map):
         for extra_path in extra_paths:
             if extra_path.exists():
                 result.update(json.loads(extra_path.read_text(encoding="utf-8")))
+        add_prefixed_research_text(result)
         results[language] = result
         write_json(ASSETS / "lang" / f"{language}.json", dict(sorted(result.items())))
     uncovered = []
