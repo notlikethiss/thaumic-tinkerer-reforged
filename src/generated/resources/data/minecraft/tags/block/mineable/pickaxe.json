@@ -22,6 +22,14 @@
       "required": false
     },
     {
+      "id": "thaumictinkerer:transvector_dislocator",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:transvector_interface",
+      "required": false
+    },
+    {
       "id": "thaumictinkerer:travel_slab",
       "required": false
     },

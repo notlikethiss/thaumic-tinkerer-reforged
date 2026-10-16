@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "thaumictinkerer:block/dislocator0",
+    "up": "thaumictinkerer:block/dislocator0",
+    "north": "thaumictinkerer:block/dislocator1",
+    "south": "thaumictinkerer:block/dislocator0",
+    "west": "thaumictinkerer:block/dislocator0",
+    "east": "thaumictinkerer:block/dislocator0",
+    "particle": "thaumictinkerer:block/dislocator0"
+  }
+}

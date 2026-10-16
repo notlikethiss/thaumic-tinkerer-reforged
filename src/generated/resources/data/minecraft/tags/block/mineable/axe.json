@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:ethereal_platform",
+      "required": false
+    }
+  ]
+}
