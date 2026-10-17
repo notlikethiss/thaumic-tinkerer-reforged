@@ -19,7 +19,6 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
@@ -415,8 +414,8 @@ public final class TrinketsGameTests {
         IchorPouchMenu menu = new IchorPouchMenu(1, player.getInventory(), pouch);
         helper.assertTrue(menu.slots.size() == IchorPouchMenu.SLOT_END, "slot count is " + menu.slots.size());
         Slot focusSlot = menu.slots.get(0);
-        Slot freeSlot = menu.slots.get(IchorPouchMenu.FOCUS_SLOTS + 22);
-        helper.assertTrue(focusSlot.mayPlace(fireFocus()) && !focusSlot.mayPlace(new ItemStack(Items.STONE)), "first slots take foci only");
+        Slot freeSlot = menu.slots.get(40);
+        helper.assertTrue(focusSlot.mayPlace(fireFocus()) && focusSlot.mayPlace(new ItemStack(Items.STONE)), "every slot takes foci and items");
         helper.assertTrue(freeSlot.mayPlace(new ItemStack(Items.STONE)) && freeSlot.mayPlace(fireFocus()), "other slots take anything");
         helper.assertTrue(!freeSlot.mayPlace(new ItemStack(TrinketsFeature.ICHOR_POUCH.get())), "pouches must not nest");
         helper.assertTrue(!freeSlot.mayPlace(new ItemStack(ModItems.FOCUS_POUCH.get())), "focus pouches must not nest");
@@ -426,16 +425,15 @@ public final class TrinketsGameTests {
         menu.removed(player);
 
         helper.assertTrue(FocusPouchItem.getInventory(pouch).get(0).getItem() instanceof FocusItem, "focus must be stored in the base pouch data");
-        helper.assertTrue(TrinketsFeature.POUCH_EXTRA.has(pouch), "extra slots must be stored");
+        helper.assertTrue(FocusPouchItem.getInventory(pouch).get(40).getCount() == 64, "items must be stored in the base pouch data");
 
         IchorPouchMenu reopened = new IchorPouchMenu(2, player.getInventory(), pouch);
         helper.assertTrue(reopened.slots.get(0).getItem().getItem() instanceof FocusItem, "focus was lost");
-        helper.assertTrue(reopened.slots.get(IchorPouchMenu.FOCUS_SLOTS + 22).getItem().getCount() == 64, "stone was lost");
+        helper.assertTrue(reopened.slots.get(40).getItem().getCount() == 64, "stone was lost");
         helper.assertTrue(reopened.slots.get(IchorPouchMenu.POUCH_SLOTS - 1).getItem().is(Items.DIAMOND), "last slot item was lost");
 
         ItemStack copy = pouch.copy();
-        ItemContainerContents extra = TrinketsFeature.POUCH_EXTRA.getOrDefault(copy, ItemContainerContents.EMPTY);
-        helper.assertTrue(extra.nonEmptyItemCopyStream().count() == 2, "copy must keep the extra items");
+        helper.assertTrue(FocusPouchItem.getInventory(copy).stream().filter(stack -> !stack.isEmpty()).count() == 3, "copy must keep the items");
         helper.succeed();
     }
 
@@ -445,8 +443,8 @@ public final class TrinketsGameTests {
         player.getInventory().setItem(9, pouch);
         IchorPouchMenu menu = new IchorPouchMenu(1, player.getInventory(), pouch);
         ItemStack focus = fireFocus();
-        menu.slots.get(3).set(focus.copy());
-        menu.slots.get(IchorPouchMenu.FOCUS_SLOTS + 5).set(new ItemStack(Items.EMERALD, 9));
+        menu.slots.get(100).set(focus.copy());
+        menu.slots.get(23).set(new ItemStack(Items.EMERALD, 9));
         menu.removed(player);
 
         ItemStack wand = Wands.create(WandRegistry.CAP_THAUMIUM, WandRegistry.ROD_GREATWOOD, false);
@@ -454,13 +452,13 @@ public final class TrinketsGameTests {
         String key = ((FocusItem) focus.getItem()).getSortingHelper(focus);
         WandManager.changeFocus(wand, helper.getLevel(), player, key);
         helper.assertTrue(Wands.getFocus(wand) != null, "the wand switcher must take the focus out of the ichor pouch");
-        helper.assertTrue(FocusPouchItem.getInventory(pouch).get(3).isEmpty(), "the focus must leave the pouch");
-        helper.assertTrue(TrinketsFeature.POUCH_EXTRA.getOrDefault(pouch, ItemContainerContents.EMPTY).nonEmptyItemCopyStream().anyMatch(stack -> stack.is(Items.EMERALD) && stack.getCount() == 9), "items in the other slots must survive a focus change");
+        helper.assertTrue(FocusPouchItem.getInventory(pouch).get(100).isEmpty(), "the focus must leave the pouch");
+        helper.assertTrue(FocusPouchItem.getInventory(pouch).get(23).is(Items.EMERALD) && FocusPouchItem.getInventory(pouch).get(23).getCount() == 9, "items in the other slots must survive a focus change");
 
         WandManager.changeFocus(wand, helper.getLevel(), player, WandManager.REMOVE_FOCUS);
         helper.assertTrue(Wands.getFocus(wand) == null, "focus must be removed from the wand");
         helper.assertTrue(FocusPouchItem.getInventory(pouch).stream().anyMatch(stack -> stack.getItem() instanceof FocusItem), "the focus must return into the pouch");
-        helper.assertTrue(TrinketsFeature.POUCH_EXTRA.getOrDefault(pouch, ItemContainerContents.EMPTY).nonEmptyItemCopyStream().anyMatch(stack -> stack.is(Items.EMERALD) && stack.getCount() == 9), "items in the other slots must survive returning the focus");
+        helper.assertTrue(FocusPouchItem.getInventory(pouch).get(23).is(Items.EMERALD) && FocusPouchItem.getInventory(pouch).get(23).getCount() == 9, "items in the other slots must survive returning the focus");
 
         player.getInventory().setItem(9, ItemStack.EMPTY);
         Baubles.set(player, 3, pouch);

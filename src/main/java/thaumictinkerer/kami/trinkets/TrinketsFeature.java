@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import thaumcraft.aspect.Aspect;
@@ -31,7 +30,6 @@ public final class TrinketsFeature {
     public static final TtStackKey<Boolean> RING_ACTIVE = TtStackKey.register("ring_active", Codec.BOOL, ByteBufCodecs.BOOL);
     public static final TtStackKey<Identifier> MIRROR_BLOCK = TtStackKey.register("mirror_block", Identifier.CODEC, Identifier.STREAM_CODEC);
     public static final TtStackKey<Integer> MIRROR_SIZE = TtStackKey.register("mirror_size", Codec.INT, ByteBufCodecs.VAR_INT);
-    public static final TtStackKey<ItemContainerContents> POUCH_EXTRA = TtStackKey.register("ichor_pouch_extra", ItemContainerContents.CODEC, ItemContainerContents.STREAM_CODEC);
 
     public static final DeferredItem<BlackHoleRingItem> BLOCK_TALISMAN = ModItems.ITEMS.registerItem(
         "block_talisman",

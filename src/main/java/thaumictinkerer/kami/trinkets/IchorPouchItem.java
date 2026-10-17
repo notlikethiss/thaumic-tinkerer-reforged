@@ -6,6 +6,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import thaumcraft.platform.Menus;
 import thaumcraft.wand.focus.FocusPouchItem;
@@ -13,6 +14,16 @@ import thaumcraft.wand.focus.FocusPouchItem;
 public class IchorPouchItem extends FocusPouchItem {
     public IchorPouchItem(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public int pouchSize(ItemStack pouch) {
+        return IchorPouchMenu.POUCH_SLOTS;
+    }
+
+    @Override
+    public boolean canStore(ItemStack stack) {
+        return !(stack.getItem() instanceof FocusPouchItem);
     }
 
     @Override

@@ -2,7 +2,6 @@ package thaumictinkerer.kami.trinkets;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -11,16 +10,13 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.ItemContainerContents;
 import org.jspecify.annotations.Nullable;
-import thaumcraft.wand.focus.FocusItem;
 import thaumcraft.wand.focus.FocusPouchItem;
 
 public class IchorPouchMenu extends AbstractContainerMenu {
     public static final int COLUMNS = 13;
     public static final int ROWS = 9;
     public static final int POUCH_SLOTS = COLUMNS * ROWS;
-    public static final int FOCUS_SLOTS = FocusPouchItem.SIZE;
     public static final int INVENTORY_START = POUCH_SLOTS;
     public static final int HOTBAR_START = INVENTORY_START + 27;
     public static final int SLOT_END = HOTBAR_START + 9;
@@ -59,14 +55,9 @@ public class IchorPouchMenu extends AbstractContainerMenu {
     }
 
     private void load(ItemStack stack) {
-        List<ItemStack> foci = FocusPouchItem.getInventory(stack);
-        for (int slot = 0; slot < FOCUS_SLOTS; slot++) {
-            pouchContainer.setItem(slot, foci.get(slot));
-        }
-        NonNullList<ItemStack> extra = NonNullList.withSize(POUCH_SLOTS - FOCUS_SLOTS, ItemStack.EMPTY);
-        TrinketsFeature.POUCH_EXTRA.getOrDefault(stack, ItemContainerContents.EMPTY).copyInto(extra);
-        for (int slot = 0; slot < extra.size(); slot++) {
-            pouchContainer.setItem(FOCUS_SLOTS + slot, extra.get(slot));
+        List<ItemStack> contents = FocusPouchItem.getInventory(stack);
+        for (int slot = 0; slot < POUCH_SLOTS && slot < contents.size(); slot++) {
+            pouchContainer.setItem(slot, contents.get(slot));
         }
     }
 
@@ -82,16 +73,11 @@ public class IchorPouchMenu extends AbstractContainerMenu {
         if (pouch == null) {
             return;
         }
-        List<ItemStack> foci = new ArrayList<>(FOCUS_SLOTS);
-        for (int slot = 0; slot < FOCUS_SLOTS; slot++) {
-            foci.add(pouchContainer.getItem(slot));
+        List<ItemStack> contents = new ArrayList<>(POUCH_SLOTS);
+        for (int slot = 0; slot < POUCH_SLOTS; slot++) {
+            contents.add(pouchContainer.getItem(slot));
         }
-        FocusPouchItem.setInventory(pouch, foci);
-        List<ItemStack> extra = new ArrayList<>(POUCH_SLOTS - FOCUS_SLOTS);
-        for (int slot = FOCUS_SLOTS; slot < POUCH_SLOTS; slot++) {
-            extra.add(pouchContainer.getItem(slot));
-        }
-        TrinketsFeature.POUCH_EXTRA.set(pouch, ItemContainerContents.fromItems(extra));
+        FocusPouchItem.setInventory(pouch, contents);
     }
 
     @Override
@@ -148,24 +134,13 @@ public class IchorPouchMenu extends AbstractContainerMenu {
     }
 
     private static final class PouchSlot extends Slot {
-        private final boolean focusOnly;
-
         private PouchSlot(Container container, int slot, int x, int y) {
             super(container, slot, x, y);
-            this.focusOnly = slot < FOCUS_SLOTS;
         }
 
         @Override
         public boolean mayPlace(ItemStack stack) {
-            if (stack.getItem() instanceof FocusPouchItem) {
-                return false;
-            }
-            return !focusOnly || stack.getItem() instanceof FocusItem;
-        }
-
-        @Override
-        public int getMaxStackSize() {
-            return focusOnly ? 1 : 64;
+            return !(stack.getItem() instanceof FocusPouchItem);
         }
     }
 }
