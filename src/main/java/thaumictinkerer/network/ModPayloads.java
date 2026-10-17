@@ -8,6 +8,7 @@ public final class ModPayloads {
 
     public static void register() {
         TtNetwork.toClient(FociEffectPayload.TYPE, FociEffectPayload.STREAM_CODEC);
+        TtNetwork.toClient(ElementsFxPayload.TYPE, ElementsFxPayload.STREAM_CODEC);
         TtNetwork.toServer(EnchanterAddEnchantPayload.TYPE, EnchanterAddEnchantPayload.STREAM_CODEC, EnchanterAddEnchantPayload::handle);
         TtNetwork.toServer(EnchanterStartWorkingPayload.TYPE, EnchanterStartWorkingPayload.STREAM_CODEC, EnchanterStartWorkingPayload::handle);
     }
