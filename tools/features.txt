@@ -15,3 +15,5 @@ tablet
 gear
 necromancy
 kami
+kami_gateway
+kami_foci

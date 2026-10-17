@@ -14,5 +14,9 @@ public final class ModPayloads {
         TtNetwork.toClient(ElementsFxPayload.TYPE, ElementsFxPayload.STREAM_CODEC);
         TtNetwork.toServer(EnchanterAddEnchantPayload.TYPE, EnchanterAddEnchantPayload.STREAM_CODEC, EnchanterAddEnchantPayload::handle);
         TtNetwork.toServer(EnchanterStartWorkingPayload.TYPE, EnchanterStartWorkingPayload.STREAM_CODEC, EnchanterStartWorkingPayload::handle);
+        TtNetwork.toServer(WarpGateButtonPayload.TYPE, WarpGateButtonPayload.STREAM_CODEC, WarpGateButtonPayload::handle);
+        TtNetwork.toServer(WarpGateTeleportPayload.TYPE, WarpGateTeleportPayload.STREAM_CODEC, WarpGateTeleportPayload::handle);
+        TtNetwork.toClient(GatewayFxPayload.TYPE, GatewayFxPayload.STREAM_CODEC);
+        TtNetwork.toClient(ShadowbeamPayload.TYPE, ShadowbeamPayload.STREAM_CODEC);
     }
 }
