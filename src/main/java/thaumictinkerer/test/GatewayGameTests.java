@@ -156,13 +156,13 @@ public final class GatewayGameTests {
         gate(helper, second);
         helper.setBlock(stone, Blocks.STONE);
         ItemStack stack = new ItemStack(GatewayFeature.SKY_PEARL.get());
-        helper.assertTrue(!SkyPearlItem.isAttuned(stack) && !stack.isFoil(), "fresh pearl is attuned");
+        helper.assertTrue(!SkyPearlItem.isAttuned(stack) && !stack.getItem().isFoil(stack), "fresh pearl is attuned");
         stack.getItem().useOn(context(helper, player, stack, stone));
         helper.assertTrue(!SkyPearlItem.isAttuned(stack), "pearl attuned to a plain block");
         stack.getItem().useOn(context(helper, player, stack, first));
         PearlLocation location = SkyPearlItem.location(stack);
         helper.assertTrue(location != null && location.pos().equals(helper.absolutePos(first)) && location.dimension().equals(helper.getLevel().dimension()), "pearl not bound to the gate");
-        helper.assertTrue(stack.isFoil(), "attuned pearl has no glint");
+        helper.assertTrue(stack.getItem().isFoil(stack), "attuned pearl has no glint");
         stack.getItem().useOn(context(helper, player, stack, second));
         helper.assertTrue(SkyPearlItem.location(stack).pos().equals(helper.absolutePos(first)), "attuned pearl was rebound");
         stack.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);

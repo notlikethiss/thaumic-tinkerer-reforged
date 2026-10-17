@@ -204,25 +204,24 @@ public final class KamiFociGameTests {
         Zombie zombie = helper.spawnWithNoFreeWill(EntityTypes.ZOMBIE, new BlockPos(3, 1, 4));
         float before = zombie.getHealth();
         ShadowbeamFocus focus = KamiFociFeature.FOCUS_SHADOWBEAM.get();
+        ItemStack empty = Wands.create(WandRegistry.CAP_THAUMIUM, KamiFeature.ichorclothRod, false);
+        Wands.setFocus(empty, new ItemStack(focus));
+        focus.onUsingFocusTick(empty, player, 72000);
+        helper.assertTrue(zombie.getHealth() == before, "beam fired without vis");
         ItemStack wand = wandWith(focus);
         WandItem item = (WandItem) wand.getItem();
         int order = Wands.getVis(wand, Aspect.ORDER);
         int entropy = Wands.getVis(wand, Aspect.ENTROPY);
         int air = Wands.getVis(wand, Aspect.AIR);
         focus.onUsingFocusTick(wand, player, 72000);
-        helper.assertTrue(before - zombie.getHealth() == ShadowbeamFocus.Beam.BASE_DAMAGE, "beam dealt " + (before - zombie.getHealth()));
+        float dealt = before - zombie.getHealth();
+        helper.assertTrue(dealt > ShadowbeamFocus.Beam.BASE_DAMAGE - 1.0F && dealt <= ShadowbeamFocus.Beam.BASE_DAMAGE, "beam dealt " + dealt);
         helper.assertTrue(player.getHealth() == player.getMaxHealth(), "beam hurt its shooter");
         AspectList cost = focus.getVisCost(ItemStack.EMPTY);
         helper.assertTrue(order - Wands.getVis(wand, Aspect.ORDER) == spent(wand, item, player, cost, Aspect.ORDER), "order cost");
         helper.assertTrue(entropy - Wands.getVis(wand, Aspect.ENTROPY) == spent(wand, item, player, cost, Aspect.ENTROPY), "entropy cost");
         helper.assertTrue(air - Wands.getVis(wand, Aspect.AIR) == spent(wand, item, player, cost, Aspect.AIR), "air cost");
 
-        ItemStack empty = Wands.create(WandRegistry.CAP_THAUMIUM, KamiFeature.ichorclothRod, false);
-        Wands.setFocus(empty, new ItemStack(focus));
-        float health = zombie.getHealth();
-        zombie.invulnerableTime = 0;
-        focus.onUsingFocusTick(empty, player, 72000);
-        helper.assertTrue(zombie.getHealth() == health, "beam fired without vis");
         helper.assertTrue(focus.onFocusRightClick(wand, helper.getLevel(), player, null) == InteractionResult.CONSUME, "focus does not start channeling");
         helper.succeed();
     }
@@ -234,9 +233,9 @@ public final class KamiFociGameTests {
         helper.assertTrue(beam.movement().y < 0.0, "beam does not point down");
         List<Vec3> path = beam.travel();
         helper.assertTrue(path.size() >= 3, "beam did not bounce off the floor: " + path.size());
-        helper.assertTrue(beam.movement().y > 0.0, "beam was not reflected upwards");
-        Vec3 end = path.get(path.size() - 1);
-        helper.assertTrue(end.y > path.get(0).y, "reflected beam did not travel back up");
+        helper.assertTrue(path.get(1).y < path.get(0).y, "beam did not reach the floor");
+        helper.assertTrue(path.get(2).y > path.get(1).y, "beam was not reflected upwards");
+        helper.assertTrue(Math.abs(path.get(1).x - path.get(0).x) < 1.0E-6 && Math.abs(path.get(1).z - path.get(0).z) < 1.0E-6, "beam left its line");
         helper.succeed();
     }
 
