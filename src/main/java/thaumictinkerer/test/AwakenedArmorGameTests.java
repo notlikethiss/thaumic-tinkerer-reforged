@@ -19,6 +19,9 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
@@ -133,6 +136,13 @@ public final class AwakenedArmorGameTests {
             helper.assertTrue(recipe.result().item().toString().equals(row[2]), key + " has wrong result " + recipe.result().item());
             helper.assertTrue(recipe.central().displayStacks().get(0).getItem().builtInRegistryHolder().key().identifier().toString().equals(row[3]), key + " has wrong central item");
         }
+        ItemStack nightVision = new ItemStack(Items.POTION);
+        nightVision.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.NIGHT_VISION));
+        ItemStack water = new ItemStack(Items.POTION);
+        water.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.WATER));
+        InfusionRecipe helm = (InfusionRecipe) TcRecipes.get("ICHORCLOTH_HELM_GEM");
+        helper.assertTrue(helm.components().stream().anyMatch(component -> component.test(nightVision)), "night vision potion rejected");
+        helper.assertTrue(helm.components().stream().noneMatch(component -> component.test(water)), "water bottle accepted");
         helper.succeed();
     }
 

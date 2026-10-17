@@ -96,6 +96,13 @@ public final class AwakenedArmorFeature {
             .get(Identifier.parse(value))
             .ifPresent(holder -> stack.set(DataComponents.POTION_CONTENTS, new PotionContents(holder)));
         TcStack.registerDataHandler(POTION_DATA, potion);
+        TcStack.registerDataMatcher(
+            POTION_DATA,
+            (stack, value) -> stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).potion()
+                .flatMap(holder -> holder.unwrapKey())
+                .map(key -> key.identifier().equals(Identifier.parse(value)))
+                .orElse(false)
+        );
         GasFeature.registerLightCarrier(AwakenedArmor::carriesLight);
     }
 
