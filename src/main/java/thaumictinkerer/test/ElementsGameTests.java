@@ -4,7 +4,7 @@ import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.animal.pig.Pig;
@@ -154,9 +154,10 @@ public final class ElementsGameTests {
         clearArea(helper);
         ServerLevel level = helper.getLevel();
         BlockPos center = new BlockPos(3, 3, 3);
+        helper.setBlock(center.east().below(), source instanceof net.minecraft.world.level.block.CropBlock ? Blocks.FARMLAND.defaultBlockState() : Blocks.STONE.defaultBlockState());
         helper.setBlock(center, fire.defaultBlockState());
         helper.setBlock(center.east(), source.defaultBlockState());
-        helper.assertTrue(fire.isNeighborTarget(level, helper.absolutePos(center)), source + " is not a target of " + fire);
+        helper.assertTrue(fire.isNeighborTarget(level, helper.absolutePos(center)), source + " is not a target of " + fire + ", east is " + helper.getBlockState(center.east()) + ", center is " + helper.getBlockState(center));
         fire.transformNeighbors(level, helper.absolutePos(center), level.getRandom());
         helper.assertTrue(helper.getBlockState(center.east()).is(expected), source + " became " + helper.getBlockState(center.east()) + " instead of " + expected);
     }
@@ -266,7 +267,7 @@ public final class ElementsGameTests {
         helper.setBlock(center, fire.defaultBlockState());
         helper.setBlock(center.below(), Blocks.DIRT.defaultBlockState());
         helper.setBlock(center.below().east(2), Blocks.DIRT.defaultBlockState());
-        BlockPos spot = center.east();
+        BlockPos spot = center.below().east();
         for (int attempt = 0; attempt < 40 && !helper.getBlockState(spot).is(fire); attempt++) {
             fire.defaultBlockState().tick(level, helper.absolutePos(center), level.getRandom());
         }
@@ -290,7 +291,7 @@ public final class ElementsGameTests {
 
     private static void fireItemPlacesAnywhere(GameTestHelper helper) {
         clearArea(helper);
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
         BlockPos floor = new BlockPos(3, 1, 3);
         helper.setBlock(floor, Blocks.STONE.defaultBlockState());
         ItemStack stack = new ItemStack(ElementsFeature.AER_FIRE_ITEM.get());
@@ -303,8 +304,8 @@ public final class ElementsGameTests {
         helper.succeed();
     }
 
-    private static ServerPlayer playerAt(GameTestHelper helper, BlockPos pos) {
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+    private static Player playerAt(GameTestHelper helper, BlockPos pos) {
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
         BlockPos absolute = helper.absolutePos(pos);
         player.setPos(absolute.getX() + 0.5, absolute.getY(), absolute.getZ() + 0.5);
         return player;
@@ -312,7 +313,7 @@ public final class ElementsGameTests {
 
     private static void waterEffectSolidifiesLava(GameTestHelper helper) {
         clearArea(helper);
-        ServerPlayer player = playerAt(helper, new BlockPos(3, 2, 3));
+        Player player = playerAt(helper, new BlockPos(3, 2, 3));
         BlockPos near = new BlockPos(4, 2, 3);
         BlockPos far = new BlockPos(3, 2, 6);
         helper.setBlock(near, Blocks.LAVA.defaultBlockState());
@@ -333,7 +334,7 @@ public final class ElementsGameTests {
                 helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE.defaultBlockState());
             }
         }
-        ServerPlayer player = playerAt(helper, new BlockPos(1, 2, 3));
+        Player player = playerAt(helper, new BlockPos(1, 2, 3));
         player.addEffect(new MobEffectInstance(ElementsFeature.AIR_IMBUED, 200));
         Pig pig = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(3, 2, 3));
         double startY = pig.getY();
@@ -349,7 +350,7 @@ public final class ElementsGameTests {
                 helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE.defaultBlockState());
             }
         }
-        ServerPlayer player = playerAt(helper, new BlockPos(1, 2, 3));
+        Player player = playerAt(helper, new BlockPos(1, 2, 3));
         player.addEffect(new MobEffectInstance(ElementsFeature.FIRE_IMBUED, 200));
         Pig pig = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(3, 2, 3));
         pig.hurtServer(helper.getLevel(), helper.getLevel().damageSources().playerAttack(player), 1.0F);
@@ -359,7 +360,7 @@ public final class ElementsGameTests {
 
     private static void earthEffectBuildsWall(GameTestHelper helper) {
         clearArea(helper);
-        ServerPlayer player = playerAt(helper, new BlockPos(1, 2, 3));
+        Player player = playerAt(helper, new BlockPos(1, 2, 3));
         player.addEffect(new MobEffectInstance(ElementsFeature.EARTH_IMBUED, 200));
         Pig pig = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(5, 2, 3));
         ElementsEvents.hit(player, pig);
@@ -395,7 +396,7 @@ public final class ElementsGameTests {
             new Object[]{ElementsFeature.AQUA_POTION.get(), ElementsFeature.WATER_IMBUED}
         );
         for (Object[] entry : cases) {
-            ServerPlayer player = playerAt(helper, new BlockPos(3, 2, 3));
+            Player player = playerAt(helper, new BlockPos(3, 2, 3));
             ItemStack stack = new ItemStack((net.minecraft.world.item.Item) entry[0]);
             player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
             ItemStack remainder = stack.finishUsingItem(helper.getLevel(), player);
