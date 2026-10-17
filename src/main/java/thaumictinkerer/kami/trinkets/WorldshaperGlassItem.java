@@ -117,7 +117,7 @@ public class WorldshaperGlassItem extends Item {
         if (player.isShiftKeyDown()) {
             BlockState state = level.getBlockState(context.getClickedPos());
             Item blockItem = state.getBlock().asItem();
-            if (state.getRenderShape() == RenderShape.MODEL && blockItem != Items.AIR) {
+            if (state.getRenderShape() == RenderShape.MODEL && !state.hasBlockEntity() && blockItem != Items.AIR) {
                 TrinketsFeature.MIRROR_BLOCK.set(stack, BlockStorage.idOf(blockItem));
             }
         } else {

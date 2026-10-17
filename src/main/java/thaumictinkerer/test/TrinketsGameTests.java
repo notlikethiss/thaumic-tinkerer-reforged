@@ -1,10 +1,16 @@
 package thaumictinkerer.test;
 
+import io.netty.channel.embedded.EmbeddedChannel;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.monster.Creeper;
@@ -114,8 +120,17 @@ public final class TrinketsGameTests {
     }
 
     private static ServerPlayer player(GameTestHelper helper, GameType type) {
-        ServerPlayer player = GearGameTests.mockPlayer(helper);
-        player.setGameMode(type);
+        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(type);
+        CommonListenerCookie cookie = CommonListenerCookie.createInitial(player.getGameProfile(), false);
+        Connection connection = new Connection(PacketFlow.SERVERBOUND);
+        new EmbeddedChannel(connection);
+        player.connection = new ServerGamePacketListenerImpl(helper.getLevel().getServer(), connection, player, cookie) {
+            @Override
+            public void send(Packet<?> packet) {
+            }
+        };
+        helper.getLevel().addNewPlayer(player);
+        player.connection.markClientLoaded();
         return player;
     }
 
@@ -310,7 +325,7 @@ public final class TrinketsGameTests {
         clearArea(helper);
         lookDown(helper, player);
         Inventory inventory = player.getInventory();
-        inventory.setItem(0, new ItemStack(Items.STONE, 5));
+        inventory.setItem(10, new ItemStack(Items.STONE, 5));
         ItemStack ring = ring(Items.STONE, 20, false);
         inventory.setItem(1, ring);
         ItemStack mirror = mirror(Items.STONE, 3);
@@ -325,16 +340,16 @@ public final class TrinketsGameTests {
         int placed = WorldshaperGlassItem.placeAllBlocks(mirror, player);
         helper.assertTrue(placed == 9, "placed " + placed);
         helper.assertTrue(countBlocks(helper, Blocks.STONE.defaultBlockState()) == 9, "nine stone blocks expected on the layer above");
-        helper.assertTrue(inventory.getItem(0).isEmpty(), "inventory stack must be used first");
+        helper.assertTrue(inventory.getItem(10).isEmpty(), "inventory stack must be used first");
         helper.assertTrue(BlackHoleRingItem.getCount(ring) == 16, "ring must pay the remaining four, holds " + BlackHoleRingItem.getCount(ring));
 
         clearArea(helper);
         TrinketsFeature.MIRROR_SIZE.set(mirror, 5);
-        inventory.setItem(0, new ItemStack(Items.STONE, 64));
+        inventory.setItem(10, new ItemStack(Items.STONE, 64));
         TrinketsFeature.TALISMAN_COUNT.set(ring, 0);
         placed = WorldshaperGlassItem.placeAllBlocks(mirror, player);
         helper.assertTrue(placed == 25, "5x5 must place 25, placed " + placed);
-        helper.assertTrue(inventory.getItem(0).getCount() == 39, "exactly 25 blocks must be consumed, left " + inventory.getItem(0).getCount());
+        helper.assertTrue(inventory.getItem(10).getCount() == 39, "exactly 25 blocks must be consumed, left " + inventory.getItem(10).getCount());
 
         clearArea(helper);
         ServerPlayer creative = player(helper, GameType.CREATIVE);
