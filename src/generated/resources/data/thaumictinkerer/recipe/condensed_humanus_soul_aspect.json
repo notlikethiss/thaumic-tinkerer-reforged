@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:registered",
+      "value": "thaumictinkerer:condensed_humanus_soul_aspect"
+    },
+    {
+      "type": "neoforge:registered",
+      "value": "thaumictinkerer:humanus_soul_aspect"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": "thaumictinkerer:humanus_soul_aspect"
+  },
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "result": {
+    "id": "thaumictinkerer:condensed_humanus_soul_aspect"
+  }
+}

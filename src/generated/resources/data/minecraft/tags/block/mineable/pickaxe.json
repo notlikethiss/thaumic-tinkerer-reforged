@@ -46,6 +46,10 @@
       "required": false
     },
     {
+      "id": "thaumictinkerer:necromancy_tablet",
+      "required": false
+    },
+    {
       "id": "thaumictinkerer:osmotic_enchanter",
       "required": false
     },

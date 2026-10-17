@@ -12,3 +12,4 @@ crops
 attractor
 tablet
 gear
+necromancy

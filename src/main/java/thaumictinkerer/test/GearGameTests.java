@@ -78,7 +78,7 @@ public final class GearGameTests {
         SUITE.register(modEventBus);
     }
 
-    private static ServerPlayer mockPlayer(GameTestHelper helper) {
+    static ServerPlayer mockPlayer(GameTestHelper helper) {
         ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
         CommonListenerCookie cookie = CommonListenerCookie.createInitial(player.getGameProfile(), false);
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
