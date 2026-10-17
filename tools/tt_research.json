@@ -1,0 +1,4057 @@
+[
+  {
+    "aspects": [
+      [
+        "MECHANISM",
+        2
+      ],
+      [
+        "METAL",
+        1
+      ],
+      [
+        "MOTION",
+        1
+      ],
+      [
+        "ENERGY",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -8,
+    "complexity": 4,
+    "complexityClamped": 3,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(ThaumicTinkerer.registry.getFirstBlockFromClass(BlockAnimationTablet.class))",
+    "kami": false,
+    "key": "ANIMATION_TABLET",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ANIMATION_TABLET"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "MAGNETS"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 2,
+    "secondary": false,
+    "siblings": [],
+    "source": "block/BlockAnimationTablet.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 1
+  },
+  {
+    "aspects": [
+      [
+        "MAGIC",
+        2
+      ],
+      [
+        "AURA",
+        1
+      ],
+      [
+        "ELDRITCH",
+        1
+      ],
+      [
+        "DARKNESS",
+        1
+      ],
+      [
+        "MIND",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 5,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "ENCHANTER",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "text": "1",
+        "type": "text"
+      },
+      {
+        "text": "2",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ENCHANTER"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "SPELL_CLOTH"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": 4,
+    "secondary": false,
+    "siblings": [],
+    "source": "block/BlockEnchanter.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "TOOL",
+        1
+      ],
+      [
+        "TRAVEL",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 0,
+    "complexity": 1,
+    "complexityClamped": 1,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FUNNEL",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FUNNEL"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "BRIGHT_NITOR"
+    ],
+    "parentsHidden": [
+      "DISTILESSENTIA"
+    ],
+    "round": false,
+    "row": -7,
+    "secondary": true,
+    "siblings": [],
+    "source": "block/BlockFunnel.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "MECHANISM",
+        2
+      ],
+      [
+        "MOTION",
+        1
+      ],
+      [
+        "SENSES",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -6,
+    "complexity": 3,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "MAGNETS",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "text": "1",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "MAGNET"
+        ],
+        "type": "arcane"
+      },
+      {
+        "recipes": [
+          "MOB_MAGNET"
+        ],
+        "type": "arcane"
+      },
+      {
+        "recipes": [
+          "MAGNETS"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [
+      "INTERFACE"
+    ],
+    "parentsHidden": [
+      "FOCUS_TELEKINESIS"
+    ],
+    "round": false,
+    "row": 3,
+    "secondary": false,
+    "siblings": [],
+    "source": "block/BlockMagnet.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "SENSES",
+        2
+      ],
+      [
+        "TREE",
+        1
+      ],
+      [
+        "MOTION",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -2,
+    "complexity": 3,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "PLATFORM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "PLATFORM"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "CLEANSING_TALISMAN"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 6,
+    "secondary": true,
+    "siblings": [],
+    "source": "block/BlockPlatform.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "TOOL",
+        2
+      ],
+      [
+        "CRAFT",
+        1
+      ],
+      [
+        "ORDER",
+        1
+      ],
+      [
+        "MAGIC",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -1,
+    "complexity": 3,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "REPAIRER",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "REPAIRER"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "FUNNEL"
+    ],
+    "parentsHidden": [
+      "INFUSION",
+      "THAUMIUM",
+      "ENCHFABRIC"
+    ],
+    "round": false,
+    "row": -9,
+    "secondary": false,
+    "siblings": [],
+    "source": "block/BlockRepairer.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "WEAPON",
+        1
+      ],
+      [
+        "BEAST",
+        3
+      ],
+      [
+        "MAGIC",
+        3
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -5,
+    "complexity": 3,
+    "complexityClamped": 3,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(ThaumicTinkerer.registry.getFirstBlockFromClass(BlockSummon.class))",
+    "kami": false,
+    "key": "SUMMON",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "SUMMON0"
+        ],
+        "type": "arcane"
+      },
+      {
+        "recipes": [
+          "SUMMON1"
+        ],
+        "type": "crafting"
+      },
+      {
+        "recipes": [
+          "SUMMON"
+        ],
+        "type": "infusion"
+      },
+      {
+        "text": "1",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "BLOOD_SWORD"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": 8,
+    "secondary": false,
+    "siblings": [],
+    "source": "block/BlockSummon.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 3
+  },
+  {
+    "aspects": [
+      [
+        "FIRE",
+        5
+      ],
+      [
+        "AIR",
+        5
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 3,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FIRE_AER",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FIRE_AER"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [
+      "BRIGHT_NITOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": -7,
+    "secondary": true,
+    "siblings": [],
+    "source": "block/fire/BlockFireAir.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "FIRE",
+        5
+      ],
+      [
+        "ENTROPY",
+        5
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 2,
+    "complexity": 3,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FIRE_PERDITIO",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FIRE_PERDITIO"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [
+      "BRIGHT_NITOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": -8,
+    "secondary": true,
+    "siblings": [],
+    "source": "block/fire/BlockFireChaos.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "FIRE",
+        5
+      ],
+      [
+        "EARTH",
+        5
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 4,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FIRE_TERRA",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FIRE_TERRA"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [
+      "BRIGHT_NITOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": -6,
+    "secondary": true,
+    "siblings": [],
+    "source": "block/fire/BlockFireEarth.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "FIRE",
+        10
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 4,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FIRE_IGNIS",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FIRE_IGNIS"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [
+      "BRIGHT_NITOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": -4,
+    "secondary": true,
+    "siblings": [],
+    "source": "block/fire/BlockFireIgnis.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "FIRE",
+        5
+      ],
+      [
+        "ORDER",
+        5
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 3,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FIRE_ORDO",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FIRE_ORDO"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [
+      "BRIGHT_NITOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": -3,
+    "secondary": true,
+    "siblings": [],
+    "source": "block/fire/BlockFireOrder.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "FIRE",
+        5
+      ],
+      [
+        "WATER",
+        5
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 2,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FIRE_AQUA",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FIRE_AQUA"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [
+      "BRIGHT_NITOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": -2,
+    "secondary": true,
+    "siblings": [],
+    "source": "block/fire/BlockFireWater.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "TRAVEL",
+        2
+      ],
+      [
+        "ELDRITCH",
+        1
+      ],
+      [
+        "FLIGHT",
+        1
+      ],
+      [
+        "MECHANISM",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 19,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "WARP_GATE",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "WARP_GATE"
+        ],
+        "type": "infusion"
+      },
+      {
+        "text": "1",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "SKY_PEARL"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ICHORCLOTH_CHEST_GEM"
+    ],
+    "parentsHidden": [
+      "ICHORCLOTH_BOOTS_GEM"
+    ],
+    "round": false,
+    "row": 6,
+    "secondary": false,
+    "siblings": [],
+    "source": "block/kami/BlockWarpGate.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "MOTION",
+        2
+      ],
+      [
+        "ORDER",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -7,
+    "complexity": 3,
+    "complexityClamped": 3,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "LEVITATOR_LOCOMOTIVE",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "LEVITATOR_LOCOMOTIVE"
+        ],
+        "type": "infusion"
+      },
+      {
+        "recipes": [
+          "LEVITATOR_RELAY"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "MAGNETS"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": 5,
+    "secondary": true,
+    "siblings": [],
+    "source": "block/mobilizer/BlockMobilizer.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "TRAVEL",
+        2
+      ],
+      [
+        "MECHANISM",
+        1
+      ],
+      [
+        "ELDRITCH",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -6,
+    "complexity": 3,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "DISLOCATOR",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "DISLOCATOR"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "INTERFACE"
+    ],
+    "parentsHidden": [
+      "MIRROR"
+    ],
+    "round": false,
+    "row": 1,
+    "secondary": true,
+    "siblings": [],
+    "source": "block/transvector/BlockTransvectorDislocator.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "ENTROPY",
+        4
+      ],
+      [
+        "ORDER",
+        4
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -4,
+    "complexity": 1,
+    "complexityClamped": 1,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(ThaumicTinkerer.registry.getFirstBlockFromClass(BlockTransvectorInterface.class))",
+    "kami": false,
+    "key": "INTERFACE",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "INTERFACE"
+        ],
+        "type": "arcane"
+      },
+      {
+        "text": "1",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "INTERFACE1"
+        ],
+        "type": "arcane"
+      },
+      {
+        "text": "2",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "DARK_QUARTZ"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 2,
+    "secondary": false,
+    "siblings": [],
+    "source": "block/transvector/BlockTransvectorInterface.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "HUNGER",
+        2
+      ],
+      [
+        "WEAPON",
+        1
+      ],
+      [
+        "FLESH",
+        1
+      ],
+      [
+        "SOUL",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -4,
+    "complexity": 3,
+    "complexityClamped": 3,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "BLOOD_SWORD",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "BLOOD_SWORD"
+        ],
+        "type": "infusion"
+      },
+      {
+        "text": "1",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "CLEANSING_TALISMAN"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": 6,
+    "secondary": true,
+    "siblings": [],
+    "source": "item/ItemBloodSword.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 1
+  },
+  {
+    "aspects": [
+      [
+        "LIGHT",
+        2
+      ],
+      [
+        "FIRE",
+        1
+      ],
+      [
+        "ENERGY",
+        1
+      ],
+      [
+        "AIR",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 1,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "BRIGHT_NITOR",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "BRIGHT_NITOR"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [
+      "GASEOUS_LIGHT"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": -5,
+    "secondary": true,
+    "siblings": [],
+    "source": "item/ItemBrightNitor.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "HEAL",
+        2
+      ],
+      [
+        "ORDER",
+        1
+      ],
+      [
+        "POISON",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -3,
+    "complexity": 3,
+    "complexityClamped": 3,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "CLEANSING_TALISMAN",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "CLEANSING_TALISMAN"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "DARK_QUARTZ"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": 4,
+    "secondary": true,
+    "siblings": [],
+    "source": "item/ItemCleansingTalisman.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "DARKNESS",
+        2
+      ],
+      [
+        "AIR",
+        1
+      ],
+      [
+        "MOTION",
+        4
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -1,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "GASEOUS_SHADOW",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "GASEOUS_SHADOW"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [
+      "GASEOUS_LIGHT"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": -5,
+    "secondary": true,
+    "siblings": [],
+    "source": "item/ItemGas.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "LIGHT",
+        2
+      ],
+      [
+        "AIR",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 0,
+    "complexity": 1,
+    "complexityClamped": 1,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "GASEOUS_LIGHT",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "GASEOUS_LIGHT"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [
+      "NITOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": -3,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/ItemGas.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "DARKNESS",
+        2
+      ],
+      [
+        "LIGHT",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -2,
+    "complexity": 0,
+    "complexityClamped": 1,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "GAS_REMOVER",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "GAS_REMOVER"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "GASEOUS_SHADOW"
+    ],
+    "parentsHidden": [],
+    "round": true,
+    "row": -7,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/ItemGasRemover.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "WATER",
+        5
+      ],
+      [
+        "ENTROPY",
+        5
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 7,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "ItemInfusedSeeds.getStackFromAspect(Aspect.FIRE)",
+    "kami": false,
+    "key": "INFUSED_POTIONS",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "text": "1",
+        "type": "text"
+      },
+      {
+        "text": "2",
+        "type": "text"
+      },
+      {
+        "text": "3",
+        "type": "text"
+      },
+      {
+        "text": "4",
+        "type": "text"
+      },
+      {
+        "text": "5",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "INFUSED_POTIONS0",
+          "INFUSED_POTIONS1",
+          "INFUSED_POTIONS2",
+          "INFUSED_POTIONS3"
+        ],
+        "type": "infusion"
+      },
+      {
+        "recipes": [
+          "INFUSED_POTIONSPOT0"
+        ],
+        "type": "crucible"
+      },
+      {
+        "recipes": [
+          "INFUSED_POTIONSPOT1"
+        ],
+        "type": "crucible"
+      },
+      {
+        "recipes": [
+          "INFUSED_POTIONSPOT2"
+        ],
+        "type": "crucible"
+      },
+      {
+        "recipes": [
+          "INFUSED_POTIONSPOT3"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [
+      "FIRE_PERDITIO",
+      "FIRE_ORDO",
+      "FIRE_IGNIS",
+      "FIRE_TERRA",
+      "FIRE_AER",
+      "FIRE_AQUA"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": -5,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/ItemInfusedPotion.java",
+    "special": false,
+    "stub": false,
+    "variantCount": 1,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "AURA",
+        2
+      ],
+      [
+        "ARMOR",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 0,
+    "complexity": 1,
+    "complexityClamped": 1,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "REVEALING_HELM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "REVEALING_HELM"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "GOGGLES"
+    ],
+    "parentsHidden": [
+      "THAUMIUM"
+    ],
+    "round": false,
+    "row": 0,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/ItemRevealingHelm.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [],
+    "autoUnlock": true,
+    "category": "TT_CATEGORY",
+    "column": 0,
+    "complexity": 0,
+    "complexityClamped": 1,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "SHARE_TOME",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "SHARE_TOME"
+        ],
+        "type": "crafting"
+      }
+    ],
+    "parents": [],
+    "parentsHidden": [],
+    "round": true,
+    "row": -1,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/ItemShareBook.java",
+    "special": false,
+    "stub": true,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "MAGIC",
+        2
+      ],
+      [
+        "CLOTH",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 3,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "SPELL_CLOTH",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "SPELL_CLOTH"
+        ],
+        "type": "crucible"
+      }
+    ],
+    "parents": [],
+    "parentsHidden": [
+      "ENCHFABRIC"
+    ],
+    "round": false,
+    "row": 2,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/ItemSpellCloth.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "GREED",
+        1
+      ],
+      [
+        "MAGIC",
+        1
+      ],
+      [
+        "MAN",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 4,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this, 1, 1)",
+    "kami": false,
+    "key": "XP_TALISMAN",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "XP_TALISMAN"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "JARBRAIN",
+      "SPELL_CLOTH"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": -1,
+    "secondary": true,
+    "siblings": [],
+    "source": "item/ItemXPTalisman.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "MOTION",
+        2
+      ],
+      [
+        "AIR",
+        1
+      ],
+      [
+        "ORDER",
+        1
+      ],
+      [
+        "DEATH",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -4,
+    "complexity": 3,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FOCUS_DEFLECT",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FOCUS_DEFLECT"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "FOCUS_SMELT"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": -3,
+    "secondary": true,
+    "siblings": [],
+    "source": "item/foci/ItemFocusDeflect.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "ELDRITCH",
+        2
+      ],
+      [
+        "MAGIC",
+        1
+      ],
+      [
+        "EXCHANGE",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -5,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FOCUS_DISLOCATION",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "text": "1",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FOCUS_DISLOCATION"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "FOCUS_FLIGHT"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": -5,
+    "secondary": true,
+    "siblings": [],
+    "source": "item/foci/ItemFocusDislocation.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "ELDRITCH",
+        2
+      ],
+      [
+        "VOID",
+        1
+      ],
+      [
+        "MAGIC",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -6,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FOCUS_ENDER_CHEST",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FOCUS_ENDER_CHEST"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "FOCUS_DEFLECT"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": -2,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/foci/ItemFocusEnderChest.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 1
+  },
+  {
+    "aspects": [
+      [
+        "MOTION",
+        1
+      ],
+      [
+        "MAGIC",
+        1
+      ],
+      [
+        "AIR",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -3,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FOCUS_FLIGHT",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FOCUS_FLIGHT"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "FOCUS_SMELT"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": -4,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/foci/ItemFocusFlight.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "HEAL",
+        2
+      ],
+      [
+        "SOUL",
+        1
+      ],
+      [
+        "MAGIC",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -6,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FOCUS_HEAL",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FOCUS_HEAL"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "FOCUS_DEFLECT"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": -4,
+    "secondary": true,
+    "siblings": [],
+    "source": "item/foci/ItemFocusHeal.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "FIRE",
+        2
+      ],
+      [
+        "ENERGY",
+        1
+      ],
+      [
+        "MAGIC",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -2,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FOCUS_SMELT",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FOCUS_SMELT"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "FOCUSEXCAVATION"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": -2,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/foci/ItemFocusSmelt.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "ELDRITCH",
+        2
+      ],
+      [
+        "MAGIC",
+        1
+      ],
+      [
+        "MOTION",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": -4,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "FOCUS_TELEKINESIS",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FOCUS_TELEKINESIS"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "FOCUS_FLIGHT"
+    ],
+    "parentsHidden": [
+      "INFUSION"
+    ],
+    "round": false,
+    "row": -6,
+    "secondary": true,
+    "siblings": [],
+    "source": "item/foci/ItemFocusTelekinesis.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "VOID",
+        2
+      ],
+      [
+        "DARKNESS",
+        1
+      ],
+      [
+        "ELDRITCH",
+        1
+      ],
+      [
+        "MAGIC",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 14,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "BLOCK_TALISMAN",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "BLOCK_TALISMAN"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ICHOR_PICK_GEM",
+      "ICHOR_SHOVEL_GEM"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 17,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/ItemBlockTalisman.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "MIND",
+        2
+      ],
+      [
+        "ORDER",
+        1
+      ],
+      [
+        "DARKNESS",
+        1
+      ],
+      [
+        "DEATH",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 13,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "CAT_AMULET",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "CAT_AMULET"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ICHORIUM"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 10,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/ItemCatAmulet.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "VOID",
+        2
+      ],
+      [
+        "CLOTH",
+        1
+      ],
+      [
+        "ELDRITCH",
+        1
+      ],
+      [
+        "MAN",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 13,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "ICHOR_POUCH",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHOR_POUCH"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ICHOR_CLOTH"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 6,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/ItemIchorPouch.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [],
+    "autoUnlock": true,
+    "category": "TT_CATEGORY",
+    "column": 7,
+    "complexity": 0,
+    "complexityClamped": 1,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(ThaumicTinkerer.registry.getFirstItemFromClass(ItemKamiResource.class), 1, 7)",
+    "kami": true,
+    "key": "DIMENSION_SHARDS",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [],
+    "parentsHidden": [],
+    "round": true,
+    "row": 8,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/ItemKamiResource.java",
+    "special": false,
+    "stub": true,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "MAN",
+        1
+      ],
+      [
+        "LIGHT",
+        2
+      ],
+      [
+        "SOUL",
+        1
+      ],
+      [
+        "TAINT",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 9,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this, 1, 0)",
+    "kami": true,
+    "key": "ICHOR",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHOR"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [],
+    "parentsHidden": [],
+    "round": false,
+    "row": 8,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/ItemKamiResource.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 5
+  },
+  {
+    "aspects": [
+      [
+        "CLOTH",
+        2
+      ],
+      [
+        "LIGHT",
+        1
+      ],
+      [
+        "CRAFT",
+        1
+      ],
+      [
+        "SENSES",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 11,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this, 1, 1)",
+    "kami": true,
+    "key": "ICHOR_CLOTH",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHOR_CLOTH"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "ICHOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 7,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/ItemKamiResource.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "METAL",
+        2
+      ],
+      [
+        "LIGHT",
+        1
+      ],
+      [
+        "CRAFT",
+        1
+      ],
+      [
+        "TOOL",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 11,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this, 1, 2)",
+    "kami": true,
+    "key": "ICHORIUM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHORIUM"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "ICHOR"
+    ],
+    "parentsHidden": [
+      "ICHOR_CLOTH"
+    ],
+    "round": false,
+    "row": 9,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/ItemKamiResource.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "TOOL",
+        2
+      ],
+      [
+        "METAL",
+        1
+      ],
+      [
+        "LIGHT",
+        1
+      ],
+      [
+        "MAGIC",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 11,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this, 1, 4)",
+    "kami": true,
+    "key": "CAP_ICHOR",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "CAP_ICHOR"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "ICHORIUM"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 11,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/ItemKamiResource.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 2
+  },
+  {
+    "aspects": [
+      [
+        "TOOL",
+        2
+      ],
+      [
+        "CLOTH",
+        1
+      ],
+      [
+        "LIGHT",
+        1
+      ],
+      [
+        "MAGIC",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 14,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this, 1, 5)",
+    "kami": true,
+    "key": "ROD_ICHORCLOTH",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ROD_ICHORCLOTH"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ICHOR_CLOTH"
+    ],
+    "parentsHidden": [
+      "CAP_ICHOR"
+    ],
+    "round": false,
+    "row": 2,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/ItemKamiResource.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 1
+  },
+  {
+    "aspects": [
+      [
+        "CRAFT",
+        2
+      ],
+      [
+        "CRYSTAL",
+        1
+      ],
+      [
+        "ELDRITCH",
+        1
+      ],
+      [
+        "MIND",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 17,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "PLACEMENT_MIRROR",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "PLACEMENT_MIRROR"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "BLOCK_TALISMAN"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 16,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/ItemPlacementMirror.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "TOOL",
+        2
+      ],
+      [
+        "MINE",
+        1
+      ],
+      [
+        "MAN",
+        1
+      ],
+      [
+        "MECHANISM",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 12,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "PROTOCLAY",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "PROTOCLAY"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ICHOR_PICK_GEM"
+    ],
+    "parentsHidden": [
+      "ICHOR_SHOVEL_GEM"
+    ],
+    "round": false,
+    "row": 17,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/ItemProtoclay.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "EARTH",
+        2
+      ],
+      [
+        "TRAVEL",
+        1
+      ],
+      [
+        "MINE",
+        1
+      ],
+      [
+        "PLANT",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 15,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "ICHORCLOTH_BOOTS_GEM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHORCLOTH_BOOTS_GEM"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ICHORCLOTH_ARMOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 10,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/armor/ItemGemBoots.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "AIR",
+        2
+      ],
+      [
+        "MOTION",
+        1
+      ],
+      [
+        "FLIGHT",
+        1
+      ],
+      [
+        "ELDRITCH",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 17,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "ICHORCLOTH_CHEST_GEM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHORCLOTH_CHEST_GEM"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ICHORCLOTH_ARMOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 7,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/armor/ItemGemChest.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "WATER",
+        2
+      ],
+      [
+        "HEAL",
+        1
+      ],
+      [
+        "HUNGER",
+        1
+      ],
+      [
+        "AURA",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 18,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "ICHORCLOTH_HELM_GEM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHORCLOTH_HELM_GEM"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ICHORCLOTH_ARMOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 3,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/armor/ItemGemHelm.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "FIRE",
+        2
+      ],
+      [
+        "HEAL",
+        1
+      ],
+      [
+        "GREED",
+        1
+      ],
+      [
+        "ENERGY",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 17,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "ICHORCLOTH_LEGS_GEM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHORCLOTH_LEGS_GEM"
+        ],
+        "type": "infusion"
+      },
+      {
+        "text": "1",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "ICHORCLOTH_ARMOR"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 9,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/armor/ItemGemLegs.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "ARMOR",
+        2
+      ],
+      [
+        "CLOTH",
+        1
+      ],
+      [
+        "LIGHT",
+        1
+      ],
+      [
+        "CRAFT",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 17,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "ICHORCLOTH_ARMOR",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHORCLOTH_HELM"
+        ],
+        "type": "arcane"
+      },
+      {
+        "recipes": [
+          "ICHORCLOTH_CHEST"
+        ],
+        "type": "arcane"
+      },
+      {
+        "recipes": [
+          "ICHORCLOTH_LEGS"
+        ],
+        "type": "arcane"
+      },
+      {
+        "recipes": [
+          "ICHORCLOTH_BOOTS"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "ICHOR_CLOTH"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 5,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/armor/ItemIchorclothArmor.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 4
+  },
+  {
+    "aspects": [
+      [
+        "TRAVEL",
+        2
+      ],
+      [
+        "ELDRITCH",
+        1
+      ],
+      [
+        "FLIGHT",
+        1
+      ],
+      [
+        "MAGIC",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 20,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "FOCUS_RECALL",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FOCUS_RECALL"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "WARP_GATE"
+    ],
+    "parentsHidden": [
+      "ROD_ICHORCLOTH"
+    ],
+    "round": false,
+    "row": 8,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/foci/ItemFocusRecall.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "DARKNESS",
+        2
+      ],
+      [
+        "MAGIC",
+        1
+      ],
+      [
+        "ELDRITCH",
+        1
+      ],
+      [
+        "TAINT",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 14,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "FOCUS_SHADOWBEAM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FOCUS_SHADOWBEAM"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ROD_ICHORCLOTH"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 4,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/foci/ItemFocusShadowbeam.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "MIND",
+        2
+      ],
+      [
+        "MAGIC",
+        1
+      ],
+      [
+        "AURA",
+        1
+      ],
+      [
+        "MAN",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 12,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "FOCUS_XP_DRAIN",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "FOCUS_XP_DRAIN"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ROD_ICHORCLOTH"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 3,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/foci/ItemFocusXPDrain.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "WATER",
+        2
+      ],
+      [
+        "TOOL",
+        1
+      ],
+      [
+        "TREE",
+        1
+      ],
+      [
+        "CROP",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 16,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "ICHOR_AXE_GEM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHOR_AXE_GEM"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ICHOR_TOOLS"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 14,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/tool/ItemIchorAxeAdv.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "TOOL",
+        2
+      ],
+      [
+        "WEAPON",
+        1
+      ],
+      [
+        "METAL",
+        1
+      ],
+      [
+        "CRAFT",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 13,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "ICHOR_TOOLS",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHOR_PICK"
+        ],
+        "type": "arcane"
+      },
+      {
+        "recipes": [
+          "ICHOR_SHOVEL"
+        ],
+        "type": "arcane"
+      },
+      {
+        "recipes": [
+          "ICHOR_AXE"
+        ],
+        "type": "arcane"
+      },
+      {
+        "recipes": [
+          "ICHOR_SWORD"
+        ],
+        "type": "arcane"
+      }
+    ],
+    "parents": [
+      "ICHORIUM"
+    ],
+    "parentsHidden": [
+      "ROD_ICHORCLOTH"
+    ],
+    "round": false,
+    "row": 12,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/tool/ItemIchorPick.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 2
+  },
+  {
+    "aspects": [
+      [
+        "FIRE",
+        2
+      ],
+      [
+        "TOOL",
+        1
+      ],
+      [
+        "MINE",
+        1
+      ],
+      [
+        "EARTH",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 13,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "ICHOR_PICK_GEM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHOR_PICK_GEM"
+        ],
+        "type": "infusion"
+      },
+      {
+        "text": "1",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "ICHOR_TOOLS"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 15,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/tool/ItemIchorPickAdv.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "EARTH",
+        2
+      ],
+      [
+        "TOOL",
+        1
+      ],
+      [
+        "MINE",
+        1
+      ],
+      [
+        "EARTH",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 15,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "ICHOR_SHOVEL_GEM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHOR_SHOVEL_GEM"
+        ],
+        "type": "infusion"
+      }
+    ],
+    "parents": [
+      "ICHOR_TOOLS"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 15,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/tool/ItemIchorShovelAdv.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "AIR",
+        2
+      ],
+      [
+        "WEAPON",
+        1
+      ],
+      [
+        "SOUL",
+        1
+      ],
+      [
+        "HUNGER",
+        1
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 16,
+    "complexity": 5,
+    "complexityClamped": 3,
+    "concealed": true,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": true,
+    "key": "ICHOR_SWORD_GEM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "ICHOR_SWORD_GEM"
+        ],
+        "type": "infusion"
+      },
+      {
+        "text": "1",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "ICHOR_TOOLS"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 12,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/kami/tool/ItemIchorSwordAdv.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [],
+    "autoUnlock": true,
+    "category": "TT_CATEGORY",
+    "column": -2,
+    "complexity": 0,
+    "complexityClamped": 1,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ItemStack(this)",
+    "kami": false,
+    "key": "DARK_QUARTZ",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      },
+      {
+        "recipes": [
+          "DARK_QUARTZ0"
+        ],
+        "type": "crafting"
+      },
+      {
+        "recipes": [
+          "DARK_QUARTZ1"
+        ],
+        "type": "crafting"
+      },
+      {
+        "recipes": [
+          "DARK_QUARTZ2"
+        ],
+        "type": "crafting"
+      },
+      {
+        "recipes": [
+          "DARK_QUARTZ3"
+        ],
+        "type": "crafting"
+      },
+      {
+        "recipes": [
+          "DARK_QUARTZ4"
+        ],
+        "type": "crafting"
+      },
+      {
+        "recipes": [
+          "DARK_QUARTZ5"
+        ],
+        "type": "crafting"
+      }
+    ],
+    "parents": [],
+    "parentsHidden": [],
+    "round": true,
+    "row": 2,
+    "secondary": false,
+    "siblings": [],
+    "source": "item/quartz/ItemDarkQuartz.java",
+    "special": false,
+    "stub": true,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "AIR",
+        1
+      ],
+      [
+        "MOTION",
+        1
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 6,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_ASCENT_BOOST)",
+    "kami": false,
+    "key": "TTENCH_ASCENT_BOOST",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "ENCHANTER"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 2,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "AIR",
+        1
+      ],
+      [
+        "MOTION",
+        1
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 7,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_SLOW_FALL)",
+    "kami": false,
+    "key": "TTENCH_SLOW_FALL",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "ENCHANTER"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 3,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "FIRE",
+        1
+      ],
+      [
+        "ENTROPY",
+        1
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 7,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_AUTO_SMELT)",
+    "kami": false,
+    "key": "TTENCH_AUTO_SMELT",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "ENCHANTER"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 5,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "ENTROPY",
+        1
+      ],
+      [
+        "VOID",
+        1
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 6,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_DESINTEGRATE)",
+    "kami": false,
+    "key": "TTENCH_DESINTEGRATE",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "ENCHANTER"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 6,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "SENSES",
+        1
+      ],
+      [
+        "WEAPON",
+        1
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 4,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_QUICK_DRAW)",
+    "kami": false,
+    "key": "TTENCH_QUICK_DRAW",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "ENCHANTER"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 6,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "HUNGER",
+        1
+      ],
+      [
+        "WEAPON",
+        1
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 3,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_VAMPIRISM)",
+    "kami": false,
+    "key": "TTENCH_VAMPIRISM",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "ENCHANTER"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 5,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "ORDER",
+        1
+      ],
+      [
+        "WEAPON",
+        1
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 2,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_FOCUSED_STRIKE)",
+    "kami": false,
+    "key": "TTENCH_FOCUSED",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "TTENCH_VAMPIRISM"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 7,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "ENTROPY",
+        1
+      ],
+      [
+        "WEAPON",
+        1
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 1,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_DISPERSED_STRIKE)",
+    "kami": false,
+    "key": "TTENCH_DISPERSED",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "TTENCH_VAMPIRISM"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 6,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "ENTROPY",
+        3
+      ],
+      [
+        "ORDER",
+        3
+      ],
+      [
+        "WEAPON",
+        3
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 0,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_FINAL_STRIKE)",
+    "kami": false,
+    "key": "TTENCH_FINAL",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "TTENCH_FOCUSED",
+      "TTENCH_DISPERSED"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 8,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "AIR",
+        3
+      ],
+      [
+        "ORDER",
+        3
+      ],
+      [
+        "ARMOR",
+        3
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 7,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_POUNCE)",
+    "kami": false,
+    "key": "TTENCH_POUNCE",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "TTENCH_ASCENT_BOOST"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 0,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "EARTH",
+        3
+      ],
+      [
+        "ENTROPY",
+        3
+      ],
+      [
+        "TOOL",
+        1
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 5,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_SHATTER)",
+    "kami": false,
+    "key": "TTENCH_SHATTER",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "TTENCH_DESINTEGRATE"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 8,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "AIR",
+        3
+      ],
+      [
+        "ENTROPY",
+        3
+      ],
+      [
+        "ARMOR",
+        1
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 9,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_SHOCKWAVE)",
+    "kami": false,
+    "key": "TTENCH_SHOCKWAVE",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "TTENCH_SLOW_FALL"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 2,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "EARTH",
+        3
+      ],
+      [
+        "ORDER",
+        3
+      ],
+      [
+        "TOOL",
+        1
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 9,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_TUNNEL)",
+    "kami": false,
+    "key": "TTENCH_TUNNEL",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "TTENCH_AUTO_SMELT"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 6,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  },
+  {
+    "aspects": [
+      [
+        "WEAPON",
+        3
+      ],
+      [
+        "HEAL",
+        3
+      ],
+      [
+        "MAGIC",
+        2
+      ]
+    ],
+    "autoUnlock": false,
+    "category": "TT_CATEGORY",
+    "column": 1,
+    "complexity": 2,
+    "complexityClamped": 2,
+    "concealed": false,
+    "hidden": false,
+    "icon": "new ResourceLocation(LibResources.ENCHANT_VALIANCE)",
+    "kami": false,
+    "key": "TTENCH_VALIANCE",
+    "lost": false,
+    "pages": [
+      {
+        "text": "0",
+        "type": "text"
+      }
+    ],
+    "parents": [
+      "TTENCH_VAMPIRISM"
+    ],
+    "parentsHidden": [],
+    "round": false,
+    "row": 4,
+    "secondary": true,
+    "siblings": [],
+    "source": "research/ResearchHelper.java",
+    "special": false,
+    "stub": false,
+    "virtual": false,
+    "warp": 0
+  }
+]

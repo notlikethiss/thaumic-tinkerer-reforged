@@ -52,7 +52,11 @@ public final class TtRecipes {
     }
 
     public static CrucibleRecipe crucible(String key, TcStack result, TcIngredient catalyst, AspectList aspects) {
-        return register(new CrucibleRecipe(key, key, result, catalyst, aspects));
+        return crucible(key, key, result, catalyst, aspects);
+    }
+
+    public static CrucibleRecipe crucible(String key, String research, TcStack result, TcIngredient catalyst, AspectList aspects) {
+        return register(new CrucibleRecipe(key, research, result, catalyst, aspects));
     }
 
     public static CraftingRecipeRef vanilla(String key, String research, String recipePath, TcStack result) {

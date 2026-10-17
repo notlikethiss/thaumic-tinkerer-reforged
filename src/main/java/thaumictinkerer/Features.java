@@ -45,6 +45,7 @@ import thaumictinkerer.kami.foci.KamiFociFeature;
 import thaumictinkerer.kami.gateway.GatewayFeature;
 import thaumictinkerer.test.GatewayGameTests;
 import thaumictinkerer.test.KamiFociGameTests;
+import thaumictinkerer.test.ResearchTableGameTests;
 
 public final class Features {
     private Features() {
@@ -145,5 +146,6 @@ public final class Features {
         TrinketsGameTests.register(modEventBus);
         GatewayGameTests.register(modEventBus);
         KamiFociGameTests.register(modEventBus);
+        ResearchTableGameTests.register(modEventBus);
     }
 }

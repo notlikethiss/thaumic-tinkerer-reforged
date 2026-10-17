@@ -128,6 +128,7 @@ public final class ElementsFeature {
     private static void potionRecipe(int index, String element, Aspect aspect) {
         TtRecipes.crucible(
             POTIONS_RESEARCH + "POT" + index,
+            POTIONS_RESEARCH,
             TcStack.of("thaumictinkerer:" + element + "_infused_potion"),
             TcIngredient.item("thaumictinkerer:" + element + "_infused_grain"),
             new AspectList().add(Aspect.AURA, 5).add(aspect, 5)
