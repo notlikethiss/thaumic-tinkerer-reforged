@@ -2,6 +2,8 @@ package thaumictinkerer;
 
 import net.neoforged.bus.api.IEventBus;
 import thaumcraft.aspect.AspectRegistry;
+import thaumictinkerer.crops.CropsFeature;
+import thaumictinkerer.test.CropsGameTests;
 import thaumictinkerer.darkquartz.DarkQuartzFeature;
 import thaumictinkerer.decor.DecorFeature;
 import thaumictinkerer.funnel.FunnelFeature;
@@ -36,6 +38,7 @@ public final class Features {
         TransvectorFeature.load();
         FociFeature.load();
         EnchantingFeature.load();
+        CropsFeature.load();
     }
 
     public static void research() {
@@ -58,6 +61,7 @@ public final class Features {
         TransvectorFeature.recipes();
         FociFeature.recipes();
         EnchantingFeature.recipes();
+        CropsFeature.recipes();
     }
 
     public static void aspects(AspectRegistry registry) {
@@ -73,5 +77,6 @@ public final class Features {
         TransvectorGameTests.register(modEventBus);
         FociGameTests.register(modEventBus);
         EnchantingGameTests.register(modEventBus);
+        CropsGameTests.register(modEventBus);
     }
 }

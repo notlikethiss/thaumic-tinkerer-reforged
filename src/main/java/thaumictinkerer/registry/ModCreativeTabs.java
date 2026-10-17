@@ -10,6 +10,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import thaumictinkerer.ThaumicTinkerer;
+import thaumictinkerer.crops.CreativeVariants;
 import thaumictinkerer.darkquartz.DarkQuartzFeature;
 
 public final class ModCreativeTabs {
@@ -20,7 +21,11 @@ public final class ModCreativeTabs {
         .icon(() -> new ItemStack(DarkQuartzFeature.DARK_QUARTZ.get()))
         .displayItems((parameters, output) -> {
             for (DeferredHolder<Item, ? extends Item> holder : ModItems.ITEMS.getEntries()) {
-                output.accept(holder.get());
+                if (holder.get() instanceof CreativeVariants variants) {
+                    variants.addCreativeStacks(output::accept);
+                } else {
+                    output.accept(holder.get());
+                }
             }
         })
         .build());

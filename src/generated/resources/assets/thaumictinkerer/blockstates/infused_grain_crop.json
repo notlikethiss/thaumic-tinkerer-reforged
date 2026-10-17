@@ -1,0 +1,172 @@
+{
+  "variants": {
+    "age=0,kind=aer": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aer_0"
+    },
+    "age=1,kind=aer": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aer_0"
+    },
+    "age=2,kind=aer": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aer_1"
+    },
+    "age=3,kind=aer": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aer_1"
+    },
+    "age=4,kind=aer": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aer_2"
+    },
+    "age=5,kind=aer": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aer_2"
+    },
+    "age=6,kind=aer": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aer_2"
+    },
+    "age=7,kind=aer": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aer_3"
+    },
+    "age=0,kind=ignis": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ignis_0"
+    },
+    "age=1,kind=ignis": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ignis_0"
+    },
+    "age=2,kind=ignis": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ignis_1"
+    },
+    "age=3,kind=ignis": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ignis_1"
+    },
+    "age=4,kind=ignis": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ignis_2"
+    },
+    "age=5,kind=ignis": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ignis_2"
+    },
+    "age=6,kind=ignis": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ignis_2"
+    },
+    "age=7,kind=ignis": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ignis_3"
+    },
+    "age=0,kind=aqua": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aqua_0"
+    },
+    "age=1,kind=aqua": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aqua_0"
+    },
+    "age=2,kind=aqua": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aqua_1"
+    },
+    "age=3,kind=aqua": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aqua_1"
+    },
+    "age=4,kind=aqua": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aqua_2"
+    },
+    "age=5,kind=aqua": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aqua_2"
+    },
+    "age=6,kind=aqua": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aqua_2"
+    },
+    "age=7,kind=aqua": {
+      "model": "thaumictinkerer:block/infused_grain_crop_aqua_3"
+    },
+    "age=0,kind=terra": {
+      "model": "thaumictinkerer:block/infused_grain_crop_terra_0"
+    },
+    "age=1,kind=terra": {
+      "model": "thaumictinkerer:block/infused_grain_crop_terra_0"
+    },
+    "age=2,kind=terra": {
+      "model": "thaumictinkerer:block/infused_grain_crop_terra_1"
+    },
+    "age=3,kind=terra": {
+      "model": "thaumictinkerer:block/infused_grain_crop_terra_1"
+    },
+    "age=4,kind=terra": {
+      "model": "thaumictinkerer:block/infused_grain_crop_terra_2"
+    },
+    "age=5,kind=terra": {
+      "model": "thaumictinkerer:block/infused_grain_crop_terra_2"
+    },
+    "age=6,kind=terra": {
+      "model": "thaumictinkerer:block/infused_grain_crop_terra_2"
+    },
+    "age=7,kind=terra": {
+      "model": "thaumictinkerer:block/infused_grain_crop_terra_3"
+    },
+    "age=0,kind=ordo": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ordo_0"
+    },
+    "age=1,kind=ordo": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ordo_0"
+    },
+    "age=2,kind=ordo": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ordo_1"
+    },
+    "age=3,kind=ordo": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ordo_1"
+    },
+    "age=4,kind=ordo": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ordo_2"
+    },
+    "age=5,kind=ordo": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ordo_2"
+    },
+    "age=6,kind=ordo": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ordo_2"
+    },
+    "age=7,kind=ordo": {
+      "model": "thaumictinkerer:block/infused_grain_crop_ordo_3"
+    },
+    "age=0,kind=perditio": {
+      "model": "thaumictinkerer:block/infused_grain_crop_perditio_0"
+    },
+    "age=1,kind=perditio": {
+      "model": "thaumictinkerer:block/infused_grain_crop_perditio_0"
+    },
+    "age=2,kind=perditio": {
+      "model": "thaumictinkerer:block/infused_grain_crop_perditio_1"
+    },
+    "age=3,kind=perditio": {
+      "model": "thaumictinkerer:block/infused_grain_crop_perditio_1"
+    },
+    "age=4,kind=perditio": {
+      "model": "thaumictinkerer:block/infused_grain_crop_perditio_2"
+    },
+    "age=5,kind=perditio": {
+      "model": "thaumictinkerer:block/infused_grain_crop_perditio_2"
+    },
+    "age=6,kind=perditio": {
+      "model": "thaumictinkerer:block/infused_grain_crop_perditio_2"
+    },
+    "age=7,kind=perditio": {
+      "model": "thaumictinkerer:block/infused_grain_crop_perditio_3"
+    },
+    "age=0,kind=generic": {
+      "model": "thaumictinkerer:block/infused_grain_crop_generic_0"
+    },
+    "age=1,kind=generic": {
+      "model": "thaumictinkerer:block/infused_grain_crop_generic_0"
+    },
+    "age=2,kind=generic": {
+      "model": "thaumictinkerer:block/infused_grain_crop_generic_1"
+    },
+    "age=3,kind=generic": {
+      "model": "thaumictinkerer:block/infused_grain_crop_generic_1"
+    },
+    "age=4,kind=generic": {
+      "model": "thaumictinkerer:block/infused_grain_crop_generic_2"
+    },
+    "age=5,kind=generic": {
+      "model": "thaumictinkerer:block/infused_grain_crop_generic_2"
+    },
+    "age=6,kind=generic": {
+      "model": "thaumictinkerer:block/infused_grain_crop_generic_2"
+    },
+    "age=7,kind=generic": {
+      "model": "thaumictinkerer:block/infused_grain_crop_generic_3"
+    }
+  }
+}

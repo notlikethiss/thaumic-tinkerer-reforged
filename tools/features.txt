@@ -8,3 +8,4 @@ mobilizer
 repairer
 foci
 enchanting
+crops
