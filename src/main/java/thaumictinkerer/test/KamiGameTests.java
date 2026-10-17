@@ -76,7 +76,7 @@ public final class KamiGameTests {
         ResearchItem ichor = kami(helper, "ICHOR", 9, 8, 5);
         helper.assertTrue(ichor.pages().size() == 2, "ichor pages are wrong");
         helper.assertTrue(TtResearch.kamiResearch() == ichor, "kami research is not ichor");
-        helper.assertTrue(ichor.parentsHidden().contains("THAUMIUM") && ichor.parentsHidden().contains("CLEANSING_TALISMAN"), "ichor hidden parents are wrong " + ichor.parentsHidden());
+        helper.assertTrue(ichor.parentsHidden().contains("GOGGLES") && ichor.parentsHidden().contains("CLEANSING_TALISMAN"), "ichor hidden parents are wrong " + ichor.parentsHidden());
         helper.assertTrue(!ichor.parentsHidden().contains("ICHOR_CLOTH"), "kami research must not be swept");
 
         ResearchItem cloth = kami(helper, "ICHOR_CLOTH", 11, 7, 0);
