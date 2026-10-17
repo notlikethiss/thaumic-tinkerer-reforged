@@ -10,6 +10,7 @@ import thaumictinkerer.client.funnel.FunnelRenderer;
 import thaumictinkerer.client.repairer.RepairerRenderer;
 import thaumictinkerer.client.tablet.DynamismTabletRenderer;
 import thaumictinkerer.client.tablet.DynamismTabletScreen;
+import thaumictinkerer.client.trinkets.TrinketsClient;
 import thaumictinkerer.funnel.FunnelFeature;
 import thaumictinkerer.repairer.RepairerFeature;
 import thaumictinkerer.tablet.TabletFeature;
@@ -22,6 +23,7 @@ public final class ClientFeatures {
         EnchantingClient.registerScreens(event);
         event.register(AttractorFeature.CORPOREAL_MENU.get(), CorporealAttractorScreen::new);
         event.register(TabletFeature.TABLET_MENU.get(), DynamismTabletScreen::new);
+        TrinketsClient.registerScreens(event);
     }
 
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
