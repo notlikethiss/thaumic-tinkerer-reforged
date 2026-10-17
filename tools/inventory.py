@@ -118,10 +118,11 @@ def check(strict, show_all):
     registered = lambda name: f'"{name}"' in text
     missing_registered = [f"{kind}:{name}" for kind, ids in (("block", blocks), ("item", items)) for name in ids if not registered(name)]
     missing_models = []
+    without_item = {row["id"] for row in data.get("blocks", []) if row.get("no_item")}
     for name in blocks:
         if not (ASSETS / "blockstates" / f"{name}.json").exists():
             missing_models.append(f"block:{name}")
-        if not (ASSETS / "items" / f"{name}.json").exists():
+        if name not in without_item and not (ASSETS / "items" / f"{name}.json").exists():
             missing_models.append(f"block item:{name}")
     for name in items:
         if name not in blocks and not (ASSETS / "items" / f"{name}.json").exists():
@@ -130,7 +131,7 @@ def check(strict, show_all):
     missing_lang += [f"item:{name}" for name in items if name not in blocks and f"item.{NS}.{name}" not in lang]
     total = len(blocks) + len(items)
     report("registered", missing_registered, total, show_all)
-    report("models", missing_models, len(blocks) * 2 + len([name for name in items if name not in blocks]), show_all)
+    report("models", missing_models, len(blocks) * 2 - len(without_item) + len([name for name in items if name not in blocks]), show_all)
     report("lang", missing_lang, total, show_all)
     incomplete = bool(missing_registered or missing_models or missing_lang)
     print("check:", "schema errors" if errors else ("ok" if not incomplete else "content incomplete"))

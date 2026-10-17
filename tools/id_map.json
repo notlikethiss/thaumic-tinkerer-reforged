@@ -35,7 +35,7 @@
     {"old": "spawner", "meta": null, "lang": "tile.spawner.name", "id": "necromancy_tablet", "state": {}, "skip": null},
     {"old": "Levitational Locomotive", "meta": null, "lang": "tile.Levitational Locomotive.name", "id": "levitational_locomotive", "state": {}, "skip": null},
     {"old": "Levitational Locomotive Relay", "meta": null, "lang": "tile.Levitational Locomotive Relay.name", "id": "levitational_locomotive_relay", "state": {}, "skip": null},
-    {"old": "forcefield", "meta": null, "lang": "tile.forcefield.name", "id": "forcefield", "state": {}, "skip": null},
+    {"old": "forcefield", "meta": null, "lang": "tile.forcefield.name", "id": "forcefield", "state": {}, "skip": null, "no_item": true},
     {"old": "remotePlacer", "meta": null, "lang": "tile.remotePlacer.name", "id": null, "state": {}, "skip": "disabled in TT: BlockRPlacer.shouldRegister returns false"},
     {"old": "aspectAnalyzer", "meta": null, "lang": "tile.aspectAnalyzer.name", "id": null, "state": {}, "skip": "ComputerCraft peripheral only, excluded by decision"},
     {"old": "golemConnector", "meta": null, "lang": "tile.golemConnector.name", "id": null, "state": {}, "skip": "ComputerCraft peripheral only, excluded by decision"},
