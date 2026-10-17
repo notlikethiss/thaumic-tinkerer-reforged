@@ -11,6 +11,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.zombie.Zombie;
@@ -279,6 +280,9 @@ public final class AwakenedToolsGameTests {
     private static Zombie zombie(GameTestHelper helper, BlockPos pos) {
         Zombie zombie = helper.spawnWithNoFreeWill(EntityTypes.ZOMBIE, pos);
         zombie.setPersistenceRequired();
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            zombie.setItemSlot(slot, ItemStack.EMPTY);
+        }
         return zombie;
     }
 
