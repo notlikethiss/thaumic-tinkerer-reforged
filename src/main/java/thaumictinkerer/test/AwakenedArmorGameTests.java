@@ -23,6 +23,8 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.crafting.InfusionRecipe;
 import thaumcraft.crafting.TcRecipes;
@@ -77,6 +79,11 @@ public final class AwakenedArmorGameTests {
         player.connection.markClientLoaded();
         player.setPos(helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)));
         return player;
+    }
+
+    private static void tick(ServerPlayer player) {
+        player.baseTick();
+        NeoForge.EVENT_BUS.post(new PlayerTickEvent.Pre(player));
     }
 
     private static void research(GameTestHelper helper, String key, int column, int row, String... pageTypes) {
@@ -151,24 +158,24 @@ public final class AwakenedArmorGameTests {
         BlockPos eyes = BlockPos.containing(player.getEyePosition());
         helper.getLevel().setBlock(eyes, Blocks.WATER.defaultBlockState(), 2);
         player.setItemSlot(EquipmentSlot.HEAD, new ItemStack(AwakenedArmorFeature.COWL.get()));
-        player.tick();
+        tick(player);
         helper.assertTrue(player.isEyeInFluid(FluidTags.WATER), "eyes are not in water");
         MobEffectInstance effect = player.getEffect(MobEffects.NIGHT_VISION);
         helper.assertTrue(effect != null && effect.isAmbient(), "night vision missing while worn underwater");
         helper.assertTrue(player.getAirSupply() == 300, "air supply not restored");
         player.removeEffect(MobEffects.NIGHT_VISION);
         AwakenedArmorFeature.ARMOR_ENABLED.set(player, false);
-        player.tick();
+        tick(player);
         helper.assertTrue(player.getEffect(MobEffects.NIGHT_VISION) == null, "night vision granted while armor disabled");
         AwakenedArmorFeature.ARMOR_ENABLED.set(player, true);
-        player.tick();
+        tick(player);
         helper.assertTrue(player.getEffect(MobEffects.NIGHT_VISION) != null, "night vision not restored after enabling");
         ItemStack removed = player.getItemBySlot(EquipmentSlot.HEAD);
         player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
         AwakenedArmorEvents.release(player, EquipmentSlot.HEAD);
         helper.assertTrue(removed.is(AwakenedArmorFeature.COWL.get()), "cowl was not worn");
         helper.assertTrue(player.getEffect(MobEffects.NIGHT_VISION) == null, "night vision remained after unequip");
-        player.tick();
+        tick(player);
         helper.assertTrue(player.getEffect(MobEffects.NIGHT_VISION) == null, "night vision reapplied after unequip");
         helper.succeed();
     }
@@ -177,24 +184,24 @@ public final class AwakenedArmorGameTests {
         ServerPlayer player = mockPlayer(helper, GameType.SURVIVAL);
         helper.assertTrue(!player.getAbilities().mayfly, "survival player can already fly");
         player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(AwakenedArmorFeature.ROBES.get()));
-        player.tick();
+        tick(player);
         helper.assertTrue(player.getAbilities().mayfly, "flight not granted");
         helper.assertTrue(AwakenedArmorFeature.FLIGHT_GRANTED.has(player) && AwakenedArmorFeature.FLIGHT_GRANTED.get(player), "grant not recorded");
         player.getAbilities().flying = true;
         AwakenedArmorFeature.ARMOR_ENABLED.set(player, false);
-        player.tick();
+        tick(player);
         helper.assertTrue(!player.getAbilities().mayfly && !player.getAbilities().flying, "flight not revoked when disabled");
         AwakenedArmorFeature.ARMOR_ENABLED.set(player, true);
-        player.tick();
+        tick(player);
         helper.assertTrue(player.getAbilities().mayfly, "flight not granted again");
         player.getAbilities().flying = true;
         player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
-        player.tick();
+        tick(player);
         helper.assertTrue(!player.getAbilities().mayfly && !player.getAbilities().flying, "flight not revoked after unequip");
         helper.assertTrue(!AwakenedArmorFeature.FLIGHT_GRANTED.has(player), "grant marker remained");
         player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(AwakenedArmorFeature.ROBES.get()));
         player.getAbilities().mayfly = false;
-        player.tick();
+        tick(player);
         helper.assertTrue(player.getAbilities().mayfly, "flight not regranted after external reset");
         helper.succeed();
     }
@@ -203,9 +210,9 @@ public final class AwakenedArmorGameTests {
         ServerPlayer player = mockPlayer(helper, GameType.CREATIVE);
         helper.assertTrue(player.getAbilities().mayfly, "creative player cannot fly");
         player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(AwakenedArmorFeature.ROBES.get()));
-        player.tick();
+        tick(player);
         player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
-        player.tick();
+        tick(player);
         helper.assertTrue(player.getAbilities().mayfly, "creative flight was revoked");
         helper.succeed();
     }
@@ -214,7 +221,7 @@ public final class AwakenedArmorGameTests {
         ServerPlayer player = mockPlayer(helper, GameType.SURVIVAL);
         helper.assertTrue(!AwakenedArmor.carriesLight(player), "light carried without leggings");
         player.setItemSlot(EquipmentSlot.LEGS, new ItemStack(AwakenedArmorFeature.LEGGINGS.get()));
-        player.tick();
+        tick(player);
         MobEffectInstance effect = player.getEffect(MobEffects.FIRE_RESISTANCE);
         helper.assertTrue(effect != null && effect.getAmplifier() == 10, "fire resistance missing while worn");
         helper.assertTrue(GasFeature.carriesLight(player), "leggings are not a light carrier");
@@ -235,13 +242,13 @@ public final class AwakenedArmorGameTests {
         ServerPlayer player = mockPlayer(helper, GameType.SURVIVAL);
         double base = player.getAttributeValue(Attributes.STEP_HEIGHT);
         player.setItemSlot(EquipmentSlot.FEET, new ItemStack(AwakenedArmorFeature.BOOTS.get()));
-        player.tick();
+        tick(player);
         helper.assertTrue(Math.abs(player.getAttributeValue(Attributes.STEP_HEIGHT) - (base + AwakenedArmorEvents.STEP_BONUS)) < 1.0E-6, "step height not raised");
         player.setShiftKeyDown(true);
-        player.tick();
+        tick(player);
         helper.assertTrue(Math.abs(player.getAttributeValue(Attributes.STEP_HEIGHT) - base) < 1.0E-6, "step height not lowered while sneaking");
         player.setShiftKeyDown(false);
-        player.tick();
+        tick(player);
         helper.assertTrue(player.getAttributeValue(Attributes.STEP_HEIGHT) > base, "step height not raised after sneaking");
         player.setItemSlot(EquipmentSlot.FEET, ItemStack.EMPTY);
         AwakenedArmorEvents.release(player, EquipmentSlot.FEET);
@@ -255,7 +262,7 @@ public final class AwakenedArmorGameTests {
         BlockPos dirt = BlockPos.containing(player.getX(), Math.floor(player.getY()) - 1, player.getZ());
         helper.getLevel().setBlock(dirt, Blocks.DIRT.defaultBlockState(), 2);
         player.setItemSlot(EquipmentSlot.FEET, new ItemStack(AwakenedArmorFeature.BOOTS.get()));
-        player.tick();
+        tick(player);
         MobEffectInstance haste = player.getEffect(MobEffects.HASTE);
         helper.assertTrue(haste != null && haste.getAmplifier() == 1, "haste missing while worn");
         helper.assertTrue(helper.getLevel().getBlockState(dirt).is(Blocks.GRASS_BLOCK), "dirt was not turned into grass");
