@@ -37,6 +37,31 @@ public final class NecromancyFeature {
         Aspect.POISON, Aspect.EARTH, Aspect.ELDRITCH, Aspect.TRAVEL, Aspect.METAL, Aspect.SLIME, Aspect.CLOTH, Aspect.CROP
     );
 
+    private static final List<String> BASE_IDS = List.of(
+        "aqua_soul_aspect", "humanus_soul_aspect", "aer_soul_aspect",
+        "volatus_soul_aspect", "ignis_soul_aspect", "praecantatio_soul_aspect",
+        "exanimis_soul_aspect", "corpus_soul_aspect", "bestia_soul_aspect",
+        "venenum_soul_aspect", "terra_soul_aspect", "alienis_soul_aspect",
+        "iter_soul_aspect", "metallum_soul_aspect", "limus_soul_aspect",
+        "pannus_soul_aspect", "messis_soul_aspect"
+    );
+    private static final List<String> CONDENSED_IDS = List.of(
+        "condensed_aqua_soul_aspect", "condensed_humanus_soul_aspect", "condensed_aer_soul_aspect",
+        "condensed_volatus_soul_aspect", "condensed_ignis_soul_aspect", "condensed_praecantatio_soul_aspect",
+        "condensed_exanimis_soul_aspect", "condensed_corpus_soul_aspect", "condensed_bestia_soul_aspect",
+        "condensed_venenum_soul_aspect", "condensed_terra_soul_aspect", "condensed_alienis_soul_aspect",
+        "condensed_iter_soul_aspect", "condensed_metallum_soul_aspect", "condensed_limus_soul_aspect",
+        "condensed_pannus_soul_aspect", "condensed_messis_soul_aspect"
+    );
+    private static final List<String> INFUSED_IDS = List.of(
+        "infused_aqua_soul_aspect", "infused_humanus_soul_aspect", "infused_aer_soul_aspect",
+        "infused_volatus_soul_aspect", "infused_ignis_soul_aspect", "infused_praecantatio_soul_aspect",
+        "infused_exanimis_soul_aspect", "infused_corpus_soul_aspect", "infused_bestia_soul_aspect",
+        "infused_venenum_soul_aspect", "infused_terra_soul_aspect", "infused_alienis_soul_aspect",
+        "infused_iter_soul_aspect", "infused_metallum_soul_aspect", "infused_limus_soul_aspect",
+        "infused_pannus_soul_aspect", "infused_messis_soul_aspect"
+    );
+
     public static final TtStackKey<BlockPos> LAST_TABLET = TtStackKey.register("last_tablet", BlockPos.CODEC, BlockPos.STREAM_CODEC);
 
     public static final List<DeferredItem<SoulAspectItem>> BASE = new ArrayList<>();
@@ -44,10 +69,11 @@ public final class NecromancyFeature {
     public static final List<DeferredItem<SoulAspectItem>> INFUSED = new ArrayList<>();
 
     static {
-        for (Aspect aspect : ASPECTS) {
-            BASE.add(soul(aspect, SoulAspectItem.Form.BASE, aspect.getTag() + "_soul_aspect"));
-            CONDENSED.add(soul(aspect, SoulAspectItem.Form.CONDENSED, "condensed_" + aspect.getTag() + "_soul_aspect"));
-            INFUSED.add(soul(aspect, SoulAspectItem.Form.INFUSED, "infused_" + aspect.getTag() + "_soul_aspect"));
+        for (int index = 0; index < ASPECT_COUNT; index++) {
+            Aspect aspect = ASPECTS.get(index);
+            BASE.add(soul(aspect, SoulAspectItem.Form.BASE, BASE_IDS.get(index)));
+            CONDENSED.add(soul(aspect, SoulAspectItem.Form.CONDENSED, CONDENSED_IDS.get(index)));
+            INFUSED.add(soul(aspect, SoulAspectItem.Form.INFUSED, INFUSED_IDS.get(index)));
         }
     }
 
