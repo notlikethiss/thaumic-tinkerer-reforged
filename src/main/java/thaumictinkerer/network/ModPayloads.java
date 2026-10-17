@@ -14,5 +14,7 @@ public final class ModPayloads {
         TtNetwork.toClient(ElementsFxPayload.TYPE, ElementsFxPayload.STREAM_CODEC);
         TtNetwork.toServer(EnchanterAddEnchantPayload.TYPE, EnchanterAddEnchantPayload.STREAM_CODEC, EnchanterAddEnchantPayload::handle);
         TtNetwork.toServer(EnchanterStartWorkingPayload.TYPE, EnchanterStartWorkingPayload.STREAM_CODEC, EnchanterStartWorkingPayload::handle);
+        TtNetwork.toServer(ToggleArmorPayload.TYPE, ToggleArmorPayload.STREAM_CODEC, ToggleArmorPayload::handle);
+        TtNetwork.toClient(ArmorStatusPayload.TYPE, ArmorStatusPayload.STREAM_CODEC);
     }
 }

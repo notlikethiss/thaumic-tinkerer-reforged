@@ -1,5 +1,7 @@
 package thaumictinkerer.client;
 
+import thaumictinkerer.client.awakenedarmor.AwakenedArmorClient;
+import thaumictinkerer.network.ArmorStatusPayload;
 import thaumictinkerer.client.crops.CropsClient;
 import thaumictinkerer.client.foci.FociClientEffects;
 import thaumictinkerer.client.platform.TtClientNetwork;
@@ -18,5 +20,6 @@ public final class ClientPayloadHandlers {
         TtClientNetwork.handle(FociEffectPayload.TYPE, FociClientEffects::handle);
         TtClientNetwork.handle(CropFxPayload.TYPE, CropsClient::handle);
         TtClientNetwork.handle(ElementsFxPayload.TYPE, ElementsClientEffects::handle);
+        TtClientNetwork.handle(ArmorStatusPayload.TYPE, AwakenedArmorClient::handle);
     }
 }
