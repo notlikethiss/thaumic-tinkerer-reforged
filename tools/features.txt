@@ -9,3 +9,6 @@ repairer
 foci
 enchanting
 elements
+attractor
+tablet
+gear
