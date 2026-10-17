@@ -195,7 +195,8 @@ public final class ElementsGameTests {
         transform(helper, fire, Blocks.WATER, Blocks.LAVA);
         BlockState wart = fire.transformation().result(helper.getLevel(), helper.absolutePos(new BlockPos(3, 3, 3)), Blocks.WHEAT.defaultBlockState());
         helper.assertTrue(wart != null && wart.is(Blocks.NETHER_WART), "wheat became " + wart);
-        transform(helper, fire, Blocks.POPPY, Blocks.BROWN_MUSHROOM);
+        BlockState mushroom = fire.transformation().result(helper.getLevel(), helper.absolutePos(new BlockPos(3, 3, 3)), Blocks.POPPY.defaultBlockState());
+        helper.assertTrue(mushroom != null && mushroom.is(Blocks.BROWN_MUSHROOM), "poppy became " + mushroom);
         helper.succeed();
     }
 
