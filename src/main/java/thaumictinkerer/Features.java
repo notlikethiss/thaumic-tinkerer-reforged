@@ -1,5 +1,7 @@
 package thaumictinkerer;
 
+import thaumictinkerer.test.AwakenedArmorGameTests;
+import thaumictinkerer.awakenedarmor.AwakenedArmorFeature;
 import net.neoforged.bus.api.IEventBus;
 import thaumcraft.aspect.AspectRegistry;
 import thaumictinkerer.crops.CropsFeature;
@@ -60,6 +62,7 @@ public final class Features {
         NecromancyFeature.load();
         KamiFeature.load();
         AwakenedToolsFeature.load();
+        AwakenedArmorFeature.load();
     }
 
     public static void research() {
@@ -78,6 +81,7 @@ public final class Features {
         NecromancyFeature.research();
         KamiFeature.research();
         AwakenedToolsFeature.research();
+        AwakenedArmorFeature.research();
     }
 
     public static void recipes() {
@@ -97,6 +101,7 @@ public final class Features {
         NecromancyFeature.recipes();
         KamiFeature.recipes();
         AwakenedToolsFeature.recipes();
+        AwakenedArmorFeature.recipes();
     }
 
     public static void aspects(AspectRegistry registry) {
@@ -121,5 +126,6 @@ public final class Features {
         NecromancyGameTests.register(modEventBus);
         KamiGameTests.register(modEventBus);
         AwakenedToolsGameTests.register(modEventBus);
+        AwakenedArmorGameTests.register(modEventBus);
     }
 }
