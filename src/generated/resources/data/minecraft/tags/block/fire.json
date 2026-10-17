@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:aer_imbued_fire",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:aqua_imbued_fire",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:ignis_imbued_fire",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:ordo_imbued_fire",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:perditio_imbued_fire",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:terra_imbued_fire",
+      "required": false
+    }
+  ]
+}

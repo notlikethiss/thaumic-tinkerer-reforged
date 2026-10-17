@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import thaumictinkerer.ThaumicTinkerer;
 
 public final class ModEffects {
-    private static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, ThaumicTinkerer.MODID);
+    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, ThaumicTinkerer.MODID);
 
     private ModEffects() {
     }

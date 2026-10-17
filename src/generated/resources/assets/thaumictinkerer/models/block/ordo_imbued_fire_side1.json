@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fire_side",
+  "textures": {
+    "fire": "thaumictinkerer:block/fireorder_layer_1"
+  }
+}

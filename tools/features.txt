@@ -9,6 +9,7 @@ repairer
 foci
 enchanting
 crops
+elements
 attractor
 tablet
 gear

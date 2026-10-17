@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fire_up",
+  "textures": {
+    "fire": "thaumictinkerer:block/fireearth_layer_0"
+  }
+}

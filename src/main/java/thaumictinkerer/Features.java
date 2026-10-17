@@ -31,6 +31,8 @@ import thaumictinkerer.enchanting.EnchantingFeature;
 import thaumictinkerer.test.EnchantingGameTests;
 import thaumictinkerer.test.DarkQuartzGameTests;
 import thaumictinkerer.test.FociGameTests;
+import thaumictinkerer.elements.ElementsFeature;
+import thaumictinkerer.test.ElementsGameTests;
 
 public final class Features {
     private Features() {
@@ -47,6 +49,7 @@ public final class Features {
         FociFeature.load();
         EnchantingFeature.load();
         CropsFeature.load();
+        ElementsFeature.load();
         AttractorFeature.load();
         TabletFeature.load();
         GearFeature.load();
@@ -62,6 +65,7 @@ public final class Features {
         TransvectorFeature.research();
         FociFeature.research();
         EnchantingFeature.research();
+        ElementsFeature.research();
         AttractorFeature.research();
         TabletFeature.research();
         GearFeature.research();
@@ -78,6 +82,7 @@ public final class Features {
         FociFeature.recipes();
         EnchantingFeature.recipes();
         CropsFeature.recipes();
+        ElementsFeature.recipes();
         AttractorFeature.recipes();
         TabletFeature.recipes();
         GearFeature.recipes();
@@ -99,6 +104,7 @@ public final class Features {
         FociGameTests.register(modEventBus);
         EnchantingGameTests.register(modEventBus);
         CropsGameTests.register(modEventBus);
+        ElementsGameTests.register(modEventBus);
         AttractorGameTests.register(modEventBus);
         TabletGameTests.register(modEventBus);
         GearGameTests.register(modEventBus);
