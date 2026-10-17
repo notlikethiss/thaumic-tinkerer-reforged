@@ -3,28 +3,42 @@ package thaumictinkerer.test;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TriState;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.SingleThreadedRandomSource;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectHelper;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.crafting.InfusionRecipe;
 import thaumcraft.crafting.TcRecipes;
+import thaumcraft.registry.ModItems;
 import thaumictinkerer.Config;
 import thaumictinkerer.crops.AspectCropLootManager;
 import thaumictinkerer.crops.CropKind;
+import thaumictinkerer.crops.CropsEvents;
 import thaumictinkerer.crops.CropsFeature;
 import thaumictinkerer.crops.InfusedFarmlandBlock;
 import thaumictinkerer.crops.InfusedFarmlandBlockEntity;
@@ -45,6 +59,8 @@ public final class CropsGameTests {
         .add("seed_stacks", CropsGameTests::seedStacks)
         .add("grain_items", CropsGameTests::grainItems)
         .add("planting_creates_infused_farmland", CropsGameTests::plantingCreatesFarmland)
+        .add("seeds_use_on_farmland", CropsGameTests::seedsUseOnFarmland)
+        .add("elemental_hoe_grows_crop", CropsGameTests::elementalHoe)
         .add("farmland_rules", CropsGameTests::farmlandRules)
         .add("growth_needs_light_and_roll", CropsGameTests::growthNeedsLight)
         .add("mature_crop_drops_grain_of_aspect", CropsGameTests::matureDrops)
@@ -191,6 +207,60 @@ public final class CropsGameTests {
         helper.succeed();
     }
 
+    private static UseOnContext useOn(GameTestHelper helper, Player player, BlockPos pos, Direction face) {
+        BlockPos absolute = helper.absolutePos(pos);
+        return new UseOnContext(player, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(absolute), face, absolute, false));
+    }
+
+    private static void seedsUseOnFarmland(GameTestHelper helper) {
+        clear(helper);
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        ItemStack seeds = InfusedSeedsItem.stackFor(Aspect.WATER);
+        InfusedSeedsItem.setTendencies(seeds, new AspectList().add(Aspect.ORDER, 3));
+        seeds.setCount(2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, seeds);
+        helper.setBlock(SOIL, Blocks.DIRT.defaultBlockState());
+        helper.assertTrue(seeds.useOn(useOn(helper, player, SOIL, Direction.UP)) == InteractionResult.PASS, "planted on dirt");
+        helper.setBlock(SOIL, Blocks.FARMLAND.defaultBlockState());
+        helper.assertTrue(seeds.useOn(useOn(helper, player, SOIL, Direction.NORTH)) == InteractionResult.PASS, "planted on a side face");
+        helper.setBlock(CROP, Blocks.STONE.defaultBlockState());
+        helper.assertTrue(seeds.useOn(useOn(helper, player, SOIL, Direction.UP)) == InteractionResult.PASS, "planted into stone");
+        helper.assertTrue(seeds.getCount() == 2, "seeds consumed on failure");
+        helper.setBlock(CROP, Blocks.AIR.defaultBlockState());
+        helper.assertTrue(seeds.useOn(useOn(helper, player, SOIL, Direction.UP)).consumesAction(), "did not plant");
+        helper.assertTrue(seeds.getCount() == 1, "seeds not consumed");
+        helper.assertTrue(helper.getBlockState(SOIL).getBlock() instanceof InfusedFarmlandBlock, "farmland not infused");
+        InfusedGrainBlockEntity grain = (InfusedGrainBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(CROP));
+        helper.assertTrue(grain != null && grain.getAspect() == Aspect.WATER && grain.tendency(Aspect.ORDER) == 3, "crop data");
+        helper.assertTrue(helper.getBlockState(CROP).getValue(InfusedGrainBlock.KIND) == CropKind.AQUA, "crop kind");
+        soil(helper, SOIL).getAspects().add(Aspect.EARTH, 5);
+        helper.setBlock(CROP, Blocks.AIR.defaultBlockState());
+        helper.assertTrue(seeds.useOn(useOn(helper, player, SOIL, Direction.UP)).consumesAction(), "did not plant on infused farmland");
+        helper.assertTrue(soil(helper, SOIL).getAspects().getAmount(Aspect.EARTH) == 5, "residue lost when replanting");
+        helper.succeed();
+    }
+
+    private static void elementalHoe(GameTestHelper helper) {
+        clear(helper);
+        helper.setBlock(SOIL, Blocks.FARMLAND.defaultBlockState());
+        plant(helper, SOIL, Aspect.AIR, new AspectList());
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        ItemStack hoe = new ItemStack(ModItems.ELEMENTAL_HOE.get());
+        player.setItemInHand(InteractionHand.MAIN_HAND, hoe);
+        BlockPos absolute = helper.absolutePos(CROP);
+        var event = new PlayerInteractEvent.RightClickBlock(player, InteractionHand.MAIN_HAND, absolute, new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false));
+        NeoForge.EVENT_BUS.post(event);
+        helper.assertTrue(event.isCanceled(), "hoe use not handled");
+        helper.assertTrue(helper.getBlockState(CROP).getValue(InfusedGrainBlock.AGE) >= 2, "hoe did not grow the crop");
+        helper.assertTrue(hoe.getDamageValue() == CropsEvents.HOE_DAMAGE, "hoe damage " + hoe.getDamageValue());
+        setAge(helper, CROP, 7);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.STICK));
+        var other = new PlayerInteractEvent.RightClickBlock(player, InteractionHand.MAIN_HAND, absolute, new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false));
+        NeoForge.EVENT_BUS.post(other);
+        helper.assertTrue(!other.isCanceled(), "event handled for another item");
+        helper.succeed();
+    }
+
     private static void farmlandRules(GameTestHelper helper) {
         clear(helper);
         helper.setBlock(SOIL, CropsFeature.INFUSED_FARMLAND.get().defaultBlockState());
@@ -198,14 +268,14 @@ public final class CropsGameTests {
         BlockPos soil = helper.absolutePos(SOIL);
         BlockState farmland = level.getBlockState(soil);
         InfusedGrainBlock crop = CropsFeature.INFUSED_GRAIN.get();
-        helper.assertTrue(farmland.canSustainPlant(level, soil, net.minecraft.core.Direction.UP, crop.defaultBlockState()) == TriState.TRUE, "does not sustain infused crop");
-        helper.assertTrue(farmland.canSustainPlant(level, soil, net.minecraft.core.Direction.UP, Blocks.WHEAT.defaultBlockState()) == TriState.FALSE, "sustains wheat");
+        helper.assertTrue(farmland.canSustainPlant(level, soil, Direction.UP, crop.defaultBlockState()) == TriState.TRUE, "does not sustain infused crop");
+        helper.assertTrue(farmland.canSustainPlant(level, soil, Direction.UP, Blocks.WHEAT.defaultBlockState()) == TriState.FALSE, "sustains wheat");
         helper.assertTrue(crop.defaultBlockState().canSurvive(level, soil.above()), "crop cannot stand on infused farmland");
         helper.setBlock(SOIL, Blocks.FARMLAND.defaultBlockState());
         helper.assertTrue(!crop.defaultBlockState().canSurvive(level, soil.above()), "crop stands on vanilla farmland");
         helper.setBlock(SOIL, CropsFeature.INFUSED_FARMLAND.get().defaultBlockState());
         farmland = level.getBlockState(soil);
-        helper.assertTrue(farmland.getCollisionShape(level, soil).max(net.minecraft.core.Direction.Axis.Y) == 1.0, "farmland is not a full block");
+        helper.assertTrue(farmland.getCollisionShape(level, soil).max(Direction.Axis.Y) == 1.0, "farmland is not a full block");
         for (int index = 0; index < 20; index++) {
             farmland.randomTick(level, soil, level.getRandom());
             level.getBlockState(soil).tick(level, soil, level.getRandom());
@@ -304,8 +374,8 @@ public final class CropsGameTests {
         helper.assertTrue(count(drops, CropsFeature.INFUSED_SEEDS.get()) == 2, "entropy seeds " + drops);
 
         grain.setup(Aspect.AIR, new AspectList().add(Aspect.ORDER, 50));
-        drops = InfusedGrainBlock.drops(helper.getLevel(), grain, true, new ScriptedRandom(0, 74, 1));
-        helper.assertTrue(count(drops, CropsFeature.AIR_GRAIN.get()) == 2, "order grain " + drops);
+        drops = InfusedGrainBlock.drops(helper.getLevel(), grain, true, new ScriptedRandom(0, 74, 1, 0, 0, 0, 74));
+        helper.assertTrue(count(drops, CropsFeature.AIR_GRAIN.get()) == 2, "order grain " + drops + " residue " + soil(helper, SOIL).getAspects() + " tendencies " + grain.getTendencies());
 
         soil(helper, SOIL).setAspects(new AspectList());
         grain.setup(Aspect.AIR, new AspectList().add(Aspect.EARTH, 50));
@@ -427,8 +497,9 @@ public final class CropsGameTests {
         helper.assertTrue(restored.getAspect() == Aspect.MAN, "aspect lost");
         helper.assertTrue(restored.getTendencies().equals(grain.getTendencies()), "tendencies lost " + restored.getTendencies());
         CompoundTag update = grain.getUpdateTag(access);
-        BlockEntity synced = BlockEntity.loadStatic(grain.getBlockPos(), grain.getBlockState(), update, access);
-        helper.assertTrue(synced instanceof InfusedGrainBlockEntity client && client.getAspect() == Aspect.MAN && client.tendency(Aspect.FIRE) == 7, "update tag");
+        InfusedGrainBlockEntity synced = new InfusedGrainBlockEntity(grain.getBlockPos(), grain.getBlockState());
+        synced.loadCustomOnly(TagValueInput.create(ProblemReporter.DISCARDING, access, update));
+        helper.assertTrue(synced.getAspect() == Aspect.MAN && synced.tendency(Aspect.FIRE) == 7, "update tag");
 
         InfusedFarmlandBlockEntity farmland = soil(helper, SOIL);
         BlockEntity farmlandLoaded = BlockEntity.loadStatic(farmland.getBlockPos(), farmland.getBlockState(), farmland.saveWithFullMetadata(access), access);
