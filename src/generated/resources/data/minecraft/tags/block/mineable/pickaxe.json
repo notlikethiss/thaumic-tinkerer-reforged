@@ -76,6 +76,10 @@
     {
       "id": "thaumictinkerer:ward_slab",
       "required": false
+    },
+    {
+      "id": "thaumictinkerer:warp_gate",
+      "required": false
     }
   ]
 }

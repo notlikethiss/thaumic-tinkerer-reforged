@@ -3,6 +3,7 @@ package thaumictinkerer.client;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import thaumictinkerer.attractor.AttractorFeature;
+import thaumictinkerer.client.gateway.GatewayClient;
 import thaumictinkerer.client.attractor.AttractorRenderer;
 import thaumictinkerer.client.attractor.CorporealAttractorScreen;
 import thaumictinkerer.client.enchanting.EnchantingClient;
@@ -24,6 +25,7 @@ public final class ClientFeatures {
         event.register(AttractorFeature.CORPOREAL_MENU.get(), CorporealAttractorScreen::new);
         event.register(TabletFeature.TABLET_MENU.get(), DynamismTabletScreen::new);
         TrinketsClient.registerScreens(event);
+        GatewayClient.registerScreens(event);
     }
 
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
@@ -33,5 +35,6 @@ public final class ClientFeatures {
         event.registerBlockEntityRenderer(AttractorFeature.KINETIC_ENTITY.get(), AttractorRenderer::new);
         event.registerBlockEntityRenderer(AttractorFeature.CORPOREAL_ENTITY.get(), AttractorRenderer::new);
         event.registerBlockEntityRenderer(TabletFeature.TABLET_ENTITY.get(), DynamismTabletRenderer::new);
+        GatewayClient.registerRenderers(event);
     }
 }

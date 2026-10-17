@@ -18,3 +18,5 @@ kami
 awakened_tools
 awakened_armor
 trinkets
+kami_gateway
+kami_foci
