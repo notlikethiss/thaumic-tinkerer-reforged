@@ -94,7 +94,7 @@ public final class AwakenedToolsGameTests {
         }
         InfusionRecipe pick = (InfusionRecipe) TcRecipes.get("ICHOR_PICK_GEM");
         helper.assertTrue(pick.aspects().getAmount(Aspect.MINE) == 64 && pick.aspects().getAmount(Aspect.FIRE) == 50, "pick aspects");
-        helper.assertTrue(pick.result().item().equals("thaumictinkerer:awakened_ichorium_pickaxe"), "pick result");
+        helper.assertTrue(pick.result().item().toString().equals("thaumictinkerer:awakened_ichorium_pickaxe"), "pick result");
         InfusionRecipe sword = (InfusionRecipe) TcRecipes.get("ICHOR_SWORD_GEM");
         helper.assertTrue(sword.aspects().getAmount(Aspect.HUNGER) == 64 && sword.aspects().getAmount(Aspect.SOUL) == 32, "sword aspects");
         helper.succeed();
@@ -284,9 +284,9 @@ public final class AwakenedToolsGameTests {
 
     private static void swordAreaMode(GameTestHelper helper) {
         ServerPlayer player = player(helper, tool(AwakenedToolsFeature.AWAKENED_SWORD.get(), 1), 0.0F);
-        Zombie target = zombie(helper, new BlockPos(3, 1, 3));
-        Zombie near = zombie(helper, new BlockPos(3, 1, 5));
-        Zombie far = zombie(helper, new BlockPos(0, 1, 0));
+        Zombie target = zombie(helper, new BlockPos(1, 1, 1));
+        Zombie near = zombie(helper, new BlockPos(1, 1, 3));
+        Zombie far = zombie(helper, new BlockPos(6, 1, 6));
         float nearHealth = near.getHealth();
         float farHealth = far.getHealth();
         player.attack(target);
