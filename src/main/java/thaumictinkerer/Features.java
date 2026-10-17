@@ -32,6 +32,8 @@ import thaumictinkerer.test.EnchantingGameTests;
 import thaumictinkerer.test.DarkQuartzGameTests;
 import thaumictinkerer.test.FociGameTests;
 import thaumictinkerer.elements.ElementsFeature;
+import thaumictinkerer.kami.KamiFeature;
+import thaumictinkerer.test.KamiGameTests;
 import thaumictinkerer.test.ElementsGameTests;
 
 public final class Features {
@@ -54,6 +56,7 @@ public final class Features {
         TabletFeature.load();
         GearFeature.load();
         NecromancyFeature.load();
+        KamiFeature.load();
     }
 
     public static void research() {
@@ -70,6 +73,7 @@ public final class Features {
         TabletFeature.research();
         GearFeature.research();
         NecromancyFeature.research();
+        KamiFeature.research();
     }
 
     public static void recipes() {
@@ -87,6 +91,7 @@ public final class Features {
         TabletFeature.recipes();
         GearFeature.recipes();
         NecromancyFeature.recipes();
+        KamiFeature.recipes();
     }
 
     public static void aspects(AspectRegistry registry) {
@@ -109,5 +114,6 @@ public final class Features {
         TabletGameTests.register(modEventBus);
         GearGameTests.register(modEventBus);
         NecromancyGameTests.register(modEventBus);
+        KamiGameTests.register(modEventBus);
     }
 }
