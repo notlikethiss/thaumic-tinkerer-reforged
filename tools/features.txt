@@ -11,3 +11,4 @@ enchanting
 attractor
 tablet
 gear
+necromancy

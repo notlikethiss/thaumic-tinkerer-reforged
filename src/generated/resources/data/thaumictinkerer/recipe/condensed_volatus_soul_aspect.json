@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:registered",
+      "value": "thaumictinkerer:condensed_volatus_soul_aspect"
+    },
+    {
+      "type": "neoforge:registered",
+      "value": "thaumictinkerer:volatus_soul_aspect"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": "thaumictinkerer:volatus_soul_aspect"
+  },
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "result": {
+    "id": "thaumictinkerer:condensed_volatus_soul_aspect"
+  }
+}

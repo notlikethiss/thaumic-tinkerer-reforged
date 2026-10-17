@@ -10,6 +10,8 @@ import thaumictinkerer.darkquartz.DarkQuartzFeature;
 import thaumictinkerer.decor.DecorFeature;
 import thaumictinkerer.funnel.FunnelFeature;
 import thaumictinkerer.gear.GearFeature;
+import thaumictinkerer.necromancy.NecromancyFeature;
+import thaumictinkerer.test.NecromancyGameTests;
 import thaumictinkerer.gas.GasFeature;
 import thaumictinkerer.mobilizer.MobilizerFeature;
 import thaumictinkerer.repairer.RepairerFeature;
@@ -45,6 +47,7 @@ public final class Features {
         AttractorFeature.load();
         TabletFeature.load();
         GearFeature.load();
+        NecromancyFeature.load();
     }
 
     public static void research() {
@@ -59,6 +62,7 @@ public final class Features {
         AttractorFeature.research();
         TabletFeature.research();
         GearFeature.research();
+        NecromancyFeature.research();
     }
 
     public static void recipes() {
@@ -73,9 +77,11 @@ public final class Features {
         AttractorFeature.recipes();
         TabletFeature.recipes();
         GearFeature.recipes();
+        NecromancyFeature.recipes();
     }
 
     public static void aspects(AspectRegistry registry) {
+        NecromancyFeature.aspects(registry);
     }
 
     public static void tests(IEventBus modEventBus) {
@@ -91,5 +97,6 @@ public final class Features {
         AttractorGameTests.register(modEventBus);
         TabletGameTests.register(modEventBus);
         GearGameTests.register(modEventBus);
+        NecromancyGameTests.register(modEventBus);
     }
 }
