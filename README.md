@@ -1,5 +1,7 @@
 # Thaumic Tinkerer: Reforged
 
+[![Thaumic Tinkerer: Reforged](poster.png)](poster.png)
+
 Unofficial port of **Thaumic Tinkerer 2.5** by Vazkii, pixlepix and nekosune from Minecraft 1.7.10 to **Minecraft 26.3** on **NeoForge 26.3**. It is an addon to [Thaumcraft 4: Reforged](../thaumcraft-4-reforged) and needs it to run.
 
 The goal is to recreate the original gameplay as closely as possible, including the KAMI content. The Bedrock dimension, ComputerCraft peripherals and integrations with other mods (except JEI) are not ported. The technical side is rebuilt on modern APIs.
