@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "pull=true": {
+      "model": "thaumictinkerer:block/corporeal_attractor"
+    },
+    "pull=false": {
+      "model": "thaumictinkerer:block/corporeal_attractor"
+    }
+  }
+}

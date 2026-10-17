@@ -4,15 +4,21 @@ import net.neoforged.bus.api.IEventBus;
 import thaumcraft.aspect.AspectRegistry;
 import thaumictinkerer.crops.CropsFeature;
 import thaumictinkerer.test.CropsGameTests;
+import thaumictinkerer.attractor.AttractorFeature;
+import thaumictinkerer.tablet.TabletFeature;
+import thaumictinkerer.test.AttractorGameTests;
+import thaumictinkerer.test.TabletGameTests;
 import thaumictinkerer.darkquartz.DarkQuartzFeature;
 import thaumictinkerer.decor.DecorFeature;
 import thaumictinkerer.funnel.FunnelFeature;
+import thaumictinkerer.gear.GearFeature;
 import thaumictinkerer.gas.GasFeature;
 import thaumictinkerer.mobilizer.MobilizerFeature;
 import thaumictinkerer.repairer.RepairerFeature;
 import thaumictinkerer.test.DarkQuartzGameTests;
 import thaumictinkerer.test.DecorGameTests;
 import thaumictinkerer.test.FunnelGameTests;
+import thaumictinkerer.test.GearGameTests;
 import thaumictinkerer.test.GasGameTests;
 import thaumictinkerer.test.MobilizerGameTests;
 import thaumictinkerer.test.RepairerGameTests;
@@ -39,6 +45,9 @@ public final class Features {
         FociFeature.load();
         EnchantingFeature.load();
         CropsFeature.load();
+        AttractorFeature.load();
+        TabletFeature.load();
+        GearFeature.load();
     }
 
     public static void research() {
@@ -50,6 +59,9 @@ public final class Features {
         TransvectorFeature.research();
         FociFeature.research();
         EnchantingFeature.research();
+        AttractorFeature.research();
+        TabletFeature.research();
+        GearFeature.research();
     }
 
     public static void recipes() {
@@ -62,6 +74,9 @@ public final class Features {
         FociFeature.recipes();
         EnchantingFeature.recipes();
         CropsFeature.recipes();
+        AttractorFeature.recipes();
+        TabletFeature.recipes();
+        GearFeature.recipes();
     }
 
     public static void aspects(AspectRegistry registry) {
@@ -78,5 +93,8 @@ public final class Features {
         FociGameTests.register(modEventBus);
         EnchantingGameTests.register(modEventBus);
         CropsGameTests.register(modEventBus);
+        AttractorGameTests.register(modEventBus);
+        TabletGameTests.register(modEventBus);
+        GearGameTests.register(modEventBus);
     }
 }

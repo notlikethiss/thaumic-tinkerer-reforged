@@ -591,6 +591,7 @@
   "ttinkerer.ttmisc.active": "Active",
   "ttinkerer.ttmisc.adult": "Adult",
   "ttinkerer.ttmisc.all": "All",
+  "ttinkerer.ttmisc.animationTablet.error": "Something went wrong with a Tool Dynamism Tablet! Check your log.",
   "ttinkerer.ttmisc.animationTablet.notRotatable": "You can not rotate the Tablet while it's activated.",
   "ttinkerer.ttmisc.awakenedArmor0": "Armor Piece Enabled",
   "ttinkerer.ttmisc.awakenedArmor1": "Armor Piece Disabled",

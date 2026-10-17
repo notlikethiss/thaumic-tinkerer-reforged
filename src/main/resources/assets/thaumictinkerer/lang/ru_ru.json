@@ -591,6 +591,7 @@
   "ttinkerer.ttmisc.active": "Активн.",
   "ttinkerer.ttmisc.adult": "Взрослые",
   "ttinkerer.ttmisc.all": "Все",
+  "ttinkerer.ttmisc.animationTablet.error": "Что-то пошло не так с Динамической дощечкой! Проверьте лог.",
   "ttinkerer.ttmisc.animationTablet.notRotatable": "Вы не можете повернуть дощечку, так как она активна",
   "ttinkerer.ttmisc.awakenedArmor0": "Броня усыплена",
   "ttinkerer.ttmisc.awakenedArmor1": "Броня пробуждена",

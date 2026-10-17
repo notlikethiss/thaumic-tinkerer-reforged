@@ -9,3 +9,6 @@ repairer
 foci
 enchanting
 crops
+attractor
+tablet
+gear
