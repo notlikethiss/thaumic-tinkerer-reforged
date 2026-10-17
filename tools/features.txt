@@ -17,3 +17,4 @@ necromancy
 kami
 awakened_tools
 awakened_armor
+trinkets

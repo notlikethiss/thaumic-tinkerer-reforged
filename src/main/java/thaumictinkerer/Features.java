@@ -37,6 +37,8 @@ import thaumictinkerer.elements.ElementsFeature;
 import thaumictinkerer.kami.KamiFeature;
 import thaumictinkerer.kami.tool.AwakenedToolsFeature;
 import thaumictinkerer.test.AwakenedToolsGameTests;
+import thaumictinkerer.kami.trinkets.TrinketsFeature;
+import thaumictinkerer.test.TrinketsGameTests;
 import thaumictinkerer.test.KamiGameTests;
 import thaumictinkerer.test.ElementsGameTests;
 
@@ -63,6 +65,7 @@ public final class Features {
         KamiFeature.load();
         AwakenedToolsFeature.load();
         AwakenedArmorFeature.load();
+        TrinketsFeature.load();
     }
 
     public static void research() {
@@ -82,6 +85,7 @@ public final class Features {
         KamiFeature.research();
         AwakenedToolsFeature.research();
         AwakenedArmorFeature.research();
+        TrinketsFeature.research();
     }
 
     public static void recipes() {
@@ -102,6 +106,7 @@ public final class Features {
         KamiFeature.recipes();
         AwakenedToolsFeature.recipes();
         AwakenedArmorFeature.recipes();
+        TrinketsFeature.recipes();
     }
 
     public static void aspects(AspectRegistry registry) {
@@ -127,5 +132,6 @@ public final class Features {
         KamiGameTests.register(modEventBus);
         AwakenedToolsGameTests.register(modEventBus);
         AwakenedArmorGameTests.register(modEventBus);
+        TrinketsGameTests.register(modEventBus);
     }
 }

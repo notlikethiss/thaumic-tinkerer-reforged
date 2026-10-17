@@ -79,6 +79,7 @@
 
 - `TtRarity.kami()` это `Rarity` KAMI (светло-фиолетовый) через расширение enum NeoForge: `META-INF/enumextensions.json`, ключ `enumExtensions` в `neoforge.mods.toml` обязателен. Вызывать только как метод, поле `Rarity` в статике нельзя (циклическая инициализация).
 - Пробуждённая кирка не ломает бедрок (измерение Bedrock исключено), текст второй страницы ICHOR_PICK_GEM переопределён в `tools/lang/awakened_tools`. Режим пробуждённого инструмента хранится в `CUSTOM_MODEL_DATA` (float 0), от него же выбирается модель через `range_dispatch`. Души хранит вложение `soul_hearts` с синхронизацией владельцу.
+- `IchorPouchItem` наследует `FocusPouchItem` базы, но `FocusPouchItem.getInventory/setInventory` статичные на 18 слотов и стирают всё, что не фокус. Поэтому первые 18 из 117 слотов мешочка ичора хранятся в `FocusKeys.POUCH` и принимают только фокусы (их видит переключатель жезла), остальные 99 лежат в компоненте `ichor_pouch_extra`. Не склеивать в один компонент.
 - Вкладка творчества своя, иконка `dark_quartz` пока, потом ичор.
 - Аддон-регистратор аспектов один (`AspectSync.addRegistrar(Features::aspects)`), фича добавляет строку в `Features.aspects`. Для предметов без аспектов TT база выводит аспекты по рецептам сама.
 
