@@ -123,3 +123,7 @@ idea {
 tasks.named('runServer') {
     standardInput = System.in
 }
+
+tasks.matching { it.name.startsWith("prepare") && it.name.endsWith("Run") }.configureEach {
+    outputs.cacheIf { false }
+}

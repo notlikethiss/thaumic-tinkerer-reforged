@@ -19,6 +19,7 @@ public final class TtGameTestSuite {
     private final String name;
     private final DeferredRegister<Consumer<GameTestHelper>> functions;
     private final List<String> tests = new ArrayList<>();
+    private boolean isolated;
 
     public TtGameTestSuite(String name) {
         this.name = name;
@@ -32,14 +33,20 @@ public final class TtGameTestSuite {
         return this;
     }
 
+    public TtGameTestSuite isolated() {
+        isolated = true;
+        return this;
+    }
+
     public void register(IEventBus modEventBus) {
         functions.register(modEventBus);
         modEventBus.addListener(this::registerTests);
     }
 
     private void registerTests(RegisterGameTestsEvent event) {
-        var environment = event.registerEnvironment(ThaumicTinkerer.id(name + "_default"), new TestEnvironmentDefinition.AllOf());
+        var shared = isolated ? null : event.registerEnvironment(ThaumicTinkerer.id(name + "_default"), new TestEnvironmentDefinition.AllOf());
         for (String testName : tests) {
+            var environment = isolated ? event.registerEnvironment(ThaumicTinkerer.id(testName + "_env"), new TestEnvironmentDefinition.AllOf()) : shared;
             ResourceKey<Consumer<GameTestHelper>> function = ResourceKey.create(Registries.TEST_FUNCTION, ThaumicTinkerer.id(testName));
             event.registerTest(
                 ThaumicTinkerer.id(testName),

@@ -37,7 +37,8 @@ public final class MobilizerGameTests {
         .add("moves_chest_without_duplication", MobilizerGameTests::movesChest)
         .add("leaves_unbreakable_blocks", MobilizerGameTests::leavesUnbreakable)
         .add("bounces_at_obstacle", MobilizerGameTests::bounces)
-        .add("persists", MobilizerGameTests::persists);
+        .add("persists", MobilizerGameTests::persists)
+        .isolated();
 
     private MobilizerGameTests() {
     }
