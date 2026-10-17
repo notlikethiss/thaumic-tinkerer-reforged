@@ -67,12 +67,14 @@
 - `KamiResearchItem`: concealed, скрытые родители считаются лениво в `parentsHidden()` (все исследования `TT_CATEGORY`, BASICS, GOLEMANCY, ARTIFICE, ALCHEMY, THAUMATURGY без потерянных, виртуальных, триггерных, без родителей, KAMI, MINILITH*, *KAMI), потому что конструктор аддона идёт до тегов и фильтр `isAvailable` в конструкторе даёт неверный результат. Исследование доступно только при `Config.kamiEnabled()`, KAMI-контент регистрируется всегда.
 - Конфиг в конструкторе недоступен: условия читаются в момент запроса (`Config.kamiEnabled()`, `imbuedFire()` и т.д. возвращают умолчание, пока `SPEC` не загружен). Блоки и предметы регистрируются всегда, отключается доступность исследований и поведение.
 - Префиксы `[TT]`/`[TTKami]` в тексте исследования воспроизведены ключами `ttinkerer.research_text(_kami).KEY`, которые `convert_assets.py` строит из `tc.research_text.KEY`; `textKey()` выбирает их при `Config.tooltipIndicators()`.
+- `tools/extract_tt_research.py` строит `tools/tt_research.json` из исходников TT (74 исследования), GameTest `research_matches_tt_table` сверяет с ним реестр: позиции, родители, аспекты, флаги, warp, страницы. Сложность в таблице уже ограничена до 1..3, ключи рецептов страниц сопоставляются с суффиксом `_<...>` (SUMMON, DARK_QUARTZ0_COAL). После правки исследования таблицу не менять руками, а сверять с TT.
 - `TtResearch.kamiResearch()`/`setKamiResearch` хранит исследование KAMI для команды `KamiUnlocked`.
 
 ## Рецепты
 
 - `crafting/TtRecipes` поверх `TcRecipes.register`: `arcane(key, research, result, aspects, pattern, 'A', ingredient, ...)`, `arcaneShapeless`, `infusion(key[, research], result, instability, aspects, central, components...)`, `crucible(key, result, catalyst, aspects)`, `vanilla(key, research, recipePath, result)` (`CraftingRecipeRef` на обычный рецепт из `data/thaumictinkerer/recipe`). Ключи TT сохраняются как есть, повтор ключа (в том числе с базой) бросает `IllegalStateException`.
 - Обычные рецепты верстака пишет генератор (`ctx.shaped`), зеркальные варианты TT (лестницы) не дублируются, ваниль зеркалит сама. Если у TT два рецепта с одним ключом, регистрируются оба ключа (`DARK_QUARTZ0`, `DARK_QUARTZ0_COAL`) и обе ссылки идут в одну страницу.
+- `python3 tools/extract_tt_recipes.py --compare <дамп>` строит `tools/tt_recipes.json` из TT и сверяет с дампом рецептов `TcRecipes.all()` (дамп пишет временный GameTest в JSON-формате `tools/compare_recipes.py`). Рецепты тигля `INFUSED_POTIONSPOT0..3` в TT привязаны к несуществующему исследованию и в TC4 никогда не срабатывают, поэтому у них исследование `INFUSED_POTIONS`. `INFUSED_INKWELL` без исследования намеренно как в TT.
 - `python3 tools/tc4_ref.py ConfigItems.itemResource 14` печатает id и состояние базы (`ConfigBlocks.x meta`, `Items.x meta`, `Blocks.x`, имя oredict, мета `*` для всех). `--all` пишет `tools/tc4_refs.json` (коммитится). Oredict даёт теги `#c:...` как в `convert_recipes.py` базы.
 
 ## Прочее
