@@ -154,7 +154,7 @@ public final class ElementsGameTests {
         clearArea(helper);
         ServerLevel level = helper.getLevel();
         BlockPos center = new BlockPos(3, 3, 3);
-        helper.setBlock(center.east().below(), source instanceof net.minecraft.world.level.block.CropBlock ? Blocks.FARMLAND.defaultBlockState() : Blocks.STONE.defaultBlockState());
+        helper.setBlock(center.east().below(), source == Blocks.POPPY ? Blocks.DIRT.defaultBlockState() : Blocks.STONE.defaultBlockState());
         helper.setBlock(center, fire.defaultBlockState());
         helper.setBlock(center.east(), source.defaultBlockState());
         helper.assertTrue(fire.isNeighborTarget(level, helper.absolutePos(center)), source + " is not a target of " + fire + ", east is " + helper.getBlockState(center.east()) + ", center is " + helper.getBlockState(center));
@@ -193,7 +193,8 @@ public final class ElementsGameTests {
         transform(helper, fire, Blocks.CLAY, Blocks.GLOWSTONE);
         transform(helper, fire, Blocks.IRON_ORE, Blocks.NETHER_QUARTZ_ORE);
         transform(helper, fire, Blocks.WATER, Blocks.LAVA);
-        transform(helper, fire, Blocks.WHEAT, Blocks.NETHER_WART);
+        BlockState wart = fire.transformation().result(helper.getLevel(), helper.absolutePos(new BlockPos(3, 3, 3)), Blocks.WHEAT.defaultBlockState());
+        helper.assertTrue(wart != null && wart.is(Blocks.NETHER_WART), "wheat became " + wart);
         transform(helper, fire, Blocks.POPPY, Blocks.BROWN_MUSHROOM);
         helper.succeed();
     }
