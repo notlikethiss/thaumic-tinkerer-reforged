@@ -40,6 +40,14 @@ python3 tools/check_seams.py  # check version-specific API boundaries
 python3 tools/inventory.py --check
 ```
 
+## Automatic releases
+
+GitHub Actions builds pushes to `main` and `mc/**` and can also be started manually with **Run workflow**. Pushes that only change Markdown files or `tools/**` are skipped.
+
+The workflow checks out Thaumcraft 4: Reforged alongside the addon, using the matching `mc/**` branch for Minecraft branches and `main` otherwise. Java, Minecraft and mod versions are read from `gradle.properties`.
+
+After the seam check and Gradle build pass, the workflow replaces the release and tag named after the Minecraft version (currently `26.3`), attaches the addon JAR and uses the latest commit as release notes. Releases from `main` are marked as latest. This follows the release process used by Thaumcraft 4: Reforged.
+
 ## Tools
 
 | Script                    | Purpose                                                                                    |

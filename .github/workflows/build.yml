@@ -1,0 +1,76 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - "mc/**"
+    paths-ignore:
+      - "**.md"
+      - "tools/**"
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    working-directory: thaumic-tinkerer-reforged
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: thaumic-tinkerer-reforged
+
+      - name: Checkout Thaumcraft
+        uses: actions/checkout@v5
+        with:
+          repository: notlikethiss/thaumcraft-4-reforged
+          ref: ${{ startsWith(github.ref_name, 'mc/') && github.ref_name || 'main' }}
+          path: thaumcraft-4-reforged
+
+      - name: Read versions
+        id: props
+        run: |
+          echo "java=$(grep '^java_version=' gradle.properties | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+          echo "mc=$(grep '^minecraft_version=' gradle.properties | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+          echo "version=$(grep '^mod_version=' gradle.properties | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: ${{ steps.props.outputs.java }}
+
+      - uses: gradle/actions/setup-gradle@v5
+
+      - name: Check seams
+        run: python3 tools/check_seams.py
+
+      - name: Build
+        run: |
+          chmod +x gradlew
+          ./gradlew build
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MC: ${{ steps.props.outputs.mc }}
+          VERSION: ${{ steps.props.outputs.version }}
+        run: |
+          tag="$MC"
+          notes="$(git log -1 --format='%h: %s')"
+          for old in "$tag" "$VERSION-$MC" "nightly-$MC"; do gh release delete "$old" --cleanup-tag --yes || true; done
+          latest=false
+          if [ "$GITHUB_REF_NAME" = "main" ]; then latest=true; fi
+          gh release create "$tag" build/libs/*.jar \
+            --latest="$latest" \
+            --target "$GITHUB_SHA" \
+            --title "$MC" \
+            --notes "$notes"
