@@ -5,11 +5,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import thaumictinkerer.ThaumicTinkerer;
 
 public final class ModBlocks {
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ThaumicTinkerer.MODID);
+    public static final thaumictinkerer.platform.TtRegistration.Blocks BLOCKS = new thaumictinkerer.platform.TtRegistration.Blocks();
 
     private ModBlocks() {
     }
@@ -23,7 +21,7 @@ public final class ModBlocks {
         DeferredBlock<B> block,
         UnaryOperator<Item.Properties> itemProperties
     ) {
-        ModItems.ITEMS.registerSimpleBlockItem(block, itemProperties);
+        ModItems.ITEMS.registerSimpleBlockItem(block, itemProperties.apply(new Item.Properties()));
         return block;
     }
 

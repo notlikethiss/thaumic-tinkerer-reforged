@@ -1,16 +1,14 @@
 package thaumictinkerer.client.funnel;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import thaumictinkerer.client.platform.TtBlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
-import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
+import thaumictinkerer.client.platform.TtBlockEntityRenderState;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.client.render.EssentiaJarRendering;
@@ -19,10 +17,10 @@ import thaumcraft.essentia.FilledJarItem;
 import thaumcraft.registry.ModBlocks;
 import thaumictinkerer.funnel.FunnelBlockEntity;
 
-public class FunnelRenderer implements BlockEntityRenderer<FunnelBlockEntity, FunnelRenderer.State> {
+public class FunnelRenderer extends TtBlockEntityRenderer<FunnelBlockEntity, FunnelRenderer.State> {
     private static final int JAR_MAX_AMOUNT = 64;
 
-    public static class State extends BlockEntityRenderState {
+    public static class State extends TtBlockEntityRenderState {
         boolean hasJar;
         boolean voidJar;
         int posX;
@@ -40,8 +38,8 @@ public class FunnelRenderer implements BlockEntityRenderer<FunnelBlockEntity, Fu
     }
 
     @Override
-    public void extractRenderState(FunnelBlockEntity entity, State state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
-        BlockEntityRenderer.super.extractRenderState(entity, state, partialTicks, cameraPosition, breakProgress);
+    public void extractRenderState(FunnelBlockEntity entity, State state, float partialTicks, Vec3 cameraPosition, @Nullable Object breakProgress) {
+        super.extractRenderState(entity, state, partialTicks, cameraPosition, breakProgress);
         ItemStack stack = entity.getTheItem();
         state.hasJar = stack.getItem() instanceof FilledJarItem;
         state.aspect = null;
@@ -62,7 +60,7 @@ public class FunnelRenderer implements BlockEntityRenderer<FunnelBlockEntity, Fu
     }
 
     @Override
-    public void submit(State state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
+    public void submit(State state, PoseStack poseStack, MultiBufferSource collector, Object camera) {
         if (!state.hasJar) {
             return;
         }

@@ -24,16 +24,15 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.platform.Menus;
 import thaumcraft.registry.ModSounds;
 import thaumcraft.wand.WandItem;
 
-public class DynamismTabletBlock extends Block implements EntityBlock {
+public class DynamismTabletBlock extends thaumictinkerer.platform.TtBlock implements EntityBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
@@ -70,7 +69,7 @@ public class DynamismTabletBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    protected net.minecraft.world.ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (hand == InteractionHand.MAIN_HAND && stack.getItem() instanceof WandItem) {
             if (!level.isClientSide() && level.getBlockEntity(pos) instanceof DynamismTabletBlockEntity tablet) {
                 if (!state.getValue(POWERED) && !tablet.isBreaking() && tablet.swingProgress() == 0) {
@@ -80,7 +79,7 @@ public class DynamismTabletBlock extends Block implements EntityBlock {
                     player.sendSystemMessage(Component.translatable("ttinkerer.ttmisc.animationTablet.notRotatable"));
                 }
             }
-            return InteractionResult.SUCCESS;
+            return net.minecraft.world.ItemInteractionResult.SUCCESS;
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hit);
     }
@@ -94,7 +93,7 @@ public class DynamismTabletBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @Nullable Orientation orientation, boolean movedByPiston) {
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighborPos, boolean movedByPiston) {
         if (level.isClientSide()) {
             return;
         }

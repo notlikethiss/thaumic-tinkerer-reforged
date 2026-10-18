@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.wand.WandItem;
@@ -66,8 +66,8 @@ public class SmeltFocus extends TtFocus {
             return null;
         }
         SingleRecipeInput input = new SingleRecipeInput(new ItemStack(item));
-        Optional<RecipeHolder<SmeltingRecipe>> recipe = level.recipeAccess().getRecipeFor(RecipeType.SMELTING, input, level);
-        ItemStack result = recipe.map(holder -> holder.value().assemble(input)).orElse(ItemStack.EMPTY);
+        Optional<RecipeHolder<SmeltingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, input, level);
+        ItemStack result = recipe.map(holder -> holder.value().assemble(input, level.registryAccess())).orElse(ItemStack.EMPTY);
         if (result.getItem() instanceof BlockItem blockItem) {
             return blockItem.getBlock().defaultBlockState();
         }
@@ -90,7 +90,7 @@ public class SmeltFocus extends TtFocus {
     }
 
     @Override
-    public FocusUpgradeType @Nullable [] getPossibleUpgradesByRank(ItemStack focus, int rank) {
+    public @Nullable FocusUpgradeType[] getPossibleUpgradesByRank(ItemStack focus, int rank) {
         return new FocusUpgradeType[]{FocusUpgradeType.TREASURE, FocusUpgradeType.POTENCY};
     }
 

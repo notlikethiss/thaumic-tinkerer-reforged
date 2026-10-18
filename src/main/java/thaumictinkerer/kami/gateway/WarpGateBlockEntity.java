@@ -13,10 +13,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import thaumcraft.compat.ValueInput;
+import thaumcraft.compat.ValueOutput;
 import net.minecraft.world.phys.AABB;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.blockentity.TcBlockEntity;
 
 public class WarpGateBlockEntity extends TcBlockEntity implements Container, MenuProvider {
@@ -140,13 +140,13 @@ public class WarpGateBlockEntity extends TcBlockEntity implements Container, Men
         super.loadAdditional(input);
         locked = input.getBooleanOr("locked", false);
         items.clear();
-        ContainerHelper.loadAllItems(input, items);
+        ContainerHelper.loadAllItems(input.tag(), items, input.lookup());
     }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         output.putBoolean("locked", locked);
-        ContainerHelper.saveAllItems(output, items, true);
+        ContainerHelper.saveAllItems(output.tag(), items, true, output.lookup());
     }
 }

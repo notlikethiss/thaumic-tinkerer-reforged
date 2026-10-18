@@ -2,13 +2,11 @@ package thaumictinkerer.test;
 
 import java.util.List;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.animal.pig.Pig;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
@@ -36,7 +34,7 @@ public final class DecorGameTests {
 
     private static void recipesPresent(GameTestHelper helper) {
         for (String recipe : List.of("travel_slab", "travel_stairs", "ward_slab")) {
-            boolean present = helper.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, ThaumicTinkerer.id(recipe))).isPresent();
+            boolean present = helper.getLevel().getServer().getRecipeManager().byKey(ThaumicTinkerer.id(recipe)).isPresent();
             helper.assertTrue(present, "crafting recipe missing: " + recipe);
         }
         helper.succeed();
@@ -79,11 +77,11 @@ public final class DecorGameTests {
         BlockPos pos = new BlockPos(1, 1, 1);
         for (Block block : List.of(DecorFeature.TRAVEL_SLAB.get(), DecorFeature.TRAVEL_STAIRS.get(), DecorFeature.WARD_SLAB.get())) {
             helper.setBlock(pos, block.defaultBlockState());
-            Pig pig = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(2, 2, 2));
+            Pig pig = helper.spawnWithNoFreeWill(EntityType.PIG, new BlockPos(2, 2, 2));
             pig.removeAllEffects();
             block.stepOn(helper.getLevel(), helper.absolutePos(pos), helper.getBlockState(pos), pig);
-            MobEffectInstance speed = pig.getEffect(MobEffects.SPEED);
-            MobEffectInstance jump = pig.getEffect(MobEffects.JUMP_BOOST);
+            MobEffectInstance speed = pig.getEffect(MobEffects.MOVEMENT_SPEED);
+            MobEffectInstance jump = pig.getEffect(MobEffects.JUMP);
             helper.assertTrue(speed != null && speed.getAmplifier() == 1 && speed.getDuration() == 40, "speed effect of " + block);
             helper.assertTrue(jump != null && jump.getAmplifier() == 0 && jump.getDuration() == 40, "jump effect of " + block);
             pig.discard();

@@ -15,9 +15,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.Nullable;
+import thaumcraft.compat.ValueInput;
+import thaumcraft.compat.ValueOutput;
+import javax.annotation.Nullable;
 
 public class CorporealAttractorBlockEntity extends AttractorBlockEntity implements Container, MenuProvider {
     private boolean adult = true;
@@ -147,7 +147,7 @@ public class CorporealAttractorBlockEntity extends AttractorBlockEntity implemen
         super.loadAdditional(input);
         adult = input.getBooleanOr("adultCheck", true);
         NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(input, items);
+        ContainerHelper.loadAllItems(input.tag(), items, input.lookup());
         filter = items.get(0);
     }
 
@@ -155,6 +155,6 @@ public class CorporealAttractorBlockEntity extends AttractorBlockEntity implemen
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         output.putBoolean("adultCheck", adult);
-        ContainerHelper.saveAllItems(output, NonNullList.of(ItemStack.EMPTY, filter), true);
+        ContainerHelper.saveAllItems(output.tag(), NonNullList.of(ItemStack.EMPTY, filter), true, output.lookup());
     }
 }

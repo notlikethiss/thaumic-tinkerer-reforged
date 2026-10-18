@@ -153,7 +153,7 @@ public final class TabletGameTests {
         player.setItemInHand(InteractionHand.MAIN_HAND, wand);
         BlockPos absolute = helper.absolutePos(new BlockPos(2, 1, 3));
         BlockState state = helper.getBlockState(new BlockPos(2, 1, 3));
-        InteractionResult result = state.useItemOn(wand, helper.getLevel(), player, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false));
+        InteractionResult result = state.useItemOn(wand,  helper.getLevel(),  player,  InteractionHand.MAIN_HAND,  new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false)).result();
         helper.assertTrue(result.consumesAction(), "wand click was not consumed");
         helper.assertBlockProperty(new BlockPos(2, 1, 3), DynamismTabletBlock.FACING, Direction.SOUTH);
         helper.succeed();

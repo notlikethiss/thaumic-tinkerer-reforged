@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:cutout",
   "parent": "minecraft:block/template_fire_floor",
   "textures": {
     "fire": "thaumictinkerer:block/fireair_layer_1"

@@ -2,7 +2,6 @@ package thaumictinkerer.gas;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -13,7 +12,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public abstract class GasBlock extends Block {
+public abstract class GasBlock extends thaumictinkerer.platform.TtBlock {
     protected GasBlock(Properties properties) {
         super(properties);
     }
@@ -21,16 +20,16 @@ public abstract class GasBlock extends Block {
     public static BlockBehaviour.Properties gas(BlockBehaviour.Properties properties) {
         return properties
             .mapColor(MapColor.NONE)
-            .noCollision()
+            .noCollission()
             .noOcclusion()
             .noLootTable()
             .replaceable()
             .randomTicks()
             .instabreak()
             .sound(SoundType.EMPTY)
-            .pushReaction(PushReaction.POPPED)
+            .pushReaction(PushReaction.DESTROY)
             .isSuffocating((state, level, pos) -> false)
-            .isViewBlocking((state, level, pos, box) -> false)
+            .isViewBlocking((state, level, pos) -> false)
             .isRedstoneConductor((state, level, pos) -> false);
     }
 
@@ -49,7 +48,7 @@ public abstract class GasBlock extends Block {
     }
 
     @Override
-    protected boolean propagatesSkylightDown(BlockState state) {
+    protected boolean propagatesSkylightDown(BlockState state, net.minecraft.world.level.BlockGetter level, net.minecraft.core.BlockPos pos) {
         return true;
     }
 }

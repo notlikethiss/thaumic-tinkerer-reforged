@@ -1,13 +1,11 @@
 package thaumictinkerer.gear;
 
 import java.util.List;
-import java.util.function.Consumer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -16,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import thaumcraft.platform.Bauble;
@@ -49,23 +46,23 @@ public class XpTalismanItem extends Item implements Bauble {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public net.minecraft.world.InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (player.isShiftKeyDown()) {
             if (getXp(stack) >= MAX_XP) {
-                return InteractionResult.PASS;
+                return net.minecraft.world.InteractionResultHolder.pass(player.getItemInHand(hand));
             }
             if (!level.isClientSide()) {
                 setAbsorbing(stack, !isAbsorbing(stack));
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.3F, 0.1F);
             }
-            return InteractionResult.SUCCESS;
+            return net.minecraft.world.InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());
         }
         if (getXp(stack) < BOTTLE_COST) {
-            return InteractionResult.PASS;
+            return net.minecraft.world.InteractionResultHolder.pass(player.getItemInHand(hand));
         }
         if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
+            return net.minecraft.world.InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());
         }
         Inventory inventory = player.getInventory();
         for (int slot = 0; slot < Inventory.INVENTORY_SIZE; slot++) {
@@ -76,23 +73,23 @@ public class XpTalismanItem extends Item implements Bauble {
             candidate.shrink(1);
             ItemStack bottle = new ItemStack(Items.EXPERIENCE_BOTTLE);
             if (!inventory.add(bottle) && !bottle.isEmpty()) {
-                player.spawnAtLocation((ServerLevel) level, bottle);
+                player.spawnAtLocation(bottle);
             }
             setXp(stack, getXp(stack) - BOTTLE_COST);
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.1F, 0.1F + level.getRandom().nextFloat() / 2.0F);
-            return InteractionResult.SUCCESS;
+            return net.minecraft.world.InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());
         }
-        return InteractionResult.PASS;
+        return net.minecraft.world.InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
-        super.appendHoverText(stack, context, display, builder, flag);
-        builder.accept(Component.literal("XP: " + getXp(stack)));
+    public void appendHoverText(ItemStack stack, TooltipContext context, java.util.List<Component> builder, TooltipFlag flag) {
+        super.appendHoverText(stack, context, builder, flag);
+        builder.add(Component.literal("XP: " + getXp(stack)));
         if (getXp(stack) >= MAX_XP) {
-            builder.accept(Component.translatable("ttinkerer.ttmisc.full"));
+            builder.add(Component.translatable("ttinkerer.ttmisc.full"));
         } else {
-            builder.accept(Component.translatable(isAbsorbing(stack) ? "ttinkerer.ttmisc.absorbing" : "ttinkerer.ttmisc.notAbsorbing"));
+            builder.add(Component.translatable(isAbsorbing(stack) ? "ttinkerer.ttmisc.absorbing" : "ttinkerer.ttmisc.notAbsorbing"));
         }
     }
 

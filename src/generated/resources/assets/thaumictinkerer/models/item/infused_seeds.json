@@ -1,0 +1,41 @@
+{
+  "parent": "thaumictinkerer:item/infused_seeds_generic",
+  "overrides": [
+    {
+      "predicate": {
+        "thaumictinkerer:seed_aspect": 1
+      },
+      "model": "thaumictinkerer:item/infused_seeds_aer"
+    },
+    {
+      "predicate": {
+        "thaumictinkerer:seed_aspect": 2
+      },
+      "model": "thaumictinkerer:item/infused_seeds_ignis"
+    },
+    {
+      "predicate": {
+        "thaumictinkerer:seed_aspect": 3
+      },
+      "model": "thaumictinkerer:item/infused_seeds_aqua"
+    },
+    {
+      "predicate": {
+        "thaumictinkerer:seed_aspect": 4
+      },
+      "model": "thaumictinkerer:item/infused_seeds_terra"
+    },
+    {
+      "predicate": {
+        "thaumictinkerer:seed_aspect": 5
+      },
+      "model": "thaumictinkerer:item/infused_seeds_ordo"
+    },
+    {
+      "predicate": {
+        "thaumictinkerer:seed_aspect": 6
+      },
+      "model": "thaumictinkerer:item/infused_seeds_perditio"
+    }
+  ]
+}

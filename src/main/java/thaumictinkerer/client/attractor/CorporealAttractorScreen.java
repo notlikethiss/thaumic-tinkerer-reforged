@@ -1,11 +1,10 @@
 package thaumictinkerer.client.attractor;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import thaumictinkerer.ThaumicTinkerer;
@@ -16,7 +15,7 @@ import thaumictinkerer.client.platform.TtGuiBlit;
 import thaumictinkerer.network.MobMagnetButtonPayload;
 
 public class CorporealAttractorScreen extends AbstractContainerScreen<CorporealAttractorMenu> {
-    private static final Identifier TEXTURE = ThaumicTinkerer.id("textures/gui/mobmagnet.png");
+    private static final ResourceLocation TEXTURE = ThaumicTinkerer.id("textures/gui/mobmagnet.png");
     private static final int TEXT_COLOR = 0xFF999999;
     private static final int BUTTON_SIZE = 13;
     private static final int BUTTON_X = 100;
@@ -28,7 +27,7 @@ public class CorporealAttractorScreen extends AbstractContainerScreen<CorporealA
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
     }
 
     private boolean over(double mouseX, double mouseY, int y) {
@@ -50,29 +49,34 @@ public class CorporealAttractorScreen extends AbstractContainerScreen<CorporealA
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        super.extractBackground(graphics, mouseX, mouseY, partialTick);
+    protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         TtGuiBlit.blit(graphics, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight);
         int enabledY = menu.isAdult() ? ADULT_Y : CHILD_Y;
         TtGuiBlit.blit(graphics, TEXTURE, leftPos + BUTTON_X, topPos + enabledY, 176, 13, BUTTON_SIZE, BUTTON_SIZE);
         Component filter = filterName();
-        graphics.text(font, filter, leftPos + imageWidth / 2 - font.width(filter) / 2 - 26, topPos + 16, TEXT_COLOR, false);
-        graphics.text(font, Component.translatable("ttinkerer.ttmisc.adult"), leftPos + 120, topPos + 30, TEXT_COLOR, false);
-        graphics.text(font, Component.translatable("ttinkerer.ttmisc.child"), leftPos + 120, topPos + 50, TEXT_COLOR, false);
+        graphics.drawString(font, filter, leftPos + imageWidth / 2 - font.width(filter) / 2 - 26, topPos + 16, TEXT_COLOR, false);
+        graphics.drawString(font, Component.translatable("ttinkerer.ttmisc.adult"), leftPos + 120, topPos + 30, TEXT_COLOR, false);
+        graphics.drawString(font, Component.translatable("ttinkerer.ttmisc.child"), leftPos + 120, topPos + 50, TEXT_COLOR, false);
     }
 
     @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        if (event.button() == InputConstants.MOUSE_BUTTON_LEFT) {
-            if (over(event.x(), event.y(), ADULT_Y)) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == InputConstants.MOUSE_BUTTON_LEFT) {
+            if (over(mouseX, mouseY, ADULT_Y)) {
                 TtClientNetwork.sendToServer(new MobMagnetButtonPayload(true));
                 return true;
             }
-            if (over(event.x(), event.y(), CHILD_Y)) {
+            if (over(mouseX, mouseY, CHILD_Y)) {
                 TtClientNetwork.sendToServer(new MobMagnetButtonPayload(false));
                 return true;
             }
         }
-        return super.mouseClicked(event, doubleClick);
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+    @Override
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        renderBackground(graphics, mouseX, mouseY, partialTick);
+        super.render(graphics, mouseX, mouseY, partialTick);
+        renderTooltip(graphics, mouseX, mouseY);
     }
 }

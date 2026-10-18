@@ -17,8 +17,7 @@ import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.inventory.ChestMenu;
@@ -74,7 +73,7 @@ public final class FociGameTests {
     }
 
     private static ServerPlayer mockPlayer(GameTestHelper helper) {
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+        ServerPlayer player = (ServerPlayer) TtTestSupport.mockServerPlayer(helper, GameType.SURVIVAL);
         CommonListenerCookie cookie = CommonListenerCookie.createInitial(player.getGameProfile(), false);
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
         new EmbeddedChannel(connection);
@@ -84,7 +83,6 @@ public final class FociGameTests {
             }
         };
         helper.getLevel().addNewPlayer(player);
-        player.connection.markClientLoaded();
         return player;
     }
 
@@ -264,7 +262,7 @@ public final class FociGameTests {
         BlockPos floorPos = new BlockPos(4, 1, 1);
         helper.setBlock(chestPos, Blocks.CHEST);
         helper.setBlock(floorPos, Blocks.STONE);
-        ChestBlockEntity chest = helper.getBlockEntity(chestPos, ChestBlockEntity.class);
+        ChestBlockEntity chest = helper.<ChestBlockEntity>getBlockEntity(chestPos);
         chest.setItem(0, new ItemStack(Items.DIAMOND, 5));
         chest.setItem(13, new ItemStack(Items.DIAMOND, 7));
         chest.setItem(26, new ItemStack(Items.STICK, 3));
@@ -295,7 +293,7 @@ public final class FociGameTests {
         helper.assertTrue(focus.onFocusRightClick(loaded, level, player, placeHit) == InteractionResult.SUCCESS, "place did not complete");
         BlockPos placed = floorPos.above();
         helper.assertTrue(helper.getBlockState(placed).is(Blocks.CHEST), "chest was not placed");
-        ChestBlockEntity moved = helper.getBlockEntity(placed, ChestBlockEntity.class);
+        ChestBlockEntity moved = helper.<ChestBlockEntity>getBlockEntity(placed);
         helper.assertTrue(countDiamonds(moved) == 12, "diamonds changed: " + countDiamonds(moved));
         helper.assertTrue(moved.getItem(0).getCount() == 5 && moved.getItem(13).getCount() == 7, "slots changed");
         helper.assertTrue(moved.getItem(26).is(Items.STICK) && moved.getItem(26).getCount() == 3, "stick slot changed");
@@ -357,7 +355,7 @@ public final class FociGameTests {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
         place(player, helper, 3.5, 1.0, 3.5, 0.0F, -45.0F);
-        player.fallDistance = 12.0;
+        player.fallDistance = 12.0F;
         var focus = FociFeature.FOCUS_FLIGHT.get();
         ItemStack wand = wandWith(focus);
         WandItem item = (WandItem) wand.getItem();
@@ -419,15 +417,15 @@ public final class FociGameTests {
         ItemStack wand = wandWith(focus);
         WandItem item = (WandItem) wand.getItem();
         Vec3 start = player.position().add(2.0, 1.0, 0.0);
-        Projectile snowball = EntityTypes.SNOWBALL.create(level, EntitySpawnReason.TRIGGERED);
+        Projectile snowball = EntityType.SNOWBALL.create(level);
         snowball.setPos(start);
         snowball.setDeltaMovement(-0.5, 0.0, 0.0);
         level.addFreshEntity(snowball);
-        Projectile bottle = EntityTypes.EXPERIENCE_BOTTLE.create(level, EntitySpawnReason.TRIGGERED);
+        Projectile bottle = EntityType.EXPERIENCE_BOTTLE.create(level);
         bottle.setPos(start);
         bottle.setDeltaMovement(-0.5, 0.0, 0.0);
         level.addFreshEntity(bottle);
-        Projectile own = EntityTypes.SNOWBALL.create(level, EntitySpawnReason.TRIGGERED);
+        Projectile own = EntityType.SNOWBALL.create(level);
         own.setOwner(player);
         own.setPos(start);
         own.setDeltaMovement(-0.5, 0.0, 0.0);

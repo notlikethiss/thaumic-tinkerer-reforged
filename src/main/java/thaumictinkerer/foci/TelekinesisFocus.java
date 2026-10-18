@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.fx.Fx;
@@ -46,7 +46,7 @@ public class TelekinesisFocus extends TtFocus {
     }
 
     @Override
-    public FocusUpgradeType @Nullable [] getPossibleUpgradesByRank(ItemStack focus, int rank) {
+    public @Nullable FocusUpgradeType[] getPossibleUpgradesByRank(ItemStack focus, int rank) {
         return new FocusUpgradeType[0];
     }
 
@@ -87,7 +87,7 @@ public class TelekinesisFocus extends TtFocus {
             if (level.isClientSide()) {
                 Fx.get().sparkle(level, (float) entity.getX(), (float) entity.getY(), (float) entity.getZ(), 1.5F, 0, 0.0F);
             } else {
-                entity.syncVelocity = true;
+                entity.hurtMarked = true;
             }
         }
     }

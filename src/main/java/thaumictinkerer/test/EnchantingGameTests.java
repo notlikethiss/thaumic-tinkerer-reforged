@@ -55,7 +55,8 @@ public final class EnchantingGameTests {
         .add("flaming_touch_and_desintegrate", EnchantingGameTests::flamingTouch)
         .add("enchanter_applies_enchant", EnchantingGameTests::enchanterApplies)
         .add("enchanter_rejects_unresearched", EnchantingGameTests::enchanterRejects)
-        .add("spell_cloth_recipe", EnchantingGameTests::spellClothRecipe);
+        .add("spell_cloth_recipe", EnchantingGameTests::spellClothRecipe)
+        .add("original_enchantment_research", EnchantingGameTests::originalEnchantmentResearch);
 
     private EnchantingGameTests() {
     }
@@ -65,7 +66,7 @@ public final class EnchantingGameTests {
     }
 
     private static ServerPlayer mockPlayer(GameTestHelper helper) {
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+        ServerPlayer player = (ServerPlayer) TtTestSupport.mockServerPlayer(helper, GameType.SURVIVAL);
         CommonListenerCookie cookie = CommonListenerCookie.createInitial(player.getGameProfile(), false);
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
         new EmbeddedChannel(connection);
@@ -75,7 +76,6 @@ public final class EnchantingGameTests {
             }
         };
         helper.getLevel().addNewPlayer(player);
-        player.connection.markClientLoaded();
         return player;
     }
 
@@ -125,11 +125,25 @@ public final class EnchantingGameTests {
         helper.succeed();
     }
 
+    private static void originalEnchantmentResearch(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        List<ResourceKey<Enchantment>> higher = List.of(TtEnchantments.FOCUSED_STRIKE, TtEnchantments.DISPERSED_STRIKE, TtEnchantments.VALIANCE, TtEnchantments.FINAL_STRIKE, TtEnchantments.TUNNEL, TtEnchantments.SHATTER, TtEnchantments.SHOCKWAVE, TtEnchantments.POUNCE);
+        for (ResourceKey<Enchantment> key : higher) {
+            helper.assertTrue(!EnchantmentManager.canEnchantmentBeUsed(player, key), "unresearched higher enchantment accepted");
+        }
+        ResearchManager.complete(player, EnchantingFeature.ENCHANT_VAMPIRISM);
+        for (ResourceKey<Enchantment> key : higher) {
+            helper.assertTrue(EnchantmentManager.canEnchantmentBeUsed(player, key), "TT gates higher enchantments on Vampirism: " + key);
+        }
+        helper.assertTrue(!EnchantmentManager.canEnchantmentBeUsed(player, TtEnchantments.AUTO_SMELT), "lower enchantment must retain its own research gate");
+        helper.succeed();
+    }
+
     private static void recipesRegistered(GameTestHelper helper) {
         helper.assertTrue(TcRecipes.get(EnchantingFeature.ENCHANTER_RESEARCH) instanceof InfusionRecipe, "enchanter infusion missing");
         helper.assertTrue(TcRecipes.get(EnchantingFeature.SPELL_CLOTH_RESEARCH) instanceof CrucibleRecipe, "spell cloth crucible missing");
         helper.assertTrue(
-            helper.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, thaumictinkerer.ThaumicTinkerer.id("spell_cloth"))).isPresent(),
+            helper.getLevel().getServer().getRecipeManager().byKey(thaumictinkerer.ThaumicTinkerer.id("spell_cloth")).isPresent(),
             "spell cloth crafting recipe missing"
         );
         helper.succeed();
@@ -166,12 +180,12 @@ public final class EnchantingGameTests {
         ServerPlayer player = mockPlayer(helper);
         player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, enchanted(helper, new ItemStack(Items.DIAMOND_SWORD), TtEnchantments.VAMPIRISM, 2));
         player.setHealth(10.0F);
-        float damage = TtEnchantmentEvents.modifyDamage(player, helper.makeMockServerPlayer(GameType.SURVIVAL), 5.0F);
+        float damage = TtEnchantmentEvents.modifyDamage(player, TtTestSupport.mockServerPlayer(helper, GameType.SURVIVAL), 5.0F);
         helper.assertTrue(player.getHealth() == 12.0F, "attacker health " + player.getHealth());
         helper.assertTrue(damage == 5.0F, "damage changed " + damage);
         player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, enchanted(helper, new ItemStack(Items.DIAMOND_SWORD), TtEnchantments.VALIANCE, 5));
         player.setHealth(4.0F);
-        float boosted = TtEnchantmentEvents.modifyDamage(player, helper.makeMockServerPlayer(GameType.SURVIVAL), 10.0F);
+        float boosted = TtEnchantmentEvents.modifyDamage(player, TtTestSupport.mockServerPlayer(helper, GameType.SURVIVAL), 10.0F);
         helper.assertTrue(Math.abs(boosted - 15.0F) < 0.001F, "valiance damage " + boosted);
         helper.succeed();
     }
@@ -181,7 +195,7 @@ public final class EnchantingGameTests {
         player.setItemSlot(EquipmentSlot.FEET, enchanted(helper, new ItemStack(Items.DIAMOND_BOOTS), TtEnchantments.SLOW_FALL, 3));
         player.setDeltaMovement(0.0, -1.0, 0.0);
         player.setKnownMovement(new Vec3(0.0, -1.0, 0.0));
-        player.fallDistance = 10.0;
+        player.fallDistance = 10.0F;
         TtEnchantmentEvents.applySlowFall(player);
         helper.assertTrue(Math.abs(player.getDeltaMovement().y - (-1.0 / 1.99)) < 0.001, "motion " + player.getDeltaMovement().y);
         helper.assertTrue(Math.abs(player.fallDistance - 9.0) < 0.001, "fall distance " + player.fallDistance);
@@ -250,7 +264,7 @@ public final class EnchantingGameTests {
         int before = Wands.getVis(wand, Aspect.ORDER);
         enchanter.setItem(EnchanterBlockEntity.WAND, wand);
         enchanter.setItem(EnchanterBlockEntity.TOOL, new ItemStack(Items.DIAMOND_SWORD));
-        ResearchManager.complete(player, EnchantingFeature.ENCHANT_FOCUSED_STRIKE);
+        ResearchManager.complete(player, EnchantingFeature.ENCHANT_VAMPIRISM);
         enchanter.applyEdit(player, TtEnchantments.FOCUSED_STRIKE, 0);
         helper.assertTrue(enchanter.getEnchantments().equals(List.of(TtEnchantments.FOCUSED_STRIKE)), "enchant not selected");
         helper.assertTrue(enchanter.getTotalAspects().getAmount(Aspect.ORDER) == 14, "total order " + enchanter.getTotalAspects().getAmount(Aspect.ORDER));
@@ -287,7 +301,7 @@ public final class EnchantingGameTests {
         helper.assertTrue(cloth.getMaxDamage() == 35, "cloth durability");
         CraftingInput input = CraftingInput.of(2, 1, List.of(sword, cloth));
         helper.assertTrue(SpellClothRecipe.INSTANCE.matches(input, helper.getLevel()), "recipe must match");
-        ItemStack result = SpellClothRecipe.INSTANCE.assemble(input);
+        ItemStack result = SpellClothRecipe.INSTANCE.assemble(input, helper.getLevel().registryAccess());
         helper.assertTrue(result.is(Items.DIAMOND_SWORD) && !result.isEnchanted(), "enchantments not removed");
         var remaining = SpellClothRecipe.INSTANCE.getRemainingItems(input);
         helper.assertTrue(remaining.get(0).isEmpty() && remaining.get(1).getDamageValue() == 1, "cloth must lose one use");

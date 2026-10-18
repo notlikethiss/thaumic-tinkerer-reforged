@@ -28,7 +28,7 @@ public final class RepairerFeature {
 
     public static final Supplier<BlockEntityType<RepairerBlockEntity>> REPAIRER_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "thaumic_restorer",
-        () -> new BlockEntityType<>(RepairerBlockEntity::new, REPAIRER.get())
+        () -> BlockEntityType.Builder.of(RepairerBlockEntity::new,  REPAIRER.get()).build(null)
     );
 
     private RepairerFeature() {

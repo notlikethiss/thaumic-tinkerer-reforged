@@ -11,7 +11,7 @@ public class SpellClothItem extends Item {
     }
 
     @Override
-    public boolean isCombineRepairable(ItemStack stack) {
+    public boolean isRepairable(ItemStack stack) {
         return false;
     }
 }

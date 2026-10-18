@@ -7,7 +7,6 @@ on:
       - "mc/**"
     paths-ignore:
       - "**.md"
-      - "tools/**"
   workflow_dispatch:
 
 concurrency:
@@ -48,7 +47,22 @@ jobs:
           distribution: temurin
           java-version: ${{ steps.props.outputs.java }}
 
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+
       - uses: gradle/actions/setup-gradle@v5
+
+      - name: Verify resources
+        run: |
+          python3 tools/fetch_tt.py
+          python3 tools/convert_assets.py
+          python3 tools/gen_resources.py
+          git diff --exit-code -- src/generated src/main/resources
+          python3 tools/inventory.py --check --strict
+          python3 tools/validate_backport.py
+          python3 -m unittest discover -s tools -p 'test_compare_recipes.py'
 
       - name: Check seams
         run: python3 tools/check_seams.py
@@ -57,6 +71,15 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew build
+
+      - name: GameTests
+        run: |
+          ./gradlew runGameTestServer --no-build-cache
+          python3 tools/extract_tt_recipes.py --compare build/reports/backport/runtime-recipes.json
+          python3 tools/extract_tt_enchanter.py --compare build/reports/backport/runtime-enchanter.json
+          python3 tools/extract_tt_research.py
+          python3 tools/backport/update_audit.py
+          git diff --exit-code -- tools/tt_recipes.json tools/tt_research.json tools/tt_enchanter.json tools/backport/audit.json
 
       - name: Publish release
         env:

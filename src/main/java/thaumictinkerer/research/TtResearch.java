@@ -2,8 +2,8 @@ package thaumictinkerer.research;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.Nullable;
+import net.minecraft.resources.ResourceLocation;
+import javax.annotation.Nullable;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.crafting.TcStack;
 import thaumcraft.research.ResearchCategories;
@@ -23,7 +23,7 @@ public final class TtResearch {
         ResearchCategories.registerCategory(
             TT_CATEGORY,
             ThaumicTinkerer.id("textures/misc/r_enchanting.png"),
-            Identifier.fromNamespaceAndPath("thaumcraft", "textures/gui/gui_researchback.png")
+            ResourceLocation.fromNamespaceAndPath("thaumcraft", "textures/gui/gui_researchback.png")
         );
     }
 
@@ -31,7 +31,7 @@ public final class TtResearch {
         return new TtResearchItem(key, tags, column, row, complexity, icon);
     }
 
-    public static TtResearchItem item(String key, AspectList tags, int column, int row, int complexity, Identifier icon) {
+    public static TtResearchItem item(String key, AspectList tags, int column, int row, int complexity, ResourceLocation icon) {
         return new TtResearchItem(key, tags, column, row, complexity, icon);
     }
 
@@ -39,7 +39,7 @@ public final class TtResearch {
         return new KamiResearchItem(key, tags, column, row, complexity, icon);
     }
 
-    public static KamiResearchItem kami(String key, AspectList tags, int column, int row, int complexity, Identifier icon) {
+    public static KamiResearchItem kami(String key, AspectList tags, int column, int row, int complexity, ResourceLocation icon) {
         return new KamiResearchItem(key, tags, column, row, complexity, icon);
     }
 

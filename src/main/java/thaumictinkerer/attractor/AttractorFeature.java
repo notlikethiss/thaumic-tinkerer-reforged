@@ -55,11 +55,11 @@ public final class AttractorFeature {
 
     public static final Supplier<BlockEntityType<AttractorBlockEntity>> KINETIC_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "kinetic_attractor",
-        () -> new BlockEntityType<>(AttractorBlockEntity::new, KINETIC_ATTRACTOR.get())
+        () -> BlockEntityType.Builder.of(AttractorBlockEntity::new,  KINETIC_ATTRACTOR.get()).build(null)
     );
     public static final Supplier<BlockEntityType<CorporealAttractorBlockEntity>> CORPOREAL_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "corporeal_attractor",
-        () -> new BlockEntityType<>(CorporealAttractorBlockEntity::new, CORPOREAL_ATTRACTOR.get())
+        () -> BlockEntityType.Builder.of(CorporealAttractorBlockEntity::new,  CORPOREAL_ATTRACTOR.get()).build(null)
     );
     public static final Supplier<MenuType<CorporealAttractorMenu>> CORPOREAL_MENU = ModMenus.MENUS.register(
         "corporeal_attractor",

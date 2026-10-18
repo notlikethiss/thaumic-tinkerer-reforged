@@ -1,11 +1,10 @@
 package thaumictinkerer.client.gateway;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import thaumictinkerer.ThaumicTinkerer;
 import thaumictinkerer.client.platform.TtClientNetwork;
@@ -14,7 +13,7 @@ import thaumictinkerer.kami.gateway.WarpGateMenu;
 import thaumictinkerer.network.WarpGateButtonPayload;
 
 public class WarpGateScreen extends AbstractContainerScreen<WarpGateMenu> {
-    private static final Identifier TEXTURE = ThaumicTinkerer.id("textures/gui/warpgate.png");
+    private static final ResourceLocation TEXTURE = ThaumicTinkerer.id("textures/gui/warpgate.png");
     private static final int TEXT_COLOR = 0xFF999999;
     private static final int BUTTON_SIZE = 13;
     private static final int BUTTON_X = 5;
@@ -25,7 +24,7 @@ public class WarpGateScreen extends AbstractContainerScreen<WarpGateMenu> {
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
     }
 
     private boolean overButton(double mouseX, double mouseY) {
@@ -35,21 +34,26 @@ public class WarpGateScreen extends AbstractContainerScreen<WarpGateMenu> {
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        super.extractBackground(graphics, mouseX, mouseY, partialTick);
+    protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         TtGuiBlit.blit(graphics, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight);
         if (menu.isLocked()) {
             TtGuiBlit.blit(graphics, TEXTURE, leftPos + BUTTON_X, topPos + BUTTON_Y, 176, 0, BUTTON_SIZE, BUTTON_SIZE);
         }
-        graphics.text(font, Component.translatable("ttinkerer.ttmisc.lockedGate"), leftPos + 20, topPos + 7, TEXT_COLOR, true);
+        graphics.drawString(font, Component.translatable("ttinkerer.ttmisc.lockedGate"), leftPos + 20, topPos + 7, TEXT_COLOR, true);
     }
 
     @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        if (event.button() == InputConstants.MOUSE_BUTTON_LEFT && overButton(event.x(), event.y())) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == InputConstants.MOUSE_BUTTON_LEFT && overButton(mouseX, mouseY)) {
             TtClientNetwork.sendToServer(new WarpGateButtonPayload(!menu.isLocked()));
             return true;
         }
-        return super.mouseClicked(event, doubleClick);
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+    @Override
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        renderBackground(graphics, mouseX, mouseY, partialTick);
+        super.render(graphics, mouseX, mouseY, partialTick);
+        renderTooltip(graphics, mouseX, mouseY);
     }
 }

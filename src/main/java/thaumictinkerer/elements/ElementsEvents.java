@@ -124,7 +124,7 @@ public final class ElementsEvents {
             if (target.isAlive() && time % PULSE_PERIOD == 0) {
                 RandomSource random = target.level().getRandom();
                 target.setDeltaMovement(random.nextFloat() - 0.5, random.nextFloat(), random.nextFloat() - 0.5);
-                target.needsSync = true;
+                target.hasImpulse = true;
                 sendFx(target.level(), ElementsFxPayload.BURST, target.getX(), target.getY(), target.getZ(), 0.5F);
             }
             if (target.isRemoved() || time > entry.getValue() + AIR_DURATION) {

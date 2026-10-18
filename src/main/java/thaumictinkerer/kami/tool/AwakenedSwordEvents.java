@@ -38,7 +38,7 @@ public final class AwakenedSwordEvents {
         switch (ToolHandler.getMode(stack)) {
             case 1 -> attackArea(level, player, target);
             case 2 -> {
-                target.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
+                target.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1, 1));
                 SoulHeartHandler.addHearts(player);
             }
             default -> {

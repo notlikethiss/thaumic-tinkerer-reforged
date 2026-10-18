@@ -3,11 +3,10 @@ package thaumictinkerer.client.awakenedarmor;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.entity.player.AvatarRenderer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.PlayerModelType;
+import net.minecraft.client.resources.PlayerSkin;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -23,7 +22,7 @@ import thaumictinkerer.network.ToggleArmorPayload;
 
 @EventBusSubscriber(modid = ThaumicTinkerer.MODID, value = Dist.CLIENT)
 public final class AwakenedArmorClient {
-    private static final KeyMapping.Category CATEGORY = new KeyMapping.Category(ThaumicTinkerer.id("main"));
+    private static final String CATEGORY = "key.categories.thaumictinkerer";
     public static final KeyMapping TOGGLE = new KeyMapping("ttinkerer.ttmisc.toggleArmor", InputConstants.KEY_U, CATEGORY);
 
     private AwakenedArmorClient() {
@@ -32,14 +31,13 @@ public final class AwakenedArmorClient {
     public static void handle(ArmorStatusPayload payload, Player player) {
         AwakenedArmorFeature.ARMOR_ENABLED.set(player, payload.enabled());
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.gui.screen() == null) {
-            minecraft.gui.hud.setOverlayMessage(Component.translatable(payload.enabled() ? "ttinkerer.ttmisc.enableAllArmor" : "ttinkerer.ttmisc.disableAllArmor"), false);
+        if (minecraft.screen == null) {
+            minecraft.gui.setOverlayMessage(Component.translatable(payload.enabled() ? "ttinkerer.ttmisc.enableAllArmor" : "ttinkerer.ttmisc.disableAllArmor"), false);
         }
     }
 
     @SubscribeEvent
     static void registerKeys(RegisterKeyMappingsEvent event) {
-        event.registerCategory(CATEGORY);
         event.register(TOGGLE);
     }
 
@@ -48,7 +46,7 @@ public final class AwakenedArmorClient {
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
         while (TOGGLE.consumeClick()) {
-            if (player != null && minecraft.gui.screen() == null && AwakenedArmor.wearsAny(player)) {
+            if (player != null && minecraft.screen == null && AwakenedArmor.wearsAny(player)) {
                 TtClientNetwork.sendToServer(new ToggleArmorPayload(!AwakenedArmor.isEnabled(player)));
             }
         }
@@ -56,8 +54,8 @@ public final class AwakenedArmorClient {
 
     @SubscribeEvent
     static void addLayers(EntityRenderersEvent.AddLayers event) {
-        for (PlayerModelType skin : event.getSkins()) {
-            AvatarRenderer<AbstractClientPlayer> renderer = event.getPlayerRenderer(skin);
+        for (PlayerSkin.Model skin : event.getSkins()) {
+            PlayerRenderer renderer = event.getSkin(skin);
             if (renderer != null) {
                 renderer.addLayer(new WingsLayer(renderer));
             }

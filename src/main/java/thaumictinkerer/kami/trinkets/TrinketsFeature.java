@@ -2,7 +2,7 @@ package thaumictinkerer.kami.trinkets;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -25,10 +25,10 @@ public final class TrinketsFeature {
     public static final String ICHOR_POUCH_RESEARCH = "ICHOR_POUCH";
     public static final String CAT_AMULET_RESEARCH = "CAT_AMULET";
 
-    public static final TtStackKey<Identifier> TALISMAN_BLOCK = TtStackKey.register("talisman_block", Identifier.CODEC, Identifier.STREAM_CODEC);
+    public static final TtStackKey<ResourceLocation> TALISMAN_BLOCK = TtStackKey.register("talisman_block", ResourceLocation.CODEC, ResourceLocation.STREAM_CODEC);
     public static final TtStackKey<Integer> TALISMAN_COUNT = TtStackKey.register("talisman_count", Codec.INT, ByteBufCodecs.VAR_INT);
     public static final TtStackKey<Boolean> RING_ACTIVE = TtStackKey.register("ring_active", Codec.BOOL, ByteBufCodecs.BOOL);
-    public static final TtStackKey<Identifier> MIRROR_BLOCK = TtStackKey.register("mirror_block", Identifier.CODEC, Identifier.STREAM_CODEC);
+    public static final TtStackKey<ResourceLocation> MIRROR_BLOCK = TtStackKey.register("mirror_block", ResourceLocation.CODEC, ResourceLocation.STREAM_CODEC);
     public static final TtStackKey<Integer> MIRROR_SIZE = TtStackKey.register("mirror_size", Codec.INT, ByteBufCodecs.VAR_INT);
 
     public static final DeferredItem<BlackHoleRingItem> BLOCK_TALISMAN = ModItems.ITEMS.registerItem(

@@ -15,7 +15,6 @@ import thaumcraft.aspect.AspectList;
 import thaumcraft.aspect.AspectRegistry;
 import thaumcraft.crafting.TcIngredient;
 import thaumcraft.crafting.TcStack;
-import thaumictinkerer.ThaumicTinkerer;
 import thaumictinkerer.crafting.TtRecipes;
 import thaumictinkerer.gear.GearFeature;
 import thaumictinkerer.platform.TtStackKey;
@@ -88,7 +87,7 @@ public final class NecromancyFeature {
 
     public static final Supplier<BlockEntityType<NecromancyTabletBlockEntity>> TABLET_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "necromancy_tablet",
-        () -> new BlockEntityType<>(NecromancyTabletBlockEntity::new, TABLET.get())
+        () -> BlockEntityType.Builder.of(NecromancyTabletBlockEntity::new,  TABLET.get()).build(null)
     );
 
     private NecromancyFeature() {

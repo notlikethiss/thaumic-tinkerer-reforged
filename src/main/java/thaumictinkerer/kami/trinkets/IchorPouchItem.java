@@ -3,7 +3,6 @@ package thaumictinkerer.kami.trinkets;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,9 +26,9 @@ public class IchorPouchItem extends FocusPouchItem {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public net.minecraft.world.InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (hand != InteractionHand.MAIN_HAND) {
-            return InteractionResult.PASS;
+            return net.minecraft.world.InteractionResultHolder.pass(player.getItemInHand(hand));
         }
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             Menus.open(serverPlayer, new SimpleMenuProvider(
@@ -37,6 +36,6 @@ public class IchorPouchItem extends FocusPouchItem {
                 Component.translatable("item.thaumictinkerer.ichor_pouch")
             ));
         }
-        return InteractionResult.SUCCESS;
+        return net.minecraft.world.InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());
     }
 }

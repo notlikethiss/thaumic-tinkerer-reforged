@@ -15,10 +15,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.platform.Menus;
 
-public class EnchanterBlock extends Block implements EntityBlock {
+public class EnchanterBlock extends thaumictinkerer.platform.TtBlock implements EntityBlock {
     private static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 12.0, 16.0);
 
     public EnchanterBlock(Properties properties) {

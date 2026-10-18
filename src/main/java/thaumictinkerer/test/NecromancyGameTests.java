@@ -2,18 +2,15 @@ package thaumictinkerer.test;
 
 import java.util.List;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.animal.golem.SnowGolem;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -88,7 +85,7 @@ public final class NecromancyGameTests {
             helper.assertTrue(condensed != null && condensed.research().equals(NecromancyFeature.SUMMON), "condensed recipe missing for " + tag);
             helper.assertTrue(condensed.result().item().toString().equals("thaumictinkerer:condensed_" + tag + "_soul_aspect"), "condensed result for " + tag);
             helper.assertTrue(
-                helper.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, condensed.recipe())).isPresent(),
+                helper.getLevel().getServer().getRecipeManager().byKey(condensed.recipe()).isPresent(),
                 "crafting recipe missing in datapack for " + tag
             );
             InfusionRecipe infusion = (InfusionRecipe) TcRecipes.get(NecromancyFeature.INFUSE_PREFIX + tag.toUpperCase());
@@ -230,8 +227,8 @@ public final class NecromancyGameTests {
         helper.assertTrue(!pedestals[0].getStack().isEmpty(), "powered tablet must not consume");
         helper.setBlock(new BlockPos(3, 1, 2), net.minecraft.world.level.block.Blocks.AIR);
         helper.assertTrue(tablet.attempt(helper.getLevel(), 300), "unpowered tablet summons");
-        helper.assertValueEqual(around(helper, net.minecraft.world.entity.animal.squid.Squid.class).size(), 1, "squids summoned");
-        around(helper, net.minecraft.world.entity.animal.squid.Squid.class).forEach(Entity::discard);
+        helper.assertValueEqual(around(helper, net.minecraft.world.entity.animal.Squid.class).size(), 1, "squids summoned");
+        around(helper, net.minecraft.world.entity.animal.Squid.class).forEach(Entity::discard);
         helper.succeed();
     }
 
@@ -242,10 +239,10 @@ public final class NecromancyGameTests {
         ItemStack sword = new ItemStack(GearFeature.BLOOD_SWORD.get());
         GearFeature.ACTIVE.set(sword, true);
         player.setItemInHand(InteractionHand.MAIN_HAND, sword);
-        Zombie zombie = EntityTypes.ZOMBIE.create(level, EntitySpawnReason.COMMAND);
+        Zombie zombie = EntityType.ZOMBIE.create(level);
         zombie.setPos(helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)));
         level.addFreshEntity(zombie);
-        zombie.hurtServer(level, level.damageSources().playerAttack(player), 1000.0F);
+        zombie.hurt(level.damageSources().playerAttack(player), 1000.0F);
         int flesh = 0;
         int undead = 0;
         int others = 0;

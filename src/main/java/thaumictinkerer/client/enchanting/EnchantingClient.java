@@ -15,8 +15,8 @@ public final class EnchantingClient {
     }
 
     @SubscribeEvent
-    static void registerTints(RegisterColorHandlersEvent.ItemTintSources event) {
-        event.register(ThaumicTinkerer.id("spell_cloth"), SpellClothTint.MAP_CODEC);
+    static void registerTints(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, layer) -> new SpellClothTint().calculate(stack, null, null), EnchantingFeature.SPELL_CLOTH.get());
     }
 
     public static void registerScreens(RegisterMenuScreensEvent event) {

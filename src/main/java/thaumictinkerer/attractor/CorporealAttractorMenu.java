@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public class CorporealAttractorMenu extends AbstractContainerMenu {
     public static final int FILTER_SLOT = 0;

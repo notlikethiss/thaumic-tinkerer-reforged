@@ -16,9 +16,9 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 
-public abstract class CamoBlock extends Block implements EntityBlock {
+public abstract class CamoBlock extends thaumictinkerer.platform.TtBlock implements EntityBlock {
     protected CamoBlock(Properties properties) {
         super(properties.noOcclusion());
     }
@@ -49,18 +49,18 @@ public abstract class CamoBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    protected net.minecraft.world.ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (hand != InteractionHand.MAIN_HAND) {
-            return InteractionResult.PASS;
+            return net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         BlockState camo = camoFor(stack, hit.getDirection());
         if (camo == null) {
-            return InteractionResult.PASS;
+            return net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof CamoBlockEntity entity) {
             entity.setCamo(camo);
         }
-        return InteractionResult.SUCCESS;
+        return net.minecraft.world.ItemInteractionResult.SUCCESS;
     }
 
     @Override

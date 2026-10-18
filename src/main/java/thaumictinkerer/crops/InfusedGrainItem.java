@@ -1,11 +1,9 @@
 package thaumictinkerer.crops;
 
-import java.util.function.Consumer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.aspect.AspectProvidingItem;
@@ -32,8 +30,8 @@ public class InfusedGrainItem extends Item implements AspectProvidingItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
-        super.appendHoverText(stack, context, display, builder, flag);
-        builder.accept(aspect.getDescription());
+    public void appendHoverText(ItemStack stack, TooltipContext context, java.util.List<Component> builder, TooltipFlag flag) {
+        super.appendHoverText(stack, context, builder, flag);
+        builder.add(aspect.getDescription());
     }
 }

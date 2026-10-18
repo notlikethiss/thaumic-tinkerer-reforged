@@ -5,12 +5,10 @@ import com.mojang.serialization.JsonOps;
 import io.netty.channel.embedded.EmbeddedChannel;
 import java.util.List;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
@@ -18,14 +16,13 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.GameType;
@@ -79,7 +76,7 @@ public final class GearGameTests {
     }
 
     static ServerPlayer mockPlayer(GameTestHelper helper) {
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+        ServerPlayer player = (ServerPlayer) TtTestSupport.mockServerPlayer(helper, GameType.SURVIVAL);
         CommonListenerCookie cookie = CommonListenerCookie.createInitial(player.getGameProfile(), false);
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
         new EmbeddedChannel(connection);
@@ -89,7 +86,6 @@ public final class GearGameTests {
             }
         };
         helper.getLevel().addNewPlayer(player);
-        player.connection.markClientLoaded();
         return player;
     }
 
@@ -146,10 +142,10 @@ public final class GearGameTests {
             helper.assertTrue(TcRecipes.get(key) instanceof CraftingRecipeRef, "recipe ref missing: " + key);
             CraftingRecipeRef reference = (CraftingRecipeRef) TcRecipes.get(key);
             helper.assertTrue(reference.result().exists(), "result item missing for " + key);
-            boolean present = helper.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, reference.recipe())).isPresent();
+            boolean present = helper.getLevel().getServer().getRecipeManager().byKey(reference.recipe()).isPresent();
             helper.assertTrue(present, "crafting recipe missing in datapack: " + reference.recipe());
         }
-        var tome = helper.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, ((CraftingRecipeRef) TcRecipes.get("SHARE_TOME")).recipe()));
+        var tome = helper.getLevel().getServer().getRecipeManager().byKey(((CraftingRecipeRef) TcRecipes.get("SHARE_TOME")).recipe());
         helper.assertTrue(tome.isPresent() && tome.get().value() instanceof ShareTomeRecipe, "share tome recipe has wrong type");
         helper.succeed();
     }
@@ -181,10 +177,10 @@ public final class GearGameTests {
         helper.assertTrue(!player.hasEffect(MobEffects.POISON), "poison should be removed");
         helper.assertValueEqual(stack.getDamageValue(), 1, "cleansing poison costs one use");
 
-        player.addEffect(new MobEffectInstance(MobEffects.SPEED, 400));
+        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400));
         player.addEffect(new MobEffectInstance(ModEffects.WARP_WARD, 400));
         GearFeature.CLEANSING_TALISMAN.get().onWornTick(stack, player);
-        helper.assertTrue(player.hasEffect(MobEffects.SPEED) && player.hasEffect(ModEffects.WARP_WARD), "good effects and warp ward must stay");
+        helper.assertTrue(player.hasEffect(MobEffects.MOVEMENT_SPEED) && player.hasEffect(ModEffects.WARP_WARD), "good effects and warp ward must stay");
         helper.assertValueEqual(stack.getDamageValue(), 1, "no use is spent without a bad effect");
 
         player.addEffect(new MobEffectInstance(ModEffects.BLURRED_VISION, 400));
@@ -260,7 +256,7 @@ public final class GearGameTests {
         helper.assertTrue(!far.isRemoved(), "far orbs must stay");
         far.discard();
 
-        helper.assertTrue(stack.getItem().use(level, player, InteractionHand.MAIN_HAND) == net.minecraft.world.InteractionResult.PASS, "withdraw needs a glass bottle");
+        helper.assertTrue(stack.getItem().use(level, player, InteractionHand.MAIN_HAND).getResult() == net.minecraft.world.InteractionResult.PASS, "withdraw needs a glass bottle");
         helper.assertValueEqual(XpTalismanItem.getXp(stack), 30, "xp unchanged without bottle");
 
         player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE, 5));
@@ -301,9 +297,9 @@ public final class GearGameTests {
         helper.assertTrue(stack.getItem() instanceof VisDiscountGear gear && gear.getVisDiscount(stack, null, Aspect.FIRE) == 5, "helm should give five percent vis discount");
         helper.assertTrue(stack.getItem() instanceof Repairable, "helm should be repairable");
         helper.assertValueEqual(stack.getMaxDamage(), 500, "helm durability");
-        var equippable = stack.get(DataComponents.EQUIPPABLE);
-        helper.assertTrue(equippable != null && equippable.slot() == EquipmentSlot.HEAD, "helm should go on the head");
-        helper.assertTrue(equippable.assetId().isPresent() && equippable.assetId().get().identifier().equals(thaumictinkerer.ThaumicTinkerer.id("revealing_helm")), "helm uses addon equipment asset");
+        var equippable = (net.minecraft.world.item.ArmorItem) stack.getItem();
+        helper.assertTrue(equippable != null && equippable.getEquipmentSlot() == EquipmentSlot.HEAD, "helm should go on the head");
+        helper.assertTrue(equippable.getMaterial().value().layers().getFirst().texture(false).getNamespace().equals("thaumictinkerer"), "helm uses addon equipment asset");
         helper.succeed();
     }
 
@@ -323,7 +319,7 @@ public final class GearGameTests {
         tome.getItem().use(level, owner, InteractionHand.MAIN_HAND);
         ShareData data = ShareTomeItem.data(tome);
         helper.assertTrue(data != null && data.research().contains("FUNNEL") && data.research().contains("DARK_QUARTZ"), "tome should record owner research");
-        helper.assertTrue(data.player().equals(owner.getGameProfile().name()), "tome should record owner name");
+        helper.assertTrue(data.player().equals(owner.getGameProfile().getName()), "tome should record owner name");
 
         ItemStack copy = tome.copy();
         student.setItemInHand(InteractionHand.MAIN_HAND, copy);
@@ -340,7 +336,7 @@ public final class GearGameTests {
         ItemStack stack = new ItemStack(GearFeature.BLOOD_SWORD.get());
         helper.assertValueEqual(stack.getMaxDamage(), 950, "blood sword durability");
         helper.assertTrue(stack.getItem() instanceof Repairable, "blood sword should be repairable");
-        helper.assertTrue(stack.getItem().getUseAnimation(stack) == ItemUseAnimation.BLOCK, "blood sword blocks");
+        helper.assertTrue(stack.getItem().getUseAnimation(stack) == UseAnim.BLOCK, "blood sword blocks");
         ItemAttributeModifiers modifiers = stack.get(DataComponents.ATTRIBUTE_MODIFIERS);
         double damage = 0;
         double speed = 0;
@@ -365,7 +361,7 @@ public final class GearGameTests {
         stack.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
         helper.assertTrue(!BloodSwordItem.isActivated(stack), "second sneak use deactivates it");
 
-        Zombie zombie = EntityTypes.ZOMBIE.create(helper.getLevel(), EntitySpawnReason.COMMAND);
+        Zombie zombie = EntityType.ZOMBIE.create(helper.getLevel());
         List<Aspect> aspects = List.of(SoulDrops.aspectsFor(zombie));
         helper.assertTrue(aspects.equals(List.of(Aspect.FLESH, Aspect.FLESH, Aspect.UNDEAD)), "zombie soul aspects are wrong " + aspects);
         helper.succeed();
@@ -375,11 +371,11 @@ public final class GearGameTests {
         BloodSwordEvents.reset();
         ServerPlayer player = mockPlayer(helper);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(GearFeature.BLOOD_SWORD.get()));
-        Zombie zombie = EntityTypes.ZOMBIE.create(helper.getLevel(), EntitySpawnReason.COMMAND);
+        Zombie zombie = EntityType.ZOMBIE.create(helper.getLevel());
         zombie.setPos(helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)));
         helper.getLevel().addFreshEntity(zombie);
         float before = player.getHealth();
-        zombie.hurtServer(helper.getLevel(), helper.getLevel().damageSources().playerAttack(player), 1.0F);
+        zombie.hurt(helper.getLevel().damageSources().playerAttack(player), 1.0F);
         helper.assertTrue(before - player.getHealth() == 2.0F, "wielder should take one heart, lost " + (before - player.getHealth()));
         zombie.discard();
         BloodSwordEvents.reset();

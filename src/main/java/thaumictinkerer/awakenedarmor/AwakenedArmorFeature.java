@@ -6,8 +6,7 @@ import java.util.function.BiConsumer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.resources.Identifier;
-import net.minecraft.util.Unit;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -70,17 +69,17 @@ public final class AwakenedArmorFeature {
     );
     public static final DeferredItem<AwakenedArmorItem> ROBES = ModItems.ITEMS.registerItem(
         "robes_of_the_stratosphere",
-        properties -> new AwakenedArmorItem(properties, KamiFeature.HELMET_CHESTPLATE_LEGGINGS_DISCOUNT),
+        properties -> new AwakenedArmorItem(properties, KamiFeature.HELMET_CHESTPLATE_LEGGINGS_DISCOUNT, AWAKENED_ARMOR, ArmorSlot.CHESTPLATE),
         properties -> unbreakable(Registration.armor(properties, AWAKENED_ARMOR, ArmorSlot.CHESTPLATE))
     );
     public static final DeferredItem<AwakenedArmorItem> LEGGINGS = ModItems.ITEMS.registerItem(
         "leggings_of_the_burning_mantle",
-        properties -> new AwakenedArmorItem(properties, KamiFeature.HELMET_CHESTPLATE_LEGGINGS_DISCOUNT),
+        properties -> new AwakenedArmorItem(properties, KamiFeature.HELMET_CHESTPLATE_LEGGINGS_DISCOUNT, AWAKENED_ARMOR, ArmorSlot.LEGGINGS),
         properties -> unbreakable(Registration.armor(properties, AWAKENED_ARMOR, ArmorSlot.LEGGINGS))
     );
     public static final DeferredItem<AwakenedArmorItem> BOOTS = ModItems.ITEMS.registerItem(
         "boots_of_the_horizontal_shield",
-        properties -> new AwakenedArmorItem(properties, KamiFeature.BOOTS_DISCOUNT),
+        properties -> new AwakenedArmorItem(properties, KamiFeature.BOOTS_DISCOUNT, AWAKENED_ARMOR, ArmorSlot.BOOTS),
         properties -> unbreakable(Registration.armor(properties, AWAKENED_ARMOR, ArmorSlot.BOOTS))
     );
 
@@ -88,19 +87,19 @@ public final class AwakenedArmorFeature {
     }
 
     private static Item.Properties unbreakable(Item.Properties properties) {
-        return properties.rarity(TtRarity.kami()).component(DataComponents.UNBREAKABLE, Unit.INSTANCE);
+        return properties.rarity(TtRarity.kami()).component(DataComponents.UNBREAKABLE, new net.minecraft.world.item.component.Unbreakable(true));
     }
 
     public static void load() {
         BiConsumer<ItemStack, String> potion = (stack, value) -> BuiltInRegistries.POTION
-            .get(Identifier.parse(value))
+            .getHolder(ResourceLocation.parse(value))
             .ifPresent(holder -> stack.set(DataComponents.POTION_CONTENTS, new PotionContents(holder)));
         TcStack.registerDataHandler(POTION_DATA, potion);
         TcStack.registerDataMatcher(
             POTION_DATA,
             (stack, value) -> stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).potion()
                 .flatMap(holder -> holder.unwrapKey())
-                .map(key -> key.identifier().equals(Identifier.parse(value)))
+                .map(key -> key.location().equals(ResourceLocation.parse(value)))
                 .orElse(false)
         );
         GasFeature.registerLightCarrier(AwakenedArmor::carriesLight);

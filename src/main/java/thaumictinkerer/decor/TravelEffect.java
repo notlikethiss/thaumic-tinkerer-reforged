@@ -19,7 +19,7 @@ public final class TravelEffect {
         if (level.isClientSide()) {
             for (int index = 0; index < 5; index++) {
                 level.addParticle(
-                    new DustParticleOptions(0x008000, 1.0F),
+                    new DustParticleOptions(new org.joml.Vector3f(0.0F, 128.0F / 255.0F, 0.0F), 1.0F),
                     pos.getX() + level.getRandom().nextFloat(),
                     pos.getY() + 1.0,
                     pos.getZ() + level.getRandom().nextFloat(),
@@ -29,8 +29,8 @@ public final class TravelEffect {
                 );
             }
         } else {
-            living.addEffect(new MobEffectInstance(MobEffects.SPEED, 40, 1));
-            living.addEffect(new MobEffectInstance(MobEffects.JUMP_BOOST, 40, 0));
+            living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 40, 1));
+            living.addEffect(new MobEffectInstance(MobEffects.JUMP, 40, 0));
         }
     }
 }

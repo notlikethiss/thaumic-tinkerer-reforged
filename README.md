@@ -2,51 +2,54 @@
 
 [![Thaumic Tinkerer: Reforged](poster.png)](poster.png)
 
-Unofficial port of **Thaumic Tinkerer 2.5** by Vazkii, pixlepix and nekosune from Minecraft 1.7.10 to **Minecraft 26.3** on **NeoForge 26.3**. It is an addon to [Thaumcraft 4: Reforged](https://github.com/notlikethiss/thaumcraft-4-reforged) and needs it to run.
+Unofficial port of **Thaumic Tinkerer 2.5** by Vazkii, pixlepix and nekosune from Minecraft 1.7.10 to **Minecraft 1.21.1** on **NeoForge 21.1**. It is an addon to [Thaumcraft 4: Reforged](https://github.com/notlikethiss/thaumcraft-4-reforged) and needs it to run.
 
 The goal is to recreate the original gameplay as closely as possible, including the KAMI content. The Bedrock dimension, ComputerCraft peripherals and integrations with other mods (except JEI) are not ported. The technical side is rebuilt on modern APIs.
 
-The project is a scaffold for now: registries, platform seams, config, game test harness and the Python tooling are in place, gameplay content is ported feature by feature.
+This branch includes every existing addon feature module, including KAMI. See [BACKPORT.md](BACKPORT.md) for branch differences and [the validation report](docs/BACKPORT_VALIDATION.md) for verified results and remaining manual checks.
 
 > **Personal use only.** The original Thaumic Tinkerer is licensed under CC BY-NC-SA 3.0. This port is not intended for redistribution.
 
 ## Requirements to build
 
-- Java 25
+- Java 21 toolchain; Java 25 to run the bundled Gradle wrapper
 - Python 3
-- A checkout of Thaumcraft 4: Reforged next to this repository (`../thaumcraft-4-reforged`)
+- A checkout of Thaumcraft 4: Reforged next to this repository (`../thaumcraft-4-reforged`), on `mc/1.21.1` with the addon API commit listed in `BACKPORT.md`
 
 Versions match the base mod:
 
 - [Thaumcraft 4: Reforged](https://github.com/notlikethiss/thaumcraft-4-reforged) `1.0`
-- Minecraft `26.3`
-- NeoForge `26.3.0.57-beta`
+- Minecraft `1.21.1`
+- NeoForge `21.1.256`
 - ModDevGradle `2.0.148`
-- TerraBlender `26.3-26.3.0.0.9` (required by the base)
-- JEI `31.9.0.58` (optional at runtime; included in development runs)
+- TerraBlender `1.21.1-4.1.0.1` (required by the base)
+- Curios `9.5.1+1.21.1` (required by the base)
+- JEI `19.57.0.451` (optional at runtime; included in development runs)
 
 ## Building and running
 
-The base mod is included as a Gradle composite build (`includeBuild("../thaumcraft-4-reforged")`), so Gradle builds it automatically and both mods are loaded in every run.
+The base mod is included as a Gradle composite build. Discovery selects a nearby checkout targeting the same Minecraft version, including `.worktrees/mc-1.21.1`. Override it with `-PthaumcraftDir=/absolute/path/to/base`. Gradle builds the base automatically and loads both mods in development runs.
 
 ```sh
 export JAVA_HOME=/path/to/openjdk-25
 
 ./gradlew build               # build the addon jar into build/libs
-./gradlew runClient           # start a development client
-./gradlew runServer           # start a development server (game folder: run/)
+./gradlew runClient           # client: run/client
+./gradlew runClient -PwithoutJei # optional JEI must not be required
+./gradlew runServer           # start a development server (game folder: run/server)
 ./gradlew runGameTestServer   # run the addon game tests only
 python3 tools/check_seams.py  # check version-specific API boundaries
-python3 tools/inventory.py --check
+python3 tools/inventory.py --check --strict
+python3 tools/validate_backport.py
 ```
 
 ## Automatic releases
 
-GitHub Actions builds pushes to `main` and `mc/**` and can also be started manually with **Run workflow**. Pushes that only change Markdown files or `tools/**` are skipped.
+GitHub Actions builds pushes to `main` and `mc/**` and can also be started manually with **Run workflow**. Pushes that only change Markdown files are skipped.
 
 The workflow checks out Thaumcraft 4: Reforged alongside the addon, using the matching `mc/**` branch for Minecraft branches and `main` otherwise. Java, Minecraft and mod versions are read from `gradle.properties`.
 
-After the seam check and Gradle build pass, the workflow replaces the release and tag named after the Minecraft version (currently `26.3`), attaches the addon JAR and uses the latest commit as release notes. Releases from `main` are marked as latest. This follows the release process used by Thaumcraft 4: Reforged.
+After resource validation, seam checks, the Gradle build, GameTests and recipe comparison pass, the workflow replaces the release and tag named after the Minecraft version (currently `1.21.1`), attaches the addon JAR and uses the latest commit as release notes. Releases from `main` are marked as latest. This follows the release process used by Thaumcraft 4: Reforged.
 
 ## Tools
 

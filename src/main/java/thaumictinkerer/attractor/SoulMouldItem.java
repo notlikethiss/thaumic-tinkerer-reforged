@@ -1,9 +1,8 @@
 package thaumictinkerer.attractor;
 
-import java.util.function.Consumer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -12,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
 public class SoulMouldItem extends Item {
@@ -29,7 +27,7 @@ public class SoulMouldItem extends Item {
     }
 
     public static Component patternName(String pattern) {
-        Identifier id = Identifier.tryParse(pattern);
+        ResourceLocation id = ResourceLocation.tryParse(pattern);
         if (id != null) {
             return BuiltInRegistries.ENTITY_TYPE.getOptional(id).map(EntityType::getDescription).orElse(Component.literal(pattern));
         }
@@ -48,24 +46,24 @@ public class SoulMouldItem extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public net.minecraft.world.InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (player.isShiftKeyDown() && AttractorFeature.SOUL_PATTERN.has(stack)) {
             if (!level.isClientSide()) {
                 AttractorFeature.SOUL_PATTERN.remove(stack);
             }
-            return InteractionResult.SUCCESS;
+            return net.minecraft.world.InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());
         }
-        return InteractionResult.PASS;
+        return net.minecraft.world.InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, java.util.List<Component> builder, TooltipFlag flag) {
         String pattern = getPatternName(stack);
         if (pattern.isEmpty()) {
-            builder.accept(Component.translatable("ttinkerer.ttmisc.soulMould.nonAssigned"));
+            builder.add(Component.translatable("ttinkerer.ttmisc.soulMould.nonAssigned"));
         } else {
-            builder.accept(Component.translatable("ttinkerer.ttmisc.soulMould.pattern", patternName(pattern)));
+            builder.add(Component.translatable("ttinkerer.ttmisc.soulMould.pattern", patternName(pattern)));
         }
     }
 }

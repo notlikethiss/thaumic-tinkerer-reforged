@@ -1,7 +1,7 @@
 package thaumictinkerer;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -29,7 +29,7 @@ public class ThaumicTinkerer {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public ThaumicTinkerer(IEventBus modEventBus, ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.SYNCED, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
         Features.load();
         TtPlatform.register(modEventBus);
         ModEffects.register(modEventBus);
@@ -51,7 +51,7 @@ public class ThaumicTinkerer {
         Features.tests(modEventBus);
     }
 
-    public static Identifier id(String path) {
-        return Identifier.fromNamespaceAndPath(MODID, path);
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 }

@@ -31,7 +31,6 @@ import thaumictinkerer.transvector.TransvectorFeature;
 import thaumictinkerer.foci.FociFeature;
 import thaumictinkerer.enchanting.EnchantingFeature;
 import thaumictinkerer.test.EnchantingGameTests;
-import thaumictinkerer.test.DarkQuartzGameTests;
 import thaumictinkerer.test.FociGameTests;
 import thaumictinkerer.elements.ElementsFeature;
 import thaumictinkerer.kami.KamiFeature;

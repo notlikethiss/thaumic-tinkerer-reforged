@@ -33,7 +33,7 @@ public final class TabletFeature {
 
     public static final Supplier<BlockEntityType<DynamismTabletBlockEntity>> TABLET_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "dynamism_tablet",
-        () -> new BlockEntityType<>(DynamismTabletBlockEntity::new, DYNAMISM_TABLET.get())
+        () -> BlockEntityType.Builder.of(DynamismTabletBlockEntity::new,  DYNAMISM_TABLET.get()).build(null)
     );
     public static final Supplier<MenuType<DynamismTabletMenu>> TABLET_MENU = ModMenus.MENUS.register(
         "dynamism_tablet",

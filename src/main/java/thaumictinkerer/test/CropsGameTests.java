@@ -7,9 +7,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.TriState;
+import net.neoforged.neoforge.common.util.TriState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +22,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.SingleThreadedRandomSource;
-import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.IEventBus;
@@ -137,7 +135,7 @@ public final class CropsGameTests {
             helper.assertTrue(recipe.central().test(new ItemStack(Items.WHEAT_SEEDS)), "central of " + key);
             helper.assertTrue(recipe.components().size() == 4, "components of " + key);
             for (var component : recipe.components()) {
-                helper.assertTrue(component.test(new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.parse("thaumcraft:" + shards[index] + "_shard")))), "component of " + key);
+                helper.assertTrue(component.test(new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(net.minecraft.resources.ResourceLocation.parse("thaumcraft:" + shards[index] + "_shard")))), "component of " + key);
             }
         }
         helper.succeed();
@@ -498,7 +496,7 @@ public final class CropsGameTests {
         helper.assertTrue(restored.getTendencies().equals(grain.getTendencies()), "tendencies lost " + restored.getTendencies());
         CompoundTag update = grain.getUpdateTag(access);
         InfusedGrainBlockEntity synced = new InfusedGrainBlockEntity(grain.getBlockPos(), grain.getBlockState());
-        synced.loadCustomOnly(TagValueInput.create(ProblemReporter.DISCARDING, access, update));
+        synced.loadCustomOnly(update, access);
         helper.assertTrue(synced.getAspect() == Aspect.MAN && synced.tendency(Aspect.FIRE) == 7, "update tag");
 
         InfusedFarmlandBlockEntity farmland = soil(helper, SOIL);

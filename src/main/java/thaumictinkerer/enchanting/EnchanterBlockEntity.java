@@ -7,7 +7,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -23,10 +23,10 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import thaumcraft.compat.ValueInput;
+import thaumcraft.compat.ValueOutput;
 import com.mojang.serialization.Codec;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.blockentity.TcBlockEntity;
@@ -46,7 +46,7 @@ public class EnchanterBlockEntity extends TcBlockEntity implements Container, Me
     public static final int VIS_PER_UNIT = 100;
     public static final int EVENT_RUNES = 0;
 
-    private static final Codec<List<Identifier>> ENCHANTMENT_LIST = Identifier.CODEC.listOf();
+    private static final Codec<List<ResourceLocation>> ENCHANTMENT_LIST = ResourceLocation.CODEC.listOf();
     private static final Codec<List<Integer>> LEVEL_LIST = Codec.INT.listOf();
 
     private static final class Pillar {
@@ -352,7 +352,7 @@ public class EnchanterBlockEntity extends TcBlockEntity implements Container, Me
         int totems = 0;
         for (int offset = 0; ; offset++) {
             BlockPos pos = base.above(offset);
-            if (pos.getY() > level.getMaxY()) {
+            if (pos.getY() > level.getMaxBuildHeight()) {
                 return -1;
             }
             BlockState state = level.getBlockState(pos);
@@ -452,12 +452,12 @@ public class EnchanterBlockEntity extends TcBlockEntity implements Container, Me
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         items.clear();
-        ContainerHelper.loadAllItems(input, items);
+        ContainerHelper.loadAllItems(input.tag(), items, input.lookup());
         working = input.getBooleanOr("working", false);
         totalAspects = input.read("totalAspects", AspectList.CODEC).orElseGet(AspectList::new);
         currentAspects = input.read("currentAspects", AspectList.CODEC).orElseGet(AspectList::new);
         enchantments.clear();
-        for (Identifier id : input.read("enchantments", ENCHANTMENT_LIST).orElse(List.of())) {
+        for (ResourceLocation id : input.read("enchantments", ENCHANTMENT_LIST).orElse(List.of())) {
             enchantments.add(ResourceKey.create(Registries.ENCHANTMENT, id));
         }
         levels.clear();
@@ -467,11 +467,11 @@ public class EnchanterBlockEntity extends TcBlockEntity implements Container, Me
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
-        ContainerHelper.saveAllItems(output, items);
+        ContainerHelper.saveAllItems(output.tag(), items, output.lookup());
         output.putBoolean("working", working);
         output.store("totalAspects", AspectList.CODEC, totalAspects);
         output.store("currentAspects", AspectList.CODEC, currentAspects);
-        output.store("enchantments", ENCHANTMENT_LIST, enchantments.stream().map(ResourceKey::identifier).toList());
+        output.store("enchantments", ENCHANTMENT_LIST, enchantments.stream().map(ResourceKey::location).toList());
         output.store("levels", LEVEL_LIST, List.copyOf(levels));
     }
 }

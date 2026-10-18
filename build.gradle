@@ -16,6 +16,7 @@ sourceSets.main.resources {
 }
 
 repositories {
+    maven { url = "https://maven.theillusivec4.top/" }
     maven {
         name = "Minecraft Forge"
         url = "https://maven.minecraftforge.net/"
@@ -46,20 +47,33 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(Integer.parseInt(java_ve
 neoForge {
     version = project.neo_version
 
+    parchment {
+        minecraftVersion = "1.21.1"
+        mappingsVersion = "2024.11.17"
+    }
+
     runs {
         client {
             client()
+            gameDirectory = file("run/client")
+            if (providers.gradleProperty("validationServer").isPresent()) {
+                programArgument "--quickPlayMultiplayer"
+                programArgument providers.gradleProperty("validationServer").get()
+            }
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
         server {
             server()
+            gameDirectory = file("run/server")
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
         gameTestServer {
             type = "gameTestServer"
-            programArgument '--tests'
-            programArgument "${mod_id}:*"
+            gameDirectory = file("run/gametest")
+            systemProperty "thaumictinkerer.validationDir", file("build/reports/backport").absolutePath
+            programArgument "--world"
+            programArgument file("build/gametestworld").absolutePath
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
         configureEach {
@@ -84,7 +98,10 @@ dependencies {
     implementation "com.github.glitchfiend:TerraBlender-neoforge:${terrablender_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-    localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    localRuntime "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    if (!providers.gradleProperty("withoutJei").isPresent()) {
+        localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    }
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
@@ -126,4 +143,22 @@ tasks.named('runServer') {
 
 tasks.matching { it.name.startsWith("prepare") && it.name.endsWith("Run") }.configureEach {
     outputs.cacheIf { false }
+}
+
+def gameTestLog = layout.projectDirectory.file("run/gametest/logs/latest.log").asFile
+def gameTestProperties = layout.projectDirectory.file("run/gametest/server.properties").asFile
+tasks.named('runGameTestServer') {
+    doFirst {
+        gameTestLog.delete()
+        gameTestProperties.parentFile.mkdirs()
+        if (!gameTestProperties.exists()) {
+            gameTestProperties.text = ""
+        }
+    }
+    doLast {
+        def log = gameTestLog
+        if (!log.isFile() || !log.text.contains("Enabled Gametest Namespaces: [thaumictinkerer]") || !(log.text =~ /All [1-9][0-9]* required tests passed/)) {
+            throw new GradleException("GameTest server did not report a completed successful test run")
+        }
+    }
 }

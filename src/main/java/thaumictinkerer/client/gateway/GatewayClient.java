@@ -59,7 +59,7 @@ public final class GatewayClient {
     static void onClientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
         LocalPlayer player = minecraft.player;
-        if (player == null || minecraft.level == null || minecraft.gui.screen() != null || !player.isShiftKeyDown()) {
+        if (player == null || minecraft.level == null || minecraft.screen != null || !player.isShiftKeyDown()) {
             return;
         }
         AABB box = player.getBoundingBox();
@@ -67,7 +67,7 @@ public final class GatewayClient {
             for (int z = Mth.floor(box.minZ); z <= Mth.floor(box.maxZ); z++) {
                 for (int y = Mth.floor(box.minY) - 2; y <= Mth.floor(box.minY); y++) {
                     if (minecraft.level.getBlockEntity(new BlockPos(x, y, z)) instanceof WarpGateBlockEntity gate && gate.standingZone().intersects(box)) {
-                        minecraft.gui.setScreen(new WarpGateDestinationsScreen(gate));
+                        minecraft.setScreen(new WarpGateDestinationsScreen(gate));
                         return;
                     }
                 }

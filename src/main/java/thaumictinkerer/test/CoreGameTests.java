@@ -30,7 +30,8 @@ public final class CoreGameTests {
         .add("infusion_hidden_parent", CoreGameTests::infusionHiddenParent)
         .add("kami_hidden_parents", CoreGameTests::kamiHiddenParents)
         .add("recipe_key_collision", CoreGameTests::recipeKeyCollision)
-        .add("kami_rarity", CoreGameTests::kamiRarity);
+        .add("kami_rarity", CoreGameTests::kamiRarity)
+        .add("runtime_recipes_export", TtRuntimeRecipes::dump);
 
     private CoreGameTests() {
     }

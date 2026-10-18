@@ -8,10 +8,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import thaumcraft.compat.ValueInput;
+import thaumcraft.compat.ValueOutput;
 import net.minecraft.world.ticks.ContainerSingleItem;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.blockentity.TcBlockEntity;
 import thaumictinkerer.mobilizer.MovableTile;
 

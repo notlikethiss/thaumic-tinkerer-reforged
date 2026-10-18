@@ -1,11 +1,9 @@
 package thaumictinkerer.registry;
 
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import thaumictinkerer.ThaumicTinkerer;
 
 public final class ModItems {
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ThaumicTinkerer.MODID);
+    public static final thaumictinkerer.platform.TtRegistration.Items ITEMS = new thaumictinkerer.platform.TtRegistration.Items();
 
     private ModItems() {
     }

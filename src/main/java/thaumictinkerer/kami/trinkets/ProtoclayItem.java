@@ -2,14 +2,14 @@ package thaumictinkerer.kami.trinkets;
 
 import java.util.function.Function;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumictinkerer.ThaumicTinkerer;
 
 public class ProtoclayItem extends Item {
@@ -23,7 +23,7 @@ public class ProtoclayItem extends Item {
     }
 
     public static @Nullable String advancedToolType(ItemStack stack) {
-        Identifier key = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(stack.getItem());
         if (!ThaumicTinkerer.MODID.equals(key.getNamespace())) {
             return null;
         }
@@ -63,12 +63,12 @@ public class ProtoclayItem extends Item {
         return swapTool(player, state, ProtoclayItem::advancedToolType);
     }
 
-    public static boolean swapTool(Player player, BlockState state, Function<ItemStack, @Nullable String> toolTypes) {
+    public static boolean swapTool(Player player, BlockState state, Function<ItemStack, String> toolTypes) {
         if (!carriesProtoclay(player)) {
             return false;
         }
         Inventory inventory = player.getInventory();
-        int selected = inventory.getSelectedSlot();
+        int selected = inventory.selected;
         ItemStack current = inventory.getItem(selected);
         String currentType = toolTypes.apply(current);
         if (currentType == null || currentType.equals(SWORD)) {

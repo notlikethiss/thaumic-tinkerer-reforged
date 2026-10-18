@@ -7,8 +7,6 @@ import thaumictinkerer.client.foci.FociClientEffects;
 import thaumictinkerer.client.platform.TtClientNetwork;
 import thaumictinkerer.network.CropFxPayload;
 import thaumictinkerer.client.elements.ElementsClientEffects;
-import thaumictinkerer.client.foci.FociClientEffects;
-import thaumictinkerer.client.platform.TtClientNetwork;
 import thaumictinkerer.network.ElementsFxPayload;
 import thaumictinkerer.network.FociEffectPayload;
 import thaumictinkerer.client.gateway.GatewayClient;
@@ -21,6 +19,7 @@ public final class ClientPayloadHandlers {
     }
 
     public static void register() {
+        TtClientNetwork.handle(thaumictinkerer.platform.TtAttachments.SyncPayload.TYPE, thaumictinkerer.platform.TtAttachments::receive);
         TtClientNetwork.handle(FociEffectPayload.TYPE, FociClientEffects::handle);
         TtClientNetwork.handle(CropFxPayload.TYPE, CropsClient::handle);
         TtClientNetwork.handle(ElementsFxPayload.TYPE, ElementsClientEffects::handle);

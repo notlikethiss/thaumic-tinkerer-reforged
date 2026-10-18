@@ -2,7 +2,6 @@ package thaumictinkerer.kami.tool;
 
 import java.util.function.UnaryOperator;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import thaumcraft.aspect.Aspect;
@@ -44,7 +43,7 @@ public final class AwakenedToolsFeature {
             properties -> new AwakenedToolItem(properties, kind),
             properties -> type.apply(properties)
                 .rarity(TtRarity.kami())
-                .component(DataComponents.UNBREAKABLE, Unit.INSTANCE)
+                .component(DataComponents.UNBREAKABLE, new net.minecraft.world.item.component.Unbreakable(true))
                 .component(DataComponents.CUSTOM_MODEL_DATA, ToolHandler.DEFAULT_MODE)
         );
     }

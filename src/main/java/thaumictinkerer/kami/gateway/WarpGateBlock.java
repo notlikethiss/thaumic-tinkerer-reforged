@@ -5,15 +5,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.platform.Menus;
 
-public class WarpGateBlock extends Block implements EntityBlock {
+public class WarpGateBlock extends thaumictinkerer.platform.TtBlock implements EntityBlock {
     public WarpGateBlock(Properties properties) {
         super(properties.noOcclusion());
     }

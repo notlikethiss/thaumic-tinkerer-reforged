@@ -1,16 +1,22 @@
 {
   "neoforge:conditions": [
     {
-      "type": "neoforge:registered",
-      "value": "thaumictinkerer:share_tome"
+      "type": "neoforge:item_exists",
+      "item": "thaumictinkerer:share_tome"
     }
   ],
   "type": "thaumictinkerer:share_tome",
   "category": "misc",
   "key": {
-    "S": "thaumcraft:scribing_tools",
-    "T": "thaumcraft:thaumonomicon",
-    "P": "minecraft:paper"
+    "S": {
+      "item": "thaumcraft:scribing_tools"
+    },
+    "T": {
+      "item": "thaumcraft:thaumonomicon"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
   },
   "pattern": [
     " S ",

@@ -5,18 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.input.KeyEvent;
-import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumictinkerer.client.platform.TtClientNetwork;
 import thaumictinkerer.client.platform.TtGuiTint;
 import thaumictinkerer.kami.gateway.GatewayFeature;
@@ -26,7 +24,7 @@ import thaumictinkerer.kami.gateway.WarpGateBlockEntity;
 import thaumictinkerer.network.WarpGateTeleportPayload;
 
 public class WarpGateDestinationsScreen extends Screen {
-    private static final Identifier PORTAL = Identifier.withDefaultNamespace("textures/entity/end_portal/end_portal.png");
+    private static final ResourceLocation PORTAL = ResourceLocation.withDefaultNamespace("textures/entity/end_portal/end_portal.png");
     private static final int PORTAL_SIZE = 256;
     private static final int HOVER_RADIUS = 4;
     private static final int KEY_SPACE = 32;
@@ -65,22 +63,22 @@ public class WarpGateDestinationsScreen extends Screen {
     }
 
     @Override
-    public boolean mouseDragged(MouseButtonEvent event, double dragX, double dragY) {
-        if (event.button() == InputConstants.MOUSE_BUTTON_LEFT) {
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (button == InputConstants.MOUSE_BUTTON_LEFT) {
             originX -= dragX;
             originY -= dragY;
             return true;
         }
-        return super.mouseDragged(event, dragX, dragY);
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
 
     @Override
-    public boolean keyPressed(KeyEvent event) {
-        if (event.key() == KEY_SPACE) {
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == KEY_SPACE) {
             center();
             return true;
         }
-        int number = event.key() - KEY_ZERO;
+        int number = keyCode - KEY_ZERO;
         if (number >= 0 && number <= 9) {
             int index = number == 0 ? 9 : number - 1;
             PearlLocation location = SkyPearlItem.location(gate.getItem(index));
@@ -90,7 +88,7 @@ public class WarpGateDestinationsScreen extends Screen {
             }
             return true;
         }
-        return super.keyPressed(event);
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     private List<Destination> destinations() {
@@ -113,21 +111,21 @@ public class WarpGateDestinationsScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        if (event.button() == InputConstants.MOUSE_BUTTON_LEFT && event.hasShiftDown()) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == InputConstants.MOUSE_BUTTON_LEFT && hasShiftDown()) {
             for (Destination destination : destinations()) {
-                if (hovering(destination, event.x(), event.y())) {
+                if (hovering(destination, mouseX, mouseY)) {
                     TtClientNetwork.sendToServer(new WarpGateTeleportPayload(gate.getBlockPos(), destination.index()));
                     onClose();
                     return true;
                 }
             }
         }
-        return super.mouseClicked(event, doubleClick);
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+    public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         float hue = (float) (Math.sin(ticks / 150.0) + 0.5);
         int color = 0xFF000000 | Mth.hsvToRgb(hue - (float) Math.floor(hue), 0.5F, 0.4F);
         for (int column = 0; column < width; column += PORTAL_SIZE) {
@@ -137,7 +135,7 @@ public class WarpGateDestinationsScreen extends Screen {
         }
     }
 
-    private void line(GuiGraphicsExtractor graphics, int fromX, int fromY, int toX, int toY, int color) {
+    private void line(GuiGraphics graphics, int fromX, int fromY, int toX, int toY, int color) {
         int deltaX = Math.abs(toX - fromX);
         int deltaY = Math.abs(toY - fromY);
         int stepX = fromX < toX ? 1 : -1;
@@ -170,15 +168,15 @@ public class WarpGateDestinationsScreen extends Screen {
         return Component.translatable(stack == null ? "ttinkerer.ttmisc.entrancePoint" : "ttinkerer.ttmisc.destination");
     }
 
-    private void drawPearlAt(GuiGraphicsExtractor graphics, int index, @Nullable ItemStack stack, int pearlX, int pearlY, int mouseX, int mouseY) {
-        graphics.pose().pushMatrix();
-        graphics.pose().translate(pearlX, pearlY);
-        graphics.pose().scale(0.5F, 0.5F);
-        graphics.item(new ItemStack(GatewayFeature.SKY_PEARL.get()), -8, -8);
-        graphics.pose().popMatrix();
+    private void drawPearlAt(GuiGraphics graphics, int index, @Nullable ItemStack stack, int pearlX, int pearlY, int mouseX, int mouseY) {
+        graphics.pose().pushPose();
+        graphics.pose().translate(pearlX, pearlY, 0);
+        graphics.pose().scale(0.5F, 0.5F, 1.0F);
+        graphics.renderItem(new ItemStack(GatewayFeature.SKY_PEARL.get()), -8, -8);
+        graphics.pose().popPose();
         Component name = destinationName(stack);
         if (stack != null) {
-            graphics.text(font, Component.literal((index + 1) + ": ").append(name), 5, 54 + index * 11, 0xFFFFFFFF, true);
+            graphics.drawString(font, Component.literal((index + 1) + ": ").append(name), 5, 54 + index * 11, 0xFFFFFFFF, true);
         }
         if (mouseX >= pearlX - HOVER_RADIUS && mouseX <= pearlX + HOVER_RADIUS && mouseY >= pearlY - HOVER_RADIUS && mouseY < pearlY + HOVER_RADIUS) {
             List<Component> tooltip = new ArrayList<>();
@@ -191,13 +189,13 @@ public class WarpGateDestinationsScreen extends Screen {
                 tooltip.add(Component.literal("X: " + (int) (pearlX + originX)));
                 tooltip.add(Component.literal("Z: " + (int) (pearlY + originY)));
             }
-            graphics.setTooltipForNextFrame(font, tooltip, Optional.empty(), mouseX, mouseY);
+            graphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
         }
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        super.render(graphics, mouseX, mouseY, partialTick);
         BlockPos gatePos = gate.getBlockPos();
         int gateX = (int) (gatePos.getX() - originX);
         int gateY = (int) (gatePos.getZ() - originY);
@@ -207,12 +205,12 @@ public class WarpGateDestinationsScreen extends Screen {
         for (Destination destination : destinations) {
             line(graphics, gateX, gateY, destination.x(), destination.y(), lineColor);
         }
-        graphics.text(font, Component.translatable("ttinkerer.ttmisc.destinations").withStyle(ChatFormatting.UNDERLINE), 3, 40, 0xFFFFFFFF, true);
+        graphics.drawString(font, Component.translatable("ttinkerer.ttmisc.destinations").withStyle(ChatFormatting.UNDERLINE), 3, 40, 0xFFFFFFFF, true);
         drawPearlAt(graphics, 0, null, gateX, gateY, mouseX, mouseY);
         for (Destination destination : destinations) {
             drawPearlAt(graphics, destination.index(), destination.stack(), destination.x(), destination.y(), mouseX, mouseY);
         }
-        graphics.centeredText(font, Component.translatable("ttinkerer.ttmisc.numberKeys"), width / 2, 5, 0xFFFFFFFF);
-        graphics.centeredText(font, Component.translatable("ttinkerer.ttmisc.spaceToReset"), width / 2, 16, 0xFFFFFFFF);
+        graphics.drawCenteredString(font, Component.translatable("ttinkerer.ttmisc.numberKeys"), width / 2, 5, 0xFFFFFFFF);
+        graphics.drawCenteredString(font, Component.translatable("ttinkerer.ttmisc.spaceToReset"), width / 2, 16, 0xFFFFFFFF);
     }
 }

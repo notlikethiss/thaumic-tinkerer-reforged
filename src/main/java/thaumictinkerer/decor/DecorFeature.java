@@ -29,7 +29,7 @@ public final class DecorFeature {
 
     public static final Supplier<BlockEntityType<WardedSlabBlockEntity>> WARDED_SLAB = ModBlockEntities.BLOCK_ENTITIES.register(
         "warded_slab",
-        () -> new BlockEntityType<>(WardedSlabBlockEntity::new, WARD_SLAB.get())
+        () -> BlockEntityType.Builder.of(WardedSlabBlockEntity::new,  WARD_SLAB.get()).build(null)
     );
 
     private DecorFeature() {

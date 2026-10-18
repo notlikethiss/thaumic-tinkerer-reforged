@@ -11,9 +11,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 
-public class NecromancyTabletBlock extends Block implements EntityBlock {
+public class NecromancyTabletBlock extends thaumictinkerer.platform.TtBlock implements EntityBlock {
     private static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
 
     public NecromancyTabletBlock(Properties properties) {

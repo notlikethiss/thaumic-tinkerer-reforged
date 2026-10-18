@@ -3,11 +3,11 @@ package thaumictinkerer.client.kami;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
-import net.minecraft.util.ARGB;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +25,7 @@ import thaumictinkerer.kami.tool.ToolHandler;
 
 @EventBusSubscriber(modid = ThaumicTinkerer.MODID, value = Dist.CLIENT)
 public final class AwakenedToolsClient {
-    private static final Identifier SOUL_HEARTS = ThaumicTinkerer.id("textures/gui/soulhearts.png");
+    private static final ResourceLocation SOUL_HEARTS = ThaumicTinkerer.id("textures/gui/soulhearts.png");
     private static final int TOOLTIP_TICKS = 400;
     private static final int TEXTURE_SIZE = 16;
     private static final int HEART_SIZE = 9;
@@ -76,7 +76,7 @@ public final class AwakenedToolsClient {
         tooltipTicks = TOOLTIP_TICKS;
     }
 
-    private static void renderToolMode(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker) {
+    private static void renderToolMode(GuiGraphics graphics, DeltaTracker deltaTracker) {
         if (tooltipTicks <= 0 || tooltip == null) {
             return;
         }
@@ -88,11 +88,11 @@ public final class AwakenedToolsClient {
         int x = (graphics.guiWidth() - font.width(tooltip)) / 2;
         int y = graphics.guiHeight() - 72;
         float hue = Mth.frac((float) Math.cos(elapsedTicks / 250.0D));
-        int color = ARGB.color(opacity, Mth.hsvToRgb(hue, 0.6F, 1.0F));
-        graphics.text(font, tooltip, x, y, color, true);
+        int color = FastColor.ARGB32.color(opacity, Mth.hsvToRgb(hue, 0.6F, 1.0F));
+        graphics.drawString(font, tooltip, x, y, color, true);
     }
 
-    private static void renderSoulHearts(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker) {
+    private static void renderSoulHearts(GuiGraphics graphics, DeltaTracker deltaTracker) {
         Minecraft minecraft = Minecraft.getInstance();
         LocalPlayer player = minecraft.player;
         if (player == null || minecraft.gameMode == null || !minecraft.gameMode.canHurtPlayer()) {

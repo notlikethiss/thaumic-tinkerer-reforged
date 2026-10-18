@@ -71,6 +71,6 @@ public class AttractorBlockEntity extends TcBlockEntity {
             difference = difference.normalize();
         }
         entity.setDeltaMovement(difference.scale(modifier));
-        entity.needsSync = true;
+        entity.hasImpulse = true;
     }
 }

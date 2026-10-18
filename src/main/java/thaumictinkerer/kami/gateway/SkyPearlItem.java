@@ -10,7 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public class SkyPearlItem extends Item {
     public SkyPearlItem(Properties properties) {
@@ -57,15 +57,15 @@ public class SkyPearlItem extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public net.minecraft.world.InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (player.isShiftKeyDown() && isAttuned(stack)) {
             if (level instanceof ServerLevel serverLevel) {
                 chime(serverLevel, player.getX(), player.getY(), player.getZ());
                 clear(stack);
             }
-            return InteractionResult.SUCCESS;
+            return net.minecraft.world.InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());
         }
-        return InteractionResult.PASS;
+        return net.minecraft.world.InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 }

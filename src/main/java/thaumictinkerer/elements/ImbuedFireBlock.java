@@ -5,11 +5,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -48,6 +46,11 @@ public class ImbuedFireBlock extends BaseFireBlock {
             .setValue(UP, false));
     }
 
+    @Override
+    protected com.mojang.serialization.MapCodec<? extends BaseFireBlock> codec() {
+        return com.mojang.serialization.MapCodec.unit(this);
+    }
+
     public FireTransformation transformation() {
         return transformation;
     }
@@ -76,7 +79,7 @@ public class ImbuedFireBlock extends BaseFireBlock {
             return state;
         }
         for (Direction direction : Direction.values()) {
-            BooleanProperty property = FireBlock.PROPERTY_BY_DIRECTION.get(direction);
+            BooleanProperty property = switch (direction) { case NORTH -> NORTH; case SOUTH -> SOUTH; case EAST -> EAST; case WEST -> WEST; case UP -> UP; default -> null; };
             if (property != null) {
                 state = state.setValue(property, isTarget(level, pos.relative(direction)));
             }
@@ -91,14 +94,7 @@ public class ImbuedFireBlock extends BaseFireBlock {
 
     @Override
     protected BlockState updateShape(
-        BlockState state,
-        LevelReader level,
-        ScheduledTickAccess ticks,
-        BlockPos pos,
-        Direction directionToNeighbour,
-        BlockPos neighbourPos,
-        BlockState neighbourState,
-        RandomSource random
+        BlockState state, Direction directionToNeighbour, BlockState neighbourState, net.minecraft.world.level.LevelAccessor level, BlockPos pos, BlockPos neighbourPos
     ) {
         return canSurvive(state, level, pos) ? fireState(level, pos, state.getValue(AGE)) : Blocks.AIR.defaultBlockState();
     }
@@ -123,7 +119,7 @@ public class ImbuedFireBlock extends BaseFireBlock {
             Optional<PortalShape> shape = PortalShape.findEmptyPortalShape(level, pos, Direction.Axis.X);
             shape = EventHooks.onTrySpawnPortal(level, pos, shape);
             if (shape.isPresent()) {
-                shape.get().createPortalBlocks(level);
+                shape.get().createPortalBlocks();
                 return;
             }
         }
@@ -142,7 +138,7 @@ public class ImbuedFireBlock extends BaseFireBlock {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!Config.imbuedFire() || !level.canSpreadFireAround(pos)) {
+        if (!Config.imbuedFire() || !level.getGameRules().getBoolean(net.minecraft.world.level.GameRules.RULE_DOFIRETICK)) {
             return;
         }
         int age = state.getValue(AGE);
@@ -190,7 +186,7 @@ public class ImbuedFireBlock extends BaseFireBlock {
     }
 
     private void spread(ServerLevel level, BlockPos pos, RandomSource random, int age) {
-        boolean humid = level.environmentAttributes().getValue(EnvironmentAttributes.INCREASED_FIRE_BURNOUT, pos);
+        boolean humid = level.getBiome(pos).is(net.minecraft.tags.BiomeTags.INCREASED_FIRE_BURNOUT);
         BlockPos.MutableBlockPos candidate = new BlockPos.MutableBlockPos();
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {

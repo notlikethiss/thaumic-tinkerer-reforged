@@ -7,7 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
@@ -207,7 +207,7 @@ public final class AspectCropLootManager {
     }
 
     private static Item item(String id) {
-        Item item = BuiltInRegistries.ITEM.getValue(Identifier.parse(id));
+        Item item = BuiltInRegistries.ITEM.get(ResourceLocation.parse(id));
         return item == Items.AIR ? null : item;
     }
 
@@ -219,7 +219,7 @@ public final class AspectCropLootManager {
     }
 
     private static TagKey<Item> commonTag(String path) {
-        return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", path));
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", path));
     }
 
     private static void addTag(List<Entry> entries, TagKey<Item> tag) {

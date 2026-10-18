@@ -2,7 +2,6 @@ package thaumictinkerer.transvector;
 
 import java.util.function.Supplier;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -55,15 +54,15 @@ public final class TransvectorFeature {
 
     public static final Supplier<BlockEntityType<TransvectorInterfaceBlockEntity>> INTERFACE_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "transvector_interface",
-        () -> new BlockEntityType<>(TransvectorInterfaceBlockEntity::new, TRANSVECTOR_INTERFACE.get())
+        () -> BlockEntityType.Builder.of(TransvectorInterfaceBlockEntity::new,  TRANSVECTOR_INTERFACE.get()).build(null)
     );
     public static final Supplier<BlockEntityType<TransvectorDislocatorBlockEntity>> DISLOCATOR_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "transvector_dislocator",
-        () -> new BlockEntityType<>(TransvectorDislocatorBlockEntity::new, TRANSVECTOR_DISLOCATOR.get())
+        () -> BlockEntityType.Builder.of(TransvectorDislocatorBlockEntity::new,  TRANSVECTOR_DISLOCATOR.get()).build(null)
     );
     public static final Supplier<BlockEntityType<CamoBlockEntity>> PLATFORM_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "ethereal_platform",
-        () -> new BlockEntityType<>((pos, state) -> new CamoBlockEntity(TransvectorFeature.PLATFORM_ENTITY.get(), pos, state), ETHEREAL_PLATFORM.get())
+        () -> BlockEntityType.Builder.of((pos, state) -> new CamoBlockEntity(TransvectorFeature.PLATFORM_ENTITY.get(), pos, state),  ETHEREAL_PLATFORM.get()).build(null)
     );
 
     private TransvectorFeature() {
@@ -124,7 +123,7 @@ public final class TransvectorFeature {
             )
             .registerResearchItem();
         TtResearch.item(DISLOCATOR, new AspectList().add(Aspect.TRAVEL, 2).add(Aspect.MECHANISM, 1).add(Aspect.ELDRITCH, 1), -6, 1, 3, TcStack.of("thaumictinkerer:transvector_dislocator"))
-            .when(() -> thaumcraft.Config.allowMirrors())
+            .when(() -> thaumictinkerer.platform.TtBaseConfig.allowMirrors())
             .setConcealed()
             .setParents(INTERFACE)
             .setParentsHidden("MIRROR")

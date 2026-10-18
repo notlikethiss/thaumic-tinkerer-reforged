@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.platform.Teleport;
 import thaumcraft.registry.ModBlocks;
 import thaumcraft.wand.focus.FocusUtils;
@@ -109,8 +109,8 @@ public class TransvectorDislocatorBlockEntity extends TransvectorBlockEntity {
         level.removeBlockEntity(second);
         place(level, second, firstState, firstData);
         place(level, first, secondState, secondData);
-        level.neighborChanged(second, notifier, null);
-        level.neighborChanged(first, notifier, null);
+        level.neighborChanged(second, notifier, first);
+        level.neighborChanged(first, notifier, second);
     }
 
     private static @Nullable CompoundTag snapshot(ServerLevel level, BlockPos pos) {

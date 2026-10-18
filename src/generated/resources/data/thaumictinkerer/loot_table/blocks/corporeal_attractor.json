@@ -9,9 +9,11 @@
           "name": "thaumictinkerer:corporeal_attractor"
         }
       ],
-      "condition": {
-        "type": "minecraft:survives_explosion"
-      }
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
     }
   ],
   "random_sequence": "thaumictinkerer:blocks/corporeal_attractor"

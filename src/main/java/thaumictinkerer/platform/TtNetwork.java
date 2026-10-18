@@ -1,7 +1,9 @@
 package thaumictinkerer.platform;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -21,6 +23,7 @@ import thaumictinkerer.ThaumicTinkerer;
 @EventBusSubscriber(modid = ThaumicTinkerer.MODID)
 public final class TtNetwork {
     private static final List<Consumer<PayloadRegistrar>> REGISTRATIONS = new ArrayList<>();
+    private static final Map<CustomPacketPayload.Type<?>, Consumer<?>> CLIENT_HANDLERS = new HashMap<>();
 
     private TtNetwork() {
     }
@@ -31,7 +34,19 @@ public final class TtNetwork {
     }
 
     public static <T extends CustomPacketPayload> void toClient(CustomPacketPayload.Type<T> type, StreamCodec<? super RegistryFriendlyByteBuf, T> codec) {
-        REGISTRATIONS.add(registrar -> registrar.playToClient(type, codec));
+        REGISTRATIONS.add(registrar -> registrar.playToClient(type, codec, (payload, context) -> dispatch(type, payload)));
+    }
+
+    public static <T extends CustomPacketPayload> void setClientHandler(CustomPacketPayload.Type<T> type, Consumer<T> handler) {
+        CLIENT_HANDLERS.put(type, handler);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T extends CustomPacketPayload> void dispatch(CustomPacketPayload.Type<T> type, T payload) {
+        Consumer<T> handler = (Consumer<T>) CLIENT_HANDLERS.get(type);
+        if (handler != null) {
+            handler.accept(payload);
+        }
     }
 
     public static <T extends CustomPacketPayload> void toServer(CustomPacketPayload.Type<T> type, StreamCodec<? super RegistryFriendlyByteBuf, T> codec, Handler<T> handler) {

@@ -1,21 +1,18 @@
 package thaumictinkerer.kami;
 
-import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.wand.VisDiscountGear;
 
-public class IchorclothArmorItem extends Item implements VisDiscountGear {
+public class IchorclothArmorItem extends net.minecraft.world.item.ArmorItem implements VisDiscountGear {
     private final int visDiscount;
 
-    public IchorclothArmorItem(Properties properties, int visDiscount) {
-        super(properties);
+    public IchorclothArmorItem(Properties properties, int visDiscount, thaumcraft.platform.TcArmorMaterial material, thaumcraft.platform.ArmorSlot slot) {
+        super(thaumcraft.platform.Registration.armorMaterial(material), thaumcraft.platform.Registration.armorType(slot), properties);
         this.visDiscount = visDiscount;
     }
 
@@ -25,8 +22,8 @@ public class IchorclothArmorItem extends Item implements VisDiscountGear {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
-        super.appendHoverText(stack, context, display, builder, flag);
-        builder.accept(Component.translatable("tc.visdiscount").append(": " + visDiscount + "%").withStyle(ChatFormatting.DARK_PURPLE));
+    public void appendHoverText(ItemStack stack, TooltipContext context, java.util.List<Component> builder, TooltipFlag flag) {
+        super.appendHoverText(stack, context, builder, flag);
+        builder.add(Component.translatable("tc.visdiscount").append(": " + visDiscount + "%").withStyle(ChatFormatting.DARK_PURPLE));
     }
 }

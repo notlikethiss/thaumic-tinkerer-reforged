@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.fx.Fx;
@@ -42,7 +42,7 @@ public class FlightFocus extends TtFocus {
     }
 
     @Override
-    public FocusUpgradeType @Nullable [] getPossibleUpgradesByRank(ItemStack focus, int rank) {
+    public @Nullable FocusUpgradeType[] getPossibleUpgradesByRank(ItemStack focus, int rank) {
         return new FocusUpgradeType[]{FocusUpgradeType.TREASURE, FocusUpgradeType.POTENCY};
     }
 
@@ -58,10 +58,10 @@ public class FlightFocus extends TtFocus {
             double force = 1 / 1.5 * (1 + Wands.getFocusUpgrade(wand, FocusUpgradeType.POTENCY) * 0.2);
             if (level instanceof ServerLevel serverLevel) {
                 player.setDeltaMovement(look.x * force, look.y * force, look.z * force);
-                player.syncVelocity = true;
+                player.hurtMarked = true;
                 player.resetFallDistance();
                 if (player instanceof ServerPlayer serverPlayer) {
-                    serverPlayer.connection.resetFlyingTicks();
+                    thaumcraft.platform.FlightGuard.reset(serverPlayer);
                 }
                 serverLevel.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.WIND.get(), SoundSource.PLAYERS, 0.4F, 1.0F);
             } else {

@@ -3,20 +3,18 @@ package thaumictinkerer.test;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Enderman;
-import net.minecraft.world.entity.monster.zombie.Zombie;
-import net.minecraft.world.entity.monster.zombie.ZombifiedPiglin;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
@@ -27,6 +25,7 @@ import thaumcraft.aspect.AspectHelper;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.crafting.ArcaneCrafting;
 import thaumcraft.crafting.InfusionRecipe;
+import thaumcraft.crafting.InfusionCrafting;
 import thaumcraft.crafting.ShapedArcaneRecipe;
 import thaumcraft.crafting.TcRecipes;
 import thaumcraft.research.Knowledge;
@@ -102,6 +101,15 @@ public final class KamiGameTests {
         InfusionRecipe ichor = (InfusionRecipe) TcRecipes.get("ICHOR");
         helper.assertTrue(ichor != null && ichor.instability() == 7 && ichor.components().size() == 4, "ichor infusion is wrong");
         helper.assertTrue(ichor.aspects().getAmount(Aspect.SOUL) == 64, "ichor aspects are wrong");
+        Player player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        Knowledge.get(player).addResearch("ICHOR");
+        List<ItemStack> shards = List.of(new ItemStack(Items.DIAMOND), new ItemStack(KamiFeature.ENDER_SHARD.get()), new ItemStack(Items.ENDER_EYE), new ItemStack(KamiFeature.NETHER_SHARD.get()));
+        InfusionCrafting.Plan plan = InfusionCrafting.findRecipe(shards, new ItemStack(Items.NETHER_STAR), player);
+        helper.assertTrue(plan != null && plan.key().equals("ICHOR"), "original TC4 matches one of each shard despite declaring eight");
+        helper.assertTrue(InfusionCrafting.result(helper.getLevel(), plan.type(), plan.key(), new ItemStack(Items.NETHER_STAR)).getCount() == 8, "ichor infusion must still produce eight");
+        List<ItemStack> missingShard = new ArrayList<>(shards);
+        missingShard.remove(1);
+        helper.assertTrue(InfusionCrafting.findRecipe(missingShard, new ItemStack(Items.NETHER_STAR), player) == null, "ichor requires both shard types");
         InfusionRecipe rod = (InfusionRecipe) TcRecipes.get("ROD_ICHORCLOTH");
         helper.assertTrue(rod != null && rod.instability() == 9 && rod.components().size() == 6, "rod infusion is wrong");
         for (String key : List.of("ICHOR_CLOTH", "ICHORIUM", "CAP_ICHOR", "ICHORCLOTH_HELM", "ICHORCLOTH_CHEST", "ICHORCLOTH_LEGS", "ICHORCLOTH_BOOTS", "ICHOR_PICK", "ICHOR_SHOVEL", "ICHOR_AXE", "ICHOR_SWORD")) {
@@ -111,7 +119,7 @@ public final class KamiGameTests {
         helper.assertTrue(cloth.aspects().getAmount(Aspect.ENTROPY) == 125 && cloth.result().count() == 3, "cloth recipe is wrong");
         ShapedArcaneRecipe helm = (ShapedArcaneRecipe) TcRecipes.get("ICHORCLOTH_HELM");
         helper.assertTrue("ICHORCLOTH_ARMOR".equals(helm.research()), "helm research is wrong");
-        boolean nuggets = helper.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, ThaumicTinkerer.id("ichorium_nugget"))).isPresent();
+        boolean nuggets = helper.getLevel().getServer().getRecipeManager().byKey(ThaumicTinkerer.id("ichorium_nugget")).isPresent();
         helper.assertTrue(nuggets, "nugget recipe missing");
         helper.succeed();
     }
@@ -156,9 +164,9 @@ public final class KamiGameTests {
         Player player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
         DamageSource playerSource = helper.getLevel().damageSources().playerAttack(player);
         DamageSource otherSource = helper.getLevel().damageSources().generic();
-        Enderman enderman = EntityTypes.ENDERMAN.create(helper.getLevel(), EntitySpawnReason.COMMAND);
-        ZombifiedPiglin piglin = EntityTypes.ZOMBIFIED_PIGLIN.create(helper.getLevel(), EntitySpawnReason.COMMAND);
-        Zombie zombie = EntityTypes.ZOMBIE.create(helper.getLevel(), EntitySpawnReason.COMMAND);
+        EnderMan enderman = EntityType.ENDERMAN.create(helper.getLevel());
+        ZombifiedPiglin piglin = EntityType.ZOMBIFIED_PIGLIN.create(helper.getLevel());
+        Zombie zombie = EntityType.ZOMBIE.create(helper.getLevel());
         RandomSource always = new FixedRandom(0.0);
         RandomSource never = new FixedRandom(0.99);
         RandomSource edgeEnder = new FixedRandom(1.0 / 32.0);
@@ -266,7 +274,7 @@ public final class KamiGameTests {
         player.setItemSlot(EquipmentSlot.FEET, new ItemStack(KamiFeature.ICHORCLOTH_BOOTS.get()));
         helper.assertTrue(Math.abs(WandManager.getTotalVisDiscount(player, Aspect.AIR) - before - 0.15F) < 0.0001F, "full set discount");
         ItemStack helmet = new ItemStack(KamiFeature.ICHORCLOTH_COWL.get());
-        helper.assertTrue(helmet.has(DataComponents.EQUIPPABLE), "cowl is equippable");
+        helper.assertTrue(helmet.getItem() instanceof net.minecraft.world.item.ArmorItem, "cowl is equippable");
         helper.succeed();
     }
 

@@ -1,0 +1,3409 @@
+[
+  {
+    "feature": "core",
+    "generator": "tools/gen_core.py",
+    "test": "src/main/java/thaumictinkerer/test/CoreGameTests.java",
+    "cases": [
+      "category_registered",
+      "research_lang_keys",
+      "infusion_hidden_parent",
+      "kami_hidden_parents",
+      "recipe_key_collision",
+      "kami_rarity",
+      "runtime_recipes_export"
+    ],
+    "original_sources": [
+      "core/handler/ConfigHandler.java",
+      "registry/IMultiTileEntityBlock.java",
+      "registry/ITTinkererBlock.java",
+      "registry/ITTinkererItem.java",
+      "registry/ITTinkererRegisterable.java",
+      "registry/ItemBase.java",
+      "registry/ItemKamiBase.java",
+      "registry/ItemStackCompatator.java",
+      "registry/TTRegistry.java",
+      "registry/ThaumicTinkererArcaneRecipe.java",
+      "registry/ThaumicTinkererCraftingBenchRecipe.java",
+      "registry/ThaumicTinkererCrucibleRecipe.java",
+      "registry/ThaumicTinkererInfusionRecipe.java",
+      "registry/ThaumicTinkererRecipe.java",
+      "registry/ThaumicTinkererRecipeMulti.java",
+      "research/EnderStorageRecepie.java",
+      "research/IRegisterableResearch.java",
+      "research/KamiResearchItem.java",
+      "research/RecipeHelper.java",
+      "research/ResearchHelper.java",
+      "research/TTResearchItem.java",
+      "research/TTResearchItemMulti.java"
+    ],
+    "coverage": "Регистрация, конфигурация и API базы",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/Config.java",
+      "src/main/java/thaumictinkerer/Features.java",
+      "src/main/java/thaumictinkerer/ThaumicTinkerer.java"
+    ],
+    "research": [
+      {
+        "key": "TTENCH_ASCENT_BOOST",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_SLOW_FALL",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_AUTO_SMELT",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_DESINTEGRATE",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_QUICK_DRAW",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_VAMPIRISM",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_FOCUSED",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_DISPERSED",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_FINAL",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_POUNCE",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_SHATTER",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_SHOCKWAVE",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_TUNNEL",
+        "source": "research/ResearchHelper.java"
+      },
+      {
+        "key": "TTENCH_VALIANCE",
+        "source": "research/ResearchHelper.java"
+      }
+    ],
+    "recipes": []
+  },
+  {
+    "feature": "dark_quartz",
+    "generator": "tools/gen_dark_quartz.py",
+    "test": "src/main/java/thaumictinkerer/test/DarkQuartzGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_resolve",
+      "block_properties",
+      "placement_and_drops"
+    ],
+    "original_sources": [
+      "block/quartz/BlockDarkQuartz.java",
+      "block/quartz/BlockDarkQuartzSlab.java",
+      "block/quartz/BlockDarkQuartzStairs.java",
+      "item/quartz/ItemDarkQuartz.java"
+    ],
+    "coverage": "Варианты, плиты, лестницы и крафт",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/darkquartz/DarkQuartzFeature.java"
+    ],
+    "research": [
+      {
+        "key": "DARK_QUARTZ",
+        "source": "item/quartz/ItemDarkQuartz.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "DARK_QUARTZ1",
+        "type": "bench",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:dark_quartz_block"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:dark_quartz_block"
+        },
+        "source": "block/quartz/BlockDarkQuartz.java"
+      },
+      {
+        "key": "DARK_QUARTZ3",
+        "type": "bench",
+        "result": {
+          "count": 2,
+          "ids": [
+            "thaumictinkerer:dark_quartz_pillar"
+          ],
+          "meta": 2,
+          "text": "thaumictinkerer:dark_quartz_pillar"
+        },
+        "source": "block/quartz/BlockDarkQuartz.java"
+      },
+      {
+        "key": "DARK_QUARTZ4",
+        "type": "bench",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:chiseled_dark_quartz_block"
+          ],
+          "meta": 1,
+          "text": "thaumictinkerer:chiseled_dark_quartz_block"
+        },
+        "source": "block/quartz/BlockDarkQuartz.java"
+      },
+      {
+        "key": "DARK_QUARTZ2",
+        "type": "bench",
+        "result": {
+          "count": 6,
+          "ids": [
+            "thaumictinkerer:dark_quartz_slab"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:dark_quartz_slab"
+        },
+        "source": "block/quartz/BlockDarkQuartzSlab.java"
+      },
+      {
+        "key": "DARK_QUARTZ5",
+        "type": "bench",
+        "result": {
+          "count": 4,
+          "ids": [
+            "thaumictinkerer:dark_quartz_stairs"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:dark_quartz_stairs"
+        },
+        "source": "block/quartz/BlockDarkQuartzStairs.java"
+      },
+      {
+        "key": "",
+        "type": "bench",
+        "result": {
+          "count": 4,
+          "ids": [
+            "thaumictinkerer:dark_quartz_stairs"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:dark_quartz_stairs"
+        },
+        "source": "block/quartz/BlockDarkQuartzStairs.java"
+      },
+      {
+        "key": "DARK_QUARTZ0",
+        "type": "bench",
+        "result": {
+          "count": 4,
+          "ids": [
+            "thaumictinkerer:dark_quartz"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:dark_quartz"
+        },
+        "source": "item/quartz/ItemDarkQuartz.java"
+      },
+      {
+        "key": "DARK_QUARTZ0",
+        "type": "bench",
+        "result": {
+          "count": 4,
+          "ids": [
+            "thaumictinkerer:dark_quartz"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:dark_quartz"
+        },
+        "source": "item/quartz/ItemDarkQuartz.java"
+      }
+    ]
+  },
+  {
+    "feature": "decor",
+    "generator": "tools/gen_decor.py",
+    "test": "src/main/java/thaumictinkerer/test/DecorGameTests.java",
+    "cases": [
+      "recipes_present",
+      "block_properties",
+      "slab_drops",
+      "travel_effect",
+      "ward_slab_places_aura"
+    ],
+    "original_sources": [
+      "block/BlockTravelSlab.java",
+      "block/BlockTravelStairs.java",
+      "block/BlockWardSlab.java"
+    ],
+    "coverage": "Ускорение и ward-защита",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/decor/DecorFeature.java"
+    ],
+    "research": [],
+    "recipes": [
+      {
+        "key": "PAVETRAVEL",
+        "type": "bench",
+        "result": {
+          "count": 6,
+          "ids": [
+            "thaumictinkerer:travel_slab"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:travel_slab"
+        },
+        "source": "block/BlockTravelSlab.java"
+      },
+      {
+        "key": "PAVETRAVEL",
+        "type": "bench",
+        "result": {
+          "count": 4,
+          "ids": [
+            "thaumictinkerer:travel_stairs"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:travel_stairs"
+        },
+        "source": "block/BlockTravelStairs.java"
+      },
+      {
+        "key": "PAVEWARD",
+        "type": "bench",
+        "result": {
+          "count": 6,
+          "ids": [
+            "thaumictinkerer:ward_slab"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ward_slab"
+        },
+        "source": "block/BlockWardSlab.java"
+      }
+    ]
+  },
+  {
+    "feature": "gas",
+    "generator": "tools/gen_gas.py",
+    "test": "src/main/java/thaumictinkerer/test/GasGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "block_properties",
+      "light_gas_spreads",
+      "bottle_releases_gas",
+      "shadow_replaces_light",
+      "dissipator_removes_gas",
+      "nitor_gas_follows_carrier"
+    ],
+    "original_sources": [
+      "block/BlockGaseousLight.java",
+      "block/BlockGaseousShadow.java",
+      "block/BlockNitorGas.java",
+      "item/ItemBrightNitor.java",
+      "item/ItemGas.java",
+      "item/ItemGasRemover.java"
+    ],
+    "coverage": "Газ, свет, тьма и рассеивание",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/gas/GasFeature.java"
+    ],
+    "research": [
+      {
+        "key": "BRIGHT_NITOR",
+        "source": "item/ItemBrightNitor.java"
+      },
+      {
+        "key": "GASEOUS_SHADOW",
+        "source": "item/ItemGas.java"
+      },
+      {
+        "key": "GASEOUS_LIGHT",
+        "source": "item/ItemGas.java"
+      },
+      {
+        "key": "GAS_REMOVER",
+        "source": "item/ItemGasRemover.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "BRIGHT_NITOR",
+        "type": "crucible",
+        "research": "BRIGHT_NITOR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:bright_nitor"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:bright_nitor"
+        },
+        "source": "item/ItemBrightNitor.java"
+      },
+      {
+        "key": "GASEOUS_LIGHT",
+        "type": "crucible",
+        "research": "GASEOUS_LIGHT",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:gaseous_illuminae"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:gaseous_illuminae"
+        },
+        "source": "item/ItemGas.java"
+      },
+      {
+        "key": "GASEOUS_SHADOW",
+        "type": "crucible",
+        "research": "GASEOUS_SHADOW",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:gaseous_tenebrae"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:gaseous_tenebrae"
+        },
+        "source": "item/ItemGas.java"
+      },
+      {
+        "key": "GAS_REMOVER",
+        "type": "arcane",
+        "research": "GAS_REMOVER",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:fume_dissipator"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:fume_dissipator"
+        },
+        "source": "item/ItemGasRemover.java"
+      }
+    ]
+  },
+  {
+    "feature": "transvector",
+    "generator": "tools/gen_transvector.py",
+    "test": "src/main/java/thaumictinkerer/test/TransvectorGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "interface_items",
+      "interface_fluids_and_sides",
+      "interface_essentia",
+      "interface_unbinds_without_target",
+      "binding_persists",
+      "binder_flow",
+      "dislocator_moves_chest",
+      "dislocator_refuses_unbreakable",
+      "dislocator_moves_entities",
+      "dislocator_redstone",
+      "dislocator_wand_orientation",
+      "camo_stored_and_synced",
+      "camo_rejects_invalid",
+      "platform_collision"
+    ],
+    "original_sources": [
+      "block/BlockCamo.java",
+      "block/BlockPlatform.java",
+      "block/tile/transvector/TileTransvector.java",
+      "block/tile/transvector/TileTransvectorDislocator.java",
+      "block/tile/transvector/TileTransvectorInterface.java",
+      "block/transvector/BlockTransvectorDislocator.java",
+      "block/transvector/BlockTransvectorInterface.java",
+      "item/ItemConnector.java"
+    ],
+    "coverage": "Привязка, камуфляж, redstone и перенос",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/transvector/TransvectorFeature.java"
+    ],
+    "research": [
+      {
+        "key": "PLATFORM",
+        "source": "block/BlockPlatform.java"
+      },
+      {
+        "key": "DISLOCATOR",
+        "source": "block/transvector/BlockTransvectorDislocator.java"
+      },
+      {
+        "key": "INTERFACE",
+        "source": "block/transvector/BlockTransvectorInterface.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "PLATFORM",
+        "type": "arcane",
+        "research": "PLATFORM",
+        "result": {
+          "count": 2,
+          "ids": [
+            "thaumictinkerer:ethereal_platform"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ethereal_platform"
+        },
+        "source": "block/BlockPlatform.java"
+      },
+      {
+        "key": "DISLOCATOR",
+        "type": "arcane",
+        "research": "DISLOCATOR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:transvector_dislocator"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:transvector_dislocator"
+        },
+        "source": "block/transvector/BlockTransvectorDislocator.java"
+      },
+      {
+        "key": "INTERFACE",
+        "type": "arcane",
+        "research": "INTERFACE",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:transvector_interface"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:transvector_interface"
+        },
+        "source": "block/transvector/BlockTransvectorInterface.java"
+      },
+      {
+        "key": "INTERFACE1",
+        "type": "arcane",
+        "research": "INTERFACE",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:transvector_binder"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:transvector_binder"
+        },
+        "source": "item/ItemConnector.java"
+      }
+    ]
+  },
+  {
+    "feature": "funnel",
+    "generator": "tools/gen_funnel.py",
+    "test": "src/main/java/thaumictinkerer/test/FunnelGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipe_registered",
+      "needs_hopper",
+      "drains_jar_into_jar",
+      "respects_jar_contents",
+      "only_filled_jars",
+      "persists"
+    ],
+    "original_sources": [
+      "block/BlockFunnel.java",
+      "block/tile/TileFunnel.java"
+    ],
+    "coverage": "Эссенция и банки",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/funnel/FunnelFeature.java"
+    ],
+    "research": [
+      {
+        "key": "FUNNEL",
+        "source": "block/BlockFunnel.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "FUNNEL",
+        "type": "arcane",
+        "research": "FUNNEL",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:essentia_funnel"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:essentia_funnel"
+        },
+        "source": "block/BlockFunnel.java"
+      }
+    ]
+  },
+  {
+    "feature": "mobilizer",
+    "generator": "tools/gen_mobilizer.py",
+    "test": "src/main/java/thaumictinkerer/test/MobilizerGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "relays_pair_and_link",
+      "moves_chest_without_duplication",
+      "leaves_unbreakable_blocks",
+      "bounces_at_obstacle",
+      "persists"
+    ],
+    "original_sources": [
+      "block/mobilizer/BlockMobilizer.java",
+      "block/mobilizer/BlockMobilizerRelay.java",
+      "block/tile/TileEntityMobilizer.java"
+    ],
+    "coverage": "Relay, разворот, пассажиры и сохранение",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/mobilizer/MobilizerFeature.java"
+    ],
+    "research": [
+      {
+        "key": "LEVITATOR_LOCOMOTIVE",
+        "source": "block/mobilizer/BlockMobilizer.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "LEVITATOR_LOCOMOTIVE",
+        "type": "infusion",
+        "research": "LEVITATOR_LOCOMOTIVE",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:levitational_locomotive"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:levitational_locomotive"
+        },
+        "source": "block/mobilizer/BlockMobilizer.java"
+      },
+      {
+        "key": "LEVITATOR_RELAY",
+        "type": "arcane",
+        "research": "LEVITATOR_LOCOMOTIVE",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:levitational_locomotive_relay"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:levitational_locomotive_relay"
+        },
+        "source": "block/mobilizer/BlockMobilizerRelay.java"
+      }
+    ]
+  },
+  {
+    "feature": "repairer",
+    "generator": "tools/gen_repairer.py",
+    "test": "src/main/java/thaumictinkerer/test/RepairerGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipe_registered",
+      "accepts_only_damageable",
+      "repairs_with_essentia",
+      "does_nothing_without_essentia",
+      "emits_redstone_while_damaged",
+      "persists"
+    ],
+    "original_sources": [
+      "block/BlockRepairer.java",
+      "block/tile/TileRepairer.java"
+    ],
+    "coverage": "Ремонт, vis и сохранение",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/repairer/RepairerFeature.java"
+    ],
+    "research": [
+      {
+        "key": "REPAIRER",
+        "source": "block/BlockRepairer.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "REPAIRER",
+        "type": "infusion",
+        "research": "REPAIRER",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:thaumic_restorer"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:thaumic_restorer"
+        },
+        "source": "block/BlockRepairer.java"
+      }
+    ]
+  },
+  {
+    "feature": "foci",
+    "generator": "tools/gen_foci.py",
+    "test": "src/main/java/thaumictinkerer/test/FociGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "vis_costs",
+      "upgrades",
+      "smelt_converts_block",
+      "dislocation_round_trip",
+      "dislocation_refuses_unbreakable",
+      "heal_heals",
+      "flight_launches",
+      "telekinesis_pulls_items",
+      "deflect_moves_projectiles",
+      "ender_chest_opens"
+    ],
+    "original_sources": [
+      "item/foci/ItemFocusDeflect.java",
+      "item/foci/ItemFocusDislocation.java",
+      "item/foci/ItemFocusEnderChest.java",
+      "item/foci/ItemFocusFlight.java",
+      "item/foci/ItemFocusHeal.java",
+      "item/foci/ItemFocusSmelt.java",
+      "item/foci/ItemFocusTelekinesis.java"
+    ],
+    "coverage": "Стоимость, улучшения и механика обычных фокусов",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/foci/FociFeature.java"
+    ],
+    "research": [
+      {
+        "key": "FOCUS_DEFLECT",
+        "source": "item/foci/ItemFocusDeflect.java"
+      },
+      {
+        "key": "FOCUS_DISLOCATION",
+        "source": "item/foci/ItemFocusDislocation.java"
+      },
+      {
+        "key": "FOCUS_ENDER_CHEST",
+        "source": "item/foci/ItemFocusEnderChest.java"
+      },
+      {
+        "key": "FOCUS_FLIGHT",
+        "source": "item/foci/ItemFocusFlight.java"
+      },
+      {
+        "key": "FOCUS_HEAL",
+        "source": "item/foci/ItemFocusHeal.java"
+      },
+      {
+        "key": "FOCUS_SMELT",
+        "source": "item/foci/ItemFocusSmelt.java"
+      },
+      {
+        "key": "FOCUS_TELEKINESIS",
+        "source": "item/foci/ItemFocusTelekinesis.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "FOCUS_DEFLECT",
+        "type": "infusion",
+        "research": "FOCUS_DEFLECT",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:focus_deflect"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:focus_deflect"
+        },
+        "source": "item/foci/ItemFocusDeflect.java"
+      },
+      {
+        "key": "FOCUS_DISLOCATION",
+        "type": "infusion",
+        "research": "FOCUS_DISLOCATION",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:focus_dislocation"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:focus_dislocation"
+        },
+        "source": "item/foci/ItemFocusDislocation.java"
+      },
+      {
+        "key": "FOCUS_ENDER_CHEST",
+        "type": "arcane",
+        "research": "FOCUS_ENDER_CHEST",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:focus_ender_chest"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:focus_ender_chest"
+        },
+        "source": "item/foci/ItemFocusEnderChest.java"
+      },
+      {
+        "key": "FOCUS_FLIGHT",
+        "type": "infusion",
+        "research": "FOCUS_FLIGHT",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:focus_flight"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:focus_flight"
+        },
+        "source": "item/foci/ItemFocusFlight.java"
+      },
+      {
+        "key": "FOCUS_HEAL",
+        "type": "infusion",
+        "research": "FOCUS_HEAL",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:focus_heal"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:focus_heal"
+        },
+        "source": "item/foci/ItemFocusHeal.java"
+      },
+      {
+        "key": "FOCUS_SMELT",
+        "type": "arcane",
+        "research": "FOCUS_SMELT",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:focus_smelt"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:focus_smelt"
+        },
+        "source": "item/foci/ItemFocusSmelt.java"
+      },
+      {
+        "key": "FOCUS_TELEKINESIS",
+        "type": "infusion",
+        "research": "FOCUS_TELEKINESIS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:focus_telekinesis"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:focus_telekinesis"
+        },
+        "source": "item/foci/ItemFocusTelekinesis.java"
+      }
+    ]
+  },
+  {
+    "feature": "enchanting",
+    "generator": "tools/gen_enchanting.py",
+    "test": "src/main/java/thaumictinkerer/test/EnchantingGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "enchantments_registered",
+      "enchantment_compatibility",
+      "vampirism_heals",
+      "slow_fall",
+      "quick_draw",
+      "flaming_touch_and_desintegrate",
+      "enchanter_applies_enchant",
+      "enchanter_rejects_unresearched",
+      "spell_cloth_recipe",
+      "original_enchantment_research"
+    ],
+    "original_sources": [
+      "block/BlockEnchanter.java",
+      "block/tile/TileEnchanter.java",
+      "block/tile/container/ContainerEnchanter.java",
+      "enchantment/EnchantmentAscentBoost.java",
+      "enchantment/EnchantmentAutoSmelt.java",
+      "enchantment/EnchantmentDesintegrate.java",
+      "enchantment/EnchantmentDispersedStrikes.java",
+      "enchantment/EnchantmentFinalStrike.java",
+      "enchantment/EnchantmentFocusedStrikes.java",
+      "enchantment/EnchantmentMod.java",
+      "enchantment/EnchantmentPounce.java",
+      "enchantment/EnchantmentQuickDraw.java",
+      "enchantment/EnchantmentShatter.java",
+      "enchantment/EnchantmentShockwave.java",
+      "enchantment/EnchantmentSlowFall.java",
+      "enchantment/EnchantmentTunnel.java",
+      "enchantment/EnchantmentValiance.java",
+      "enchantment/EnchantmentVampirism.java",
+      "enchantment/ModEnchantmentHandler.java",
+      "enchantment/ModEnchantments.java",
+      "enchantment/core/EnchantmentData.java",
+      "enchantment/core/EnchantmentManager.java",
+      "enchantment/core/IEnchantmentRule.java",
+      "enchantment/core/rule/BasicCompatibilityRule.java",
+      "item/ItemSpellCloth.java",
+      "item/SpellClothCraftingHandler.java",
+      "item/SpellClothRecipe.java",
+      "network/packet/PacketEnchanterAddEnchant.java",
+      "network/packet/PacketEnchanterStartWorking.java"
+    ],
+    "coverage": "Зачарования, станок, стоимость и cloth",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/enchanting/EnchantingFeature.java",
+      "src/main/java/thaumictinkerer/enchanting/EnchantmentManager.java"
+    ],
+    "research": [
+      {
+        "key": "ENCHANTER",
+        "source": "block/BlockEnchanter.java"
+      },
+      {
+        "key": "SPELL_CLOTH",
+        "source": "item/ItemSpellCloth.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "ENCHANTER",
+        "type": "infusion",
+        "research": "ENCHANTER",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:osmotic_enchanter"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:osmotic_enchanter"
+        },
+        "source": "block/BlockEnchanter.java"
+      },
+      {
+        "key": "SPELL_CLOTH",
+        "type": "crucible",
+        "research": "SPELL_CLOTH",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:spellbinding_cloth"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:spellbinding_cloth"
+        },
+        "source": "item/ItemSpellCloth.java"
+      }
+    ],
+    "enchanter": [
+      {
+        "aspects": {
+          "EARTH": 10,
+          "ENTROPY": 7
+        },
+        "id": "minecraft:protection",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/protection.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "ENTROPY": 3,
+          "FIRE": 10,
+          "WATER": 4
+        },
+        "id": "minecraft:fire_protection",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/fireprotection.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "AIR": 16,
+          "ORDER": 5
+        },
+        "id": "minecraft:feather_falling",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/featherfalling.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "EARTH": 5,
+          "ENTROPY": 8,
+          "FIRE": 5
+        },
+        "id": "minecraft:blast_protection",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/blastprotection.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "AIR": 10,
+          "ENTROPY": 7
+        },
+        "id": "minecraft:projectile_protection",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/projectileprotection.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "AIR": 8,
+          "ORDER": 5,
+          "WATER": 10
+        },
+        "id": "minecraft:respiration",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/respiration.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "EARTH": 5,
+          "ORDER": 20,
+          "WATER": 25
+        },
+        "id": "minecraft:aqua_affinity",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/aquaaffinity.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "EARTH": 10,
+          "ENTROPY": 12
+        },
+        "id": "minecraft:thorns",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/thorns.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "ORDER": 10
+        },
+        "id": "minecraft:sharpness",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/sharpness.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "AIR": 5,
+          "ORDER": 5
+        },
+        "id": "minecraft:smite",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/smite.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "FIRE": 5,
+          "ORDER": 5
+        },
+        "id": "minecraft:bane_of_arthropods",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/baneofawfulturds.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "AIR": 10,
+          "ENTROPY": 5
+        },
+        "id": "minecraft:knockback",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/knockback.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "EARTH": 4,
+          "FIRE": 15
+        },
+        "id": "minecraft:fire_aspect",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/fireaspect.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "AIR": 10,
+          "EARTH": 10,
+          "ENTROPY": 15,
+          "FIRE": 10,
+          "ORDER": 15,
+          "WATER": 10
+        },
+        "id": "minecraft:looting",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/looting.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "EARTH": 4,
+          "ENTROPY": 12
+        },
+        "id": "minecraft:efficiency",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/efficiency.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "EARTH": 10,
+          "ENTROPY": 10,
+          "ORDER": 50
+        },
+        "id": "minecraft:silk_touch",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/silktouch.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "EARTH": 8,
+          "ORDER": 15,
+          "WATER": 8
+        },
+        "id": "minecraft:unbreaking",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/unbreaking.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "AIR": 10,
+          "EARTH": 10,
+          "ENTROPY": 15,
+          "FIRE": 10,
+          "ORDER": 15,
+          "WATER": 10
+        },
+        "id": "minecraft:fortune",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/fortune.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "EARTH": 5,
+          "ORDER": 10
+        },
+        "id": "minecraft:power",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/power.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "AIR": 4,
+          "EARTH": 10,
+          "ENTROPY": 5
+        },
+        "id": "minecraft:punch",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/punch.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "EARTH": 5,
+          "ENTROPY": 5,
+          "FIRE": 20
+        },
+        "id": "minecraft:flame",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/flame.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "EARTH": 10,
+          "ENTROPY": 40,
+          "ORDER": 40
+        },
+        "id": "minecraft:infinity",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/infinity.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "BEAST": 20,
+          "WATER": 20
+        },
+        "id": "minecraft:lure",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/lure.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "ENTROPY": 20,
+          "WATER": 20
+        },
+        "id": "minecraft:luck_of_the_sea",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/luckofthesea.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "AIR": 10,
+          "EARTH": 5,
+          "ENTROPY": 5
+        },
+        "id": "thaumcraft:haste",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/haste.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "AIR": 20,
+          "EARTH": 20,
+          "ENTROPY": 5,
+          "FIRE": 20,
+          "ORDER": 20,
+          "WATER": 20
+        },
+        "id": "thaumcraft:repair",
+        "research": "",
+        "texture": "thaumictinkerer:textures/enchants/repair.png",
+        "vanilla": true
+      },
+      {
+        "aspects": {
+          "AIR": 10,
+          "ENTROPY": 8
+        },
+        "id": "thaumictinkerer:ascent_boost",
+        "research": "TTENCH_ASCENT_BOOST",
+        "texture": "thaumictinkerer:textures/enchants/ascentboost.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "AIR": 10,
+          "ORDER": 8
+        },
+        "id": "thaumictinkerer:slow_fall",
+        "research": "TTENCH_SLOW_FALL",
+        "texture": "thaumictinkerer:textures/enchants/slowfall.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "ENTROPY": 20,
+          "FIRE": 30
+        },
+        "id": "thaumictinkerer:auto_smelt",
+        "research": "TTENCH_AUTO_SMELT",
+        "texture": "thaumictinkerer:textures/enchants/autosmelt.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "AIR": 10,
+          "EARTH": 10,
+          "ENTROPY": 25
+        },
+        "id": "thaumictinkerer:desintegrate",
+        "research": "TTENCH_DESINTEGRATE",
+        "texture": "thaumictinkerer:textures/enchants/desintegrate.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "AIR": 10,
+          "ORDER": 10,
+          "WATER": 5
+        },
+        "id": "thaumictinkerer:quick_draw",
+        "research": "TTENCH_QUICK_DRAW",
+        "texture": "thaumictinkerer:textures/enchants/quickdraw.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "ENTROPY": 8,
+          "FIRE": 10,
+          "WATER": 10
+        },
+        "id": "thaumictinkerer:vampirism",
+        "research": "TTENCH_VAMPIRISM",
+        "texture": "thaumictinkerer:textures/enchants/vamprisim.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "AIR": 10,
+          "ORDER": 12,
+          "WATER": 10
+        },
+        "id": "thaumictinkerer:focused_strike",
+        "research": "TTENCH_VAMPIRISM",
+        "texture": "thaumictinkerer:textures/enchants/focusedstrikes.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "EARTH": 10,
+          "ENTROPY": 12,
+          "FIRE": 10
+        },
+        "id": "thaumictinkerer:dispersed_strike",
+        "research": "TTENCH_VAMPIRISM",
+        "texture": "thaumictinkerer:textures/enchants/dispersedstrikes.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "EARTH": 10,
+          "FIRE": 10,
+          "ORDER": 12
+        },
+        "id": "thaumictinkerer:valiance",
+        "research": "TTENCH_VAMPIRISM",
+        "texture": "thaumictinkerer:textures/enchants/valiance.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "ENTROPY": 16,
+          "FIRE": 16
+        },
+        "id": "thaumictinkerer:final_strike",
+        "research": "TTENCH_VAMPIRISM",
+        "texture": "thaumictinkerer:textures/enchants/finalstrike.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "EARTH": 16,
+          "ORDER": 16
+        },
+        "id": "thaumictinkerer:tunnel",
+        "research": "TTENCH_VAMPIRISM",
+        "texture": "thaumictinkerer:textures/enchants/tunnel.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "EARTH": 16,
+          "ENTROPY": 16
+        },
+        "id": "thaumictinkerer:shatter",
+        "research": "TTENCH_VAMPIRISM",
+        "texture": "thaumictinkerer:textures/enchants/shatter.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "AIR": 16,
+          "EARTH": 16
+        },
+        "id": "thaumictinkerer:shockwave",
+        "research": "TTENCH_VAMPIRISM",
+        "texture": "thaumictinkerer:textures/enchants/shockwave.png",
+        "vanilla": false
+      },
+      {
+        "aspects": {
+          "AIR": 16,
+          "EARTH": 16
+        },
+        "id": "thaumictinkerer:pounce",
+        "research": "TTENCH_VAMPIRISM",
+        "texture": "thaumictinkerer:textures/enchants/pounce.png",
+        "vanilla": false
+      }
+    ]
+  },
+  {
+    "feature": "crops",
+    "generator": "tools/gen_crops.py",
+    "test": "src/main/java/thaumictinkerer/test/CropsGameTests.java",
+    "cases": [
+      "recipes_registered",
+      "recipe_seeds_carry_aspect",
+      "seed_stacks",
+      "grain_items",
+      "planting_creates_infused_farmland",
+      "seeds_use_on_farmland",
+      "elemental_hoe_grows_crop",
+      "farmland_rules",
+      "growth_needs_light_and_roll",
+      "mature_crop_drops_grain_of_aspect",
+      "immature_crop_drops_only_seeds",
+      "mutation_is_deterministic",
+      "tendency_effects",
+      "tendency_exchange",
+      "farmland_residue_is_capped",
+      "loot_table_per_aspect",
+      "bonemeal_respects_config",
+      "persists"
+    ],
+    "original_sources": [
+      "block/BlockInfusedFarmland.java",
+      "block/BlockInfusedGrain.java",
+      "block/tile/TileInfusedFarmland.java",
+      "block/tile/TileInfusedGrain.java",
+      "compat/InfusedSeedsPlanter.java",
+      "core/helper/AspectCropLootManager.java",
+      "item/ItemInfusedGrain.java",
+      "item/ItemInfusedSeeds.java"
+    ],
+    "coverage": "Аспекты, тенденции, мутации и сериализация",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/crops/CropsFeature.java"
+    ],
+    "research": [],
+    "recipes": [
+      {
+        "key": "INFUSED_POTIONS0",
+        "type": "infusion",
+        "research": "INFUSED_POTIONS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_seeds"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:infused_seeds"
+        },
+        "source": "item/ItemInfusedSeeds.java"
+      },
+      {
+        "key": "INFUSED_POTIONS1",
+        "type": "infusion",
+        "research": "INFUSED_POTIONS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_seeds"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:infused_seeds"
+        },
+        "source": "item/ItemInfusedSeeds.java"
+      },
+      {
+        "key": "INFUSED_POTIONS2",
+        "type": "infusion",
+        "research": "INFUSED_POTIONS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_seeds"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:infused_seeds"
+        },
+        "source": "item/ItemInfusedSeeds.java"
+      },
+      {
+        "key": "INFUSED_POTIONS3",
+        "type": "infusion",
+        "research": "INFUSED_POTIONS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_seeds"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:infused_seeds"
+        },
+        "source": "item/ItemInfusedSeeds.java"
+      },
+      {
+        "key": "INFUSED_POTIONS4",
+        "type": "infusion",
+        "research": "INFUSED_POTIONS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_seeds"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:infused_seeds"
+        },
+        "source": "item/ItemInfusedSeeds.java"
+      },
+      {
+        "key": "INFUSED_POTIONS5",
+        "type": "infusion",
+        "research": "INFUSED_POTIONS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_seeds"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:infused_seeds"
+        },
+        "source": "item/ItemInfusedSeeds.java"
+      }
+    ]
+  },
+  {
+    "feature": "elements",
+    "generator": "tools/gen_elements.py",
+    "test": "src/main/java/thaumictinkerer/test/ElementsGameTests.java",
+    "cases": [
+      "fire_research",
+      "potion_research",
+      "recipes_registered",
+      "fire_air",
+      "fire_earth",
+      "fire_ignis",
+      "fire_water",
+      "fire_order",
+      "fire_chaos",
+      "fire_dies_without_target",
+      "fire_spreads_to_target_air",
+      "fire_respects_game_rule",
+      "fire_item_places_anywhere",
+      "water_effect_solidifies_lava",
+      "air_effect_knocks_up",
+      "fire_effect_ignites",
+      "earth_effect_builds_wall",
+      "forcefield_properties",
+      "potions_apply_effects"
+    ],
+    "original_sources": [
+      "block/BlockForcefield.java",
+      "block/fire/BlockFireAir.java",
+      "block/fire/BlockFireBase.java",
+      "block/fire/BlockFireChaos.java",
+      "block/fire/BlockFireEarth.java",
+      "block/fire/BlockFireIgnis.java",
+      "block/fire/BlockFireOrder.java",
+      "block/fire/BlockFireWater.java",
+      "block/tile/TileForcefield.java",
+      "item/ItemInfusedPotion.java",
+      "potion/DummyPotions.java",
+      "potion/ModPotions.java",
+      "potion/PotionEffectHandler.java"
+    ],
+    "coverage": "Огонь, трансформации, эффекты и gamerule",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/elements/ElementsFeature.java"
+    ],
+    "research": [
+      {
+        "key": "FIRE_AER",
+        "source": "block/fire/BlockFireAir.java"
+      },
+      {
+        "key": "FIRE_PERDITIO",
+        "source": "block/fire/BlockFireChaos.java"
+      },
+      {
+        "key": "FIRE_TERRA",
+        "source": "block/fire/BlockFireEarth.java"
+      },
+      {
+        "key": "FIRE_IGNIS",
+        "source": "block/fire/BlockFireIgnis.java"
+      },
+      {
+        "key": "FIRE_ORDO",
+        "source": "block/fire/BlockFireOrder.java"
+      },
+      {
+        "key": "FIRE_AQUA",
+        "source": "block/fire/BlockFireWater.java"
+      },
+      {
+        "key": "INFUSED_POTIONS",
+        "source": "item/ItemInfusedPotion.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "FIRE_AER",
+        "type": "crucible",
+        "research": "FIRE_AER",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:aer_imbued_fire"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:aer_imbued_fire"
+        },
+        "source": "block/fire/BlockFireAir.java"
+      },
+      {
+        "key": "FIRE_PERDITIO",
+        "type": "crucible",
+        "research": "FIRE_PERDITIO",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:perditio_imbued_fire"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:perditio_imbued_fire"
+        },
+        "source": "block/fire/BlockFireChaos.java"
+      },
+      {
+        "key": "FIRE_TERRA",
+        "type": "crucible",
+        "research": "FIRE_TERRA",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:terra_imbued_fire"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:terra_imbued_fire"
+        },
+        "source": "block/fire/BlockFireEarth.java"
+      },
+      {
+        "key": "FIRE_IGNIS",
+        "type": "crucible",
+        "research": "FIRE_IGNIS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ignis_imbued_fire"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ignis_imbued_fire"
+        },
+        "source": "block/fire/BlockFireIgnis.java"
+      },
+      {
+        "key": "FIRE_ORDO",
+        "type": "crucible",
+        "research": "FIRE_ORDO",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ordo_imbued_fire"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ordo_imbued_fire"
+        },
+        "source": "block/fire/BlockFireOrder.java"
+      },
+      {
+        "key": "FIRE_AQUA",
+        "type": "crucible",
+        "research": "FIRE_AQUA",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:aqua_imbued_fire"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:aqua_imbued_fire"
+        },
+        "source": "block/fire/BlockFireWater.java"
+      },
+      {
+        "key": "INFUSED_POTIONSPOT0",
+        "type": "crucible",
+        "research": "INFUSED_POTIONSPOT0",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:aer_infused_potion"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:aer_infused_potion"
+        },
+        "source": "item/ItemInfusedPotion.java"
+      },
+      {
+        "key": "INFUSED_POTIONSPOT1",
+        "type": "crucible",
+        "research": "INFUSED_POTIONSPOT1",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ignis_infused_potion"
+          ],
+          "meta": 1,
+          "text": "thaumictinkerer:ignis_infused_potion"
+        },
+        "source": "item/ItemInfusedPotion.java"
+      },
+      {
+        "key": "INFUSED_POTIONSPOT2",
+        "type": "crucible",
+        "research": "INFUSED_POTIONSPOT2",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:terra_infused_potion"
+          ],
+          "meta": 2,
+          "text": "thaumictinkerer:terra_infused_potion"
+        },
+        "source": "item/ItemInfusedPotion.java"
+      },
+      {
+        "key": "INFUSED_POTIONSPOT3",
+        "type": "crucible",
+        "research": "INFUSED_POTIONSPOT3",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:aqua_infused_potion"
+          ],
+          "meta": 3,
+          "text": "thaumictinkerer:aqua_infused_potion"
+        },
+        "source": "item/ItemInfusedPotion.java"
+      }
+    ]
+  },
+  {
+    "feature": "attractor",
+    "generator": "tools/gen_attractor.py",
+    "test": "src/main/java/thaumictinkerer/test/AttractorGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "kinetic_pulls_when_powered",
+      "kinetic_pushes_in_red_mode",
+      "corporeal_filter",
+      "corporeal_age",
+      "corporeal_persists",
+      "button_payload_validated",
+      "soul_mould_pattern"
+    ],
+    "original_sources": [
+      "block/BlockMagnet.java",
+      "block/tile/TileMagnet.java",
+      "block/tile/TileMobMagnet.java",
+      "block/tile/container/ContainerMobMagnet.java",
+      "block/tile/container/slot/SlotMobMagnet.java",
+      "compat/MagnetProvider.java",
+      "item/ItemBlockMagnet.java",
+      "item/ItemSoulMould.java",
+      "network/packet/PacketMobMagnetButton.java"
+    ],
+    "coverage": "Сила redstone, режимы и фильтры",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/attractor/AttractorFeature.java"
+    ],
+    "research": [
+      {
+        "key": "MAGNETS",
+        "source": "block/BlockMagnet.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "MAGNET",
+        "type": "arcane",
+        "research": "MAGNETS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:kinetic_attractor"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:kinetic_attractor"
+        },
+        "source": "block/BlockMagnet.java"
+      },
+      {
+        "key": "MOB_MAGNET",
+        "type": "arcane",
+        "research": "MAGNETS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:corporeal_attractor"
+          ],
+          "meta": 1,
+          "text": "thaumictinkerer:corporeal_attractor"
+        },
+        "source": "block/BlockMagnet.java"
+      },
+      {
+        "key": "MAGNETS",
+        "type": "crucible",
+        "research": "MAGNETS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:soul_mould"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:soul_mould"
+        },
+        "source": "item/ItemSoulMould.java"
+      }
+    ]
+  },
+  {
+    "feature": "tablet",
+    "generator": "tools/gen_tablet.py",
+    "test": "src/main/java/thaumictinkerer/test/TabletGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipe_registered",
+      "persists_inventory",
+      "break_mode_collects_drops",
+      "redstone_mode_waits_for_signal",
+      "right_click_places_block",
+      "wand_rotates_when_idle"
+    ],
+    "original_sources": [
+      "block/BlockAnimationTablet.java",
+      "block/tile/container/ContainerAnimationTablet.java",
+      "block/tile/tablet/TabletFakePlayer.java",
+      "block/tile/tablet/TileAnimationTablet.java"
+    ],
+    "coverage": "Fake player, действия и redstone",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/tablet/TabletFeature.java"
+    ],
+    "research": [
+      {
+        "key": "ANIMATION_TABLET",
+        "source": "block/BlockAnimationTablet.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "ANIMATION_TABLET",
+        "type": "arcane",
+        "research": "ANIMATION_TABLET",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:dynamism_tablet"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:dynamism_tablet"
+        },
+        "source": "block/BlockAnimationTablet.java"
+      }
+    ]
+  },
+  {
+    "feature": "gear",
+    "generator": "tools/gen_gear.py",
+    "test": "src/main/java/thaumictinkerer/test/GearGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "cleansing_talisman_cleanses",
+      "cleansing_talisman_wears_out",
+      "xp_talisman_absorbs_and_returns",
+      "xp_talisman_caps",
+      "revealing_helm_interfaces",
+      "share_tome_transfers_research",
+      "blood_sword_stats",
+      "blood_sword_strikes_back",
+      "inkwell_is_scribing_tool"
+    ],
+    "original_sources": [
+      "item/ItemBloodSword.java",
+      "item/ItemCleansingTalisman.java",
+      "item/ItemInfusedInkwell.java",
+      "item/ItemRevealingHelm.java",
+      "item/ItemShareBook.java",
+      "item/ItemXPTalisman.java"
+    ],
+    "coverage": "XP, эффекты, меч, знания и экипировка",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/gear/GearFeature.java"
+    ],
+    "research": [
+      {
+        "key": "BLOOD_SWORD",
+        "source": "item/ItemBloodSword.java"
+      },
+      {
+        "key": "CLEANSING_TALISMAN",
+        "source": "item/ItemCleansingTalisman.java"
+      },
+      {
+        "key": "REVEALING_HELM",
+        "source": "item/ItemRevealingHelm.java"
+      },
+      {
+        "key": "SHARE_TOME",
+        "source": "item/ItemShareBook.java"
+      },
+      {
+        "key": "XP_TALISMAN",
+        "source": "item/ItemXPTalisman.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "BLOOD_SWORD",
+        "type": "infusion",
+        "research": "BLOOD_SWORD",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:blood_sword"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:blood_sword"
+        },
+        "source": "item/ItemBloodSword.java"
+      },
+      {
+        "key": "CLEANSING_TALISMAN",
+        "type": "infusion",
+        "research": "CLEANSING_TALISMAN",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:cleansing_talisman"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:cleansing_talisman"
+        },
+        "source": "item/ItemCleansingTalisman.java"
+      },
+      {
+        "key": "INFUSED_INKWELL0",
+        "type": "bench",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_inkwell"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:infused_inkwell"
+        },
+        "source": "item/ItemInfusedInkwell.java"
+      },
+      {
+        "key": "INFUSED_INKWELL",
+        "type": "infusion",
+        "research": "INFUSED_INKWELL",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_inkwell"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:infused_inkwell"
+        },
+        "source": "item/ItemInfusedInkwell.java"
+      },
+      {
+        "key": "REVEALING_HELM",
+        "type": "arcane",
+        "research": "REVEALING_HELM",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:revealing_helm"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:revealing_helm"
+        },
+        "source": "item/ItemRevealingHelm.java"
+      },
+      {
+        "key": "SHARE_TOME",
+        "type": "bench",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:share_tome"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:share_tome"
+        },
+        "source": "item/ItemShareBook.java"
+      },
+      {
+        "key": "XP_TALISMAN",
+        "type": "infusion",
+        "research": "XP_TALISMAN",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:xp_talisman"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:xp_talisman"
+        },
+        "source": "item/ItemXPTalisman.java"
+      }
+    ]
+  },
+  {
+    "feature": "necromancy",
+    "generator": "tools/gen_necromancy.py",
+    "test": "src/main/java/thaumictinkerer/test/NecromancyGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "items_have_aspects",
+      "mob_table",
+      "tablet_summons_and_consumes",
+      "tablet_ignores_unknown_combination",
+      "tablet_infused_keeps_souls",
+      "tablet_respects_redstone",
+      "blood_sword_drops_soul_aspects"
+    ],
+    "original_sources": [
+      "block/BlockSummon.java",
+      "block/tile/TileSummon.java",
+      "core/helper/EnumMobAspect.java",
+      "item/ItemMobAspect.java"
+    ],
+    "coverage": "17 аспектов душ, condensed/infused и призыв",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/necromancy/NecromancyFeature.java"
+    ],
+    "research": [
+      {
+        "key": "SUMMON",
+        "source": "block/BlockSummon.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "SUMMON0",
+        "type": "arcane",
+        "research": "SUMMON",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:necromancy_tablet"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:necromancy_tablet"
+        },
+        "source": "block/BlockSummon.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "WATER",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_aqua_soul_aspect"
+          ],
+          "meta": 21,
+          "text": "thaumictinkerer:condensed_aqua_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "WATER",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_aqua_soul_aspect"
+          ],
+          "meta": 42,
+          "text": "thaumictinkerer:infused_aqua_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "MAN",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_humanus_soul_aspect"
+          ],
+          "meta": 22,
+          "text": "thaumictinkerer:condensed_humanus_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "MAN",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_humanus_soul_aspect"
+          ],
+          "meta": 43,
+          "text": "thaumictinkerer:infused_humanus_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "AIR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_aer_soul_aspect"
+          ],
+          "meta": 23,
+          "text": "thaumictinkerer:condensed_aer_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "AIR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_aer_soul_aspect"
+          ],
+          "meta": 44,
+          "text": "thaumictinkerer:infused_aer_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "FLIGHT",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_volatus_soul_aspect"
+          ],
+          "meta": 24,
+          "text": "thaumictinkerer:condensed_volatus_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "FLIGHT",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_volatus_soul_aspect"
+          ],
+          "meta": 45,
+          "text": "thaumictinkerer:infused_volatus_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "FIRE",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_ignis_soul_aspect"
+          ],
+          "meta": 25,
+          "text": "thaumictinkerer:condensed_ignis_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "FIRE",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_ignis_soul_aspect"
+          ],
+          "meta": 46,
+          "text": "thaumictinkerer:infused_ignis_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "MAGIC",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_praecantatio_soul_aspect"
+          ],
+          "meta": 26,
+          "text": "thaumictinkerer:condensed_praecantatio_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "MAGIC",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_praecantatio_soul_aspect"
+          ],
+          "meta": 47,
+          "text": "thaumictinkerer:infused_praecantatio_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "UNDEAD",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_exanimis_soul_aspect"
+          ],
+          "meta": 27,
+          "text": "thaumictinkerer:condensed_exanimis_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "UNDEAD",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_exanimis_soul_aspect"
+          ],
+          "meta": 48,
+          "text": "thaumictinkerer:infused_exanimis_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "FLESH",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_corpus_soul_aspect"
+          ],
+          "meta": 28,
+          "text": "thaumictinkerer:condensed_corpus_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "FLESH",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_corpus_soul_aspect"
+          ],
+          "meta": 49,
+          "text": "thaumictinkerer:infused_corpus_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "BEAST",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_bestia_soul_aspect"
+          ],
+          "meta": 29,
+          "text": "thaumictinkerer:condensed_bestia_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "BEAST",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_bestia_soul_aspect"
+          ],
+          "meta": 50,
+          "text": "thaumictinkerer:infused_bestia_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "POISON",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_venenum_soul_aspect"
+          ],
+          "meta": 30,
+          "text": "thaumictinkerer:condensed_venenum_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "POISON",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_venenum_soul_aspect"
+          ],
+          "meta": 51,
+          "text": "thaumictinkerer:infused_venenum_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "EARTH",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_terra_soul_aspect"
+          ],
+          "meta": 31,
+          "text": "thaumictinkerer:condensed_terra_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "EARTH",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_terra_soul_aspect"
+          ],
+          "meta": 52,
+          "text": "thaumictinkerer:infused_terra_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "ELDRITCH",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_alienis_soul_aspect"
+          ],
+          "meta": 32,
+          "text": "thaumictinkerer:condensed_alienis_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "ELDRITCH",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_alienis_soul_aspect"
+          ],
+          "meta": 53,
+          "text": "thaumictinkerer:infused_alienis_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "TRAVEL",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_iter_soul_aspect"
+          ],
+          "meta": 33,
+          "text": "thaumictinkerer:condensed_iter_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "TRAVEL",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_iter_soul_aspect"
+          ],
+          "meta": 54,
+          "text": "thaumictinkerer:infused_iter_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "METAL",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_metallum_soul_aspect"
+          ],
+          "meta": 34,
+          "text": "thaumictinkerer:condensed_metallum_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "METAL",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_metallum_soul_aspect"
+          ],
+          "meta": 55,
+          "text": "thaumictinkerer:infused_metallum_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "SLIME",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_limus_soul_aspect"
+          ],
+          "meta": 35,
+          "text": "thaumictinkerer:condensed_limus_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "SLIME",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_limus_soul_aspect"
+          ],
+          "meta": 56,
+          "text": "thaumictinkerer:infused_limus_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "CLOTH",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_pannus_soul_aspect"
+          ],
+          "meta": 36,
+          "text": "thaumictinkerer:condensed_pannus_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "CLOTH",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_pannus_soul_aspect"
+          ],
+          "meta": 57,
+          "text": "thaumictinkerer:infused_pannus_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON1",
+        "type": "bench",
+        "variant": "CROP",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:condensed_messis_soul_aspect"
+          ],
+          "meta": 37,
+          "text": "thaumictinkerer:condensed_messis_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      },
+      {
+        "key": "SUMMON",
+        "type": "infusion",
+        "research": "SUMMON",
+        "variant": "CROP",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:infused_messis_soul_aspect"
+          ],
+          "meta": 58,
+          "text": "thaumictinkerer:infused_messis_soul_aspect"
+        },
+        "source": "item/ItemMobAspect.java"
+      }
+    ]
+  },
+  {
+    "feature": "kami",
+    "generator": "tools/gen_kami.py",
+    "test": "src/main/java/thaumictinkerer/test/KamiGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "resources_rarity",
+      "shard_aspects",
+      "shard_drops",
+      "wand_parts",
+      "tools_unbreakable",
+      "armor_discount"
+    ],
+    "original_sources": [
+      "item/kami/ItemKamiResource.java",
+      "item/kami/armor/ItemIchorclothArmor.java",
+      "item/kami/armor/ItemIchorclothArmorAdv.java",
+      "item/kami/tool/ItemIchorAxe.java",
+      "item/kami/tool/ItemIchorPick.java",
+      "item/kami/tool/ItemIchorShovel.java",
+      "item/kami/tool/ItemIchorSword.java",
+      "item/kami/wand/RodIchorcloth.java"
+    ],
+    "coverage": "Материалы, shards, жезлы, инструменты и броня",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/kami/KamiFeature.java"
+    ],
+    "research": [
+      {
+        "key": "DIMENSION_SHARDS",
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "ICHOR",
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "ICHOR_CLOTH",
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "ICHORIUM",
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "CAP_ICHOR",
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "ROD_ICHORCLOTH",
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "ICHORCLOTH_ARMOR",
+        "source": "item/kami/armor/ItemIchorclothArmor.java"
+      },
+      {
+        "key": "ICHOR_TOOLS",
+        "source": "item/kami/tool/ItemIchorPick.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "ICHOR_CLOTH",
+        "type": "arcane",
+        "research": "ICHOR_CLOTH",
+        "result": {
+          "count": 3,
+          "ids": [
+            "thaumictinkerer:ichor_cloth"
+          ],
+          "meta": 1,
+          "text": "thaumictinkerer:ichor_cloth"
+        },
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "ICHORIUM",
+        "type": "arcane",
+        "research": "ICHORIUM",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorium_ingot"
+          ],
+          "meta": 2,
+          "text": "thaumictinkerer:ichorium_ingot"
+        },
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "CAP_ICHOR",
+        "type": "arcane",
+        "research": "CAP_ICHOR",
+        "result": {
+          "count": 2,
+          "ids": [
+            "thaumictinkerer:ichorium_cap"
+          ],
+          "meta": 4,
+          "text": "thaumictinkerer:ichorium_cap"
+        },
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "ICHOR",
+        "type": "infusion",
+        "research": "ICHOR",
+        "result": {
+          "count": 8,
+          "ids": [
+            "thaumictinkerer:ichor"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichor"
+        },
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "ROD_ICHORCLOTH",
+        "type": "infusion",
+        "research": "ROD_ICHORCLOTH",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorcloth_rod"
+          ],
+          "meta": 5,
+          "text": "thaumictinkerer:ichorcloth_rod"
+        },
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "",
+        "type": "bench",
+        "result": {
+          "count": 9,
+          "ids": [
+            "thaumictinkerer:ichorium_nugget"
+          ],
+          "meta": 3,
+          "text": "thaumictinkerer:ichorium_nugget"
+        },
+        "source": "item/kami/ItemKamiResource.java"
+      },
+      {
+        "key": "ICHORCLOTH_HELM",
+        "type": "arcane",
+        "research": "ICHORCLOTH_ARMOR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorcloth_cowl"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorcloth_cowl"
+        },
+        "source": "item/kami/armor/ItemIchorclothArmor.java"
+      },
+      {
+        "key": "ICHORCLOTH_CHEST",
+        "type": "arcane",
+        "research": "ICHORCLOTH_ARMOR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorcloth_robe"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorcloth_robe"
+        },
+        "source": "item/kami/armor/ItemIchorclothArmor.java"
+      },
+      {
+        "key": "ICHORCLOTH_LEGS",
+        "type": "arcane",
+        "research": "ICHORCLOTH_ARMOR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorcloth_leggings"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorcloth_leggings"
+        },
+        "source": "item/kami/armor/ItemIchorclothArmor.java"
+      },
+      {
+        "key": "ICHORCLOTH_BOOTS",
+        "type": "arcane",
+        "research": "ICHORCLOTH_ARMOR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorcloth_boots"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorcloth_boots"
+        },
+        "source": "item/kami/armor/ItemIchorclothArmor.java"
+      },
+      {
+        "key": "ICHOR_AXE",
+        "type": "arcane",
+        "research": "ICHOR_TOOLS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorium_axe"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorium_axe"
+        },
+        "source": "item/kami/tool/ItemIchorAxe.java"
+      },
+      {
+        "key": "ICHOR_PICK",
+        "type": "arcane",
+        "research": "ICHOR_TOOLS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorium_pickaxe"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorium_pickaxe"
+        },
+        "source": "item/kami/tool/ItemIchorPick.java"
+      },
+      {
+        "key": "ICHOR_SHOVEL",
+        "type": "arcane",
+        "research": "ICHOR_TOOLS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorium_shovel"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorium_shovel"
+        },
+        "source": "item/kami/tool/ItemIchorShovel.java"
+      },
+      {
+        "key": "ICHOR_SWORD",
+        "type": "arcane",
+        "research": "ICHOR_TOOLS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorium_sword"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorium_sword"
+        },
+        "source": "item/kami/tool/ItemIchorSword.java"
+      }
+    ]
+  },
+  {
+    "feature": "awakened_tools",
+    "generator": "tools/gen_awakened_tools.py",
+    "test": "src/main/java/thaumictinkerer/test/AwakenedToolsGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "mode_switch_persists",
+      "pick_square_mode",
+      "pick_line_mode",
+      "pick_respects_permissions",
+      "block_mode_breaks_one",
+      "shovel_column_mode",
+      "axe_square_mode",
+      "axe_fells_tree",
+      "sword_area_mode",
+      "sword_soul_mode",
+      "soul_hearts_absorb_damage",
+      "mass_harvest_collects_drops",
+      "tree_preserves_pickup_delay"
+    ],
+    "original_sources": [
+      "item/kami/tool/IAdvancedTool.java",
+      "item/kami/tool/ItemIchorAxe.java",
+      "item/kami/tool/ItemIchorAxeAdv.java",
+      "item/kami/tool/ItemIchorPick.java",
+      "item/kami/tool/ItemIchorPickAdv.java",
+      "item/kami/tool/ItemIchorShovel.java",
+      "item/kami/tool/ItemIchorShovelAdv.java",
+      "item/kami/tool/ItemIchorSword.java",
+      "item/kami/tool/ItemIchorSwordAdv.java",
+      "item/kami/tool/ToolHandler.java"
+    ],
+    "coverage": "Режимы, permissions, души и дропы",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/kami/tool/AwakenedToolsFeature.java"
+    ],
+    "research": [
+      {
+        "key": "ICHOR_AXE_GEM",
+        "source": "item/kami/tool/ItemIchorAxeAdv.java"
+      },
+      {
+        "key": "ICHOR_TOOLS",
+        "source": "item/kami/tool/ItemIchorPick.java"
+      },
+      {
+        "key": "ICHOR_PICK_GEM",
+        "source": "item/kami/tool/ItemIchorPickAdv.java"
+      },
+      {
+        "key": "ICHOR_SHOVEL_GEM",
+        "source": "item/kami/tool/ItemIchorShovelAdv.java"
+      },
+      {
+        "key": "ICHOR_SWORD_GEM",
+        "source": "item/kami/tool/ItemIchorSwordAdv.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "ICHOR_AXE",
+        "type": "arcane",
+        "research": "ICHOR_TOOLS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorium_axe"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorium_axe"
+        },
+        "source": "item/kami/tool/ItemIchorAxe.java"
+      },
+      {
+        "key": "ICHOR_AXE_GEM",
+        "type": "infusion",
+        "research": "ICHOR_AXE_GEM",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:awakened_ichorium_axe"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:awakened_ichorium_axe"
+        },
+        "source": "item/kami/tool/ItemIchorAxeAdv.java"
+      },
+      {
+        "key": "ICHOR_PICK",
+        "type": "arcane",
+        "research": "ICHOR_TOOLS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorium_pickaxe"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorium_pickaxe"
+        },
+        "source": "item/kami/tool/ItemIchorPick.java"
+      },
+      {
+        "key": "ICHOR_PICK_GEM",
+        "type": "infusion",
+        "research": "ICHOR_PICK_GEM",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:awakened_ichorium_pickaxe"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:awakened_ichorium_pickaxe"
+        },
+        "source": "item/kami/tool/ItemIchorPickAdv.java"
+      },
+      {
+        "key": "ICHOR_SHOVEL",
+        "type": "arcane",
+        "research": "ICHOR_TOOLS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorium_shovel"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorium_shovel"
+        },
+        "source": "item/kami/tool/ItemIchorShovel.java"
+      },
+      {
+        "key": "ICHOR_SHOVEL_GEM",
+        "type": "infusion",
+        "research": "ICHOR_SHOVEL_GEM",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:awakened_ichorium_shovel"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:awakened_ichorium_shovel"
+        },
+        "source": "item/kami/tool/ItemIchorShovelAdv.java"
+      },
+      {
+        "key": "ICHOR_SWORD",
+        "type": "arcane",
+        "research": "ICHOR_TOOLS",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorium_sword"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorium_sword"
+        },
+        "source": "item/kami/tool/ItemIchorSword.java"
+      },
+      {
+        "key": "ICHOR_SWORD_GEM",
+        "type": "infusion",
+        "research": "ICHOR_SWORD_GEM",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:awakened_ichorium_sword"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:awakened_ichorium_sword"
+        },
+        "source": "item/kami/tool/ItemIchorSwordAdv.java"
+      }
+    ]
+  },
+  {
+    "feature": "awakened_armor",
+    "generator": "tools/gen_awakened_armor.py",
+    "test": "src/main/java/thaumictinkerer/test/AwakenedArmorGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "items",
+      "cowl_night_vision",
+      "robes_flight",
+      "robes_flight_creative",
+      "leggings_fire_immunity",
+      "boots_step_height",
+      "boots_effects",
+      "toggle_payload",
+      "piece_toggle",
+      "global_toggle_disables"
+    ],
+    "original_sources": [
+      "core/handler/kami/KamiArmorHandler.java",
+      "item/kami/armor/ItemGemBoots.java",
+      "item/kami/armor/ItemGemChest.java",
+      "item/kami/armor/ItemGemHelm.java",
+      "item/kami/armor/ItemGemLegs.java",
+      "item/kami/armor/ItemIchorclothArmor.java",
+      "item/kami/armor/ItemIchorclothArmorAdv.java"
+    ],
+    "coverage": "Комплект, полёт, выключение и синхронизация",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/awakenedarmor/AwakenedArmorFeature.java"
+    ],
+    "research": [
+      {
+        "key": "ICHORCLOTH_BOOTS_GEM",
+        "source": "item/kami/armor/ItemGemBoots.java"
+      },
+      {
+        "key": "ICHORCLOTH_CHEST_GEM",
+        "source": "item/kami/armor/ItemGemChest.java"
+      },
+      {
+        "key": "ICHORCLOTH_HELM_GEM",
+        "source": "item/kami/armor/ItemGemHelm.java"
+      },
+      {
+        "key": "ICHORCLOTH_LEGS_GEM",
+        "source": "item/kami/armor/ItemGemLegs.java"
+      },
+      {
+        "key": "ICHORCLOTH_ARMOR",
+        "source": "item/kami/armor/ItemIchorclothArmor.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "ICHORCLOTH_BOOTS_GEM",
+        "type": "infusion",
+        "research": "ICHORCLOTH_BOOTS_GEM",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:boots_of_the_horizontal_shield"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:boots_of_the_horizontal_shield"
+        },
+        "source": "item/kami/armor/ItemGemBoots.java"
+      },
+      {
+        "key": "ICHORCLOTH_CHEST_GEM",
+        "type": "infusion",
+        "research": "ICHORCLOTH_CHEST_GEM",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:robes_of_the_stratosphere"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:robes_of_the_stratosphere"
+        },
+        "source": "item/kami/armor/ItemGemChest.java"
+      },
+      {
+        "key": "ICHORCLOTH_HELM_GEM",
+        "type": "infusion",
+        "research": "ICHORCLOTH_HELM_GEM",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:cowl_of_the_abyssal_depths"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:cowl_of_the_abyssal_depths"
+        },
+        "source": "item/kami/armor/ItemGemHelm.java"
+      },
+      {
+        "key": "ICHORCLOTH_LEGS_GEM",
+        "type": "infusion",
+        "research": "ICHORCLOTH_LEGS_GEM",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:leggings_of_the_burning_mantle"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:leggings_of_the_burning_mantle"
+        },
+        "source": "item/kami/armor/ItemGemLegs.java"
+      },
+      {
+        "key": "ICHORCLOTH_HELM",
+        "type": "arcane",
+        "research": "ICHORCLOTH_ARMOR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorcloth_cowl"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorcloth_cowl"
+        },
+        "source": "item/kami/armor/ItemIchorclothArmor.java"
+      },
+      {
+        "key": "ICHORCLOTH_CHEST",
+        "type": "arcane",
+        "research": "ICHORCLOTH_ARMOR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorcloth_robe"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorcloth_robe"
+        },
+        "source": "item/kami/armor/ItemIchorclothArmor.java"
+      },
+      {
+        "key": "ICHORCLOTH_LEGS",
+        "type": "arcane",
+        "research": "ICHORCLOTH_ARMOR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorcloth_leggings"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorcloth_leggings"
+        },
+        "source": "item/kami/armor/ItemIchorclothArmor.java"
+      },
+      {
+        "key": "ICHORCLOTH_BOOTS",
+        "type": "arcane",
+        "research": "ICHORCLOTH_ARMOR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichorcloth_boots"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichorcloth_boots"
+        },
+        "source": "item/kami/armor/ItemIchorclothArmor.java"
+      }
+    ]
+  },
+  {
+    "feature": "trinkets",
+    "generator": "tools/gen_trinkets.py",
+    "test": "src/main/java/thaumictinkerer/test/TrinketsGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "ring_sets_block_and_places",
+      "ring_absorbs_without_dupes",
+      "ring_dispenses_stack",
+      "ring_fills_container",
+      "ring_toggles",
+      "mirror_places_square",
+      "mirror_needs_enough_blocks",
+      "mirror_sizes_and_block",
+      "pouch_round_trip",
+      "pouch_found_by_wand_switcher",
+      "cat_amulet_stops_creepers",
+      "protoclay_swaps_tools"
+    ],
+    "original_sources": [
+      "block/tile/container/kami/ContainerIchorPouch.java",
+      "item/kami/ItemBlockTalisman.java",
+      "item/kami/ItemCatAmulet.java",
+      "item/kami/ItemIchorPouch.java",
+      "item/kami/ItemPlacementMirror.java",
+      "item/kami/ItemProtoclay.java"
+    ],
+    "coverage": "Блоки, строительство, инструменты и мешочек",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/kami/trinkets/TrinketsFeature.java"
+    ],
+    "research": [
+      {
+        "key": "BLOCK_TALISMAN",
+        "source": "item/kami/ItemBlockTalisman.java"
+      },
+      {
+        "key": "CAT_AMULET",
+        "source": "item/kami/ItemCatAmulet.java"
+      },
+      {
+        "key": "ICHOR_POUCH",
+        "source": "item/kami/ItemIchorPouch.java"
+      },
+      {
+        "key": "PLACEMENT_MIRROR",
+        "source": "item/kami/ItemPlacementMirror.java"
+      },
+      {
+        "key": "PROTOCLAY",
+        "source": "item/kami/ItemProtoclay.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "BLOCK_TALISMAN",
+        "type": "infusion",
+        "research": "BLOCK_TALISMAN",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:block_talisman"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:block_talisman"
+        },
+        "source": "item/kami/ItemBlockTalisman.java"
+      },
+      {
+        "key": "CAT_AMULET",
+        "type": "infusion",
+        "research": "CAT_AMULET",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:cat_amulet"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:cat_amulet"
+        },
+        "source": "item/kami/ItemCatAmulet.java"
+      },
+      {
+        "key": "ICHOR_POUCH",
+        "type": "infusion",
+        "research": "ICHOR_POUCH",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:ichor_pouch"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:ichor_pouch"
+        },
+        "source": "item/kami/ItemIchorPouch.java"
+      },
+      {
+        "key": "PLACEMENT_MIRROR",
+        "type": "infusion",
+        "research": "PLACEMENT_MIRROR",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:placement_mirror"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:placement_mirror"
+        },
+        "source": "item/kami/ItemPlacementMirror.java"
+      },
+      {
+        "key": "PROTOCLAY",
+        "type": "infusion",
+        "research": "PROTOCLAY",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:protoclay"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:protoclay"
+        },
+        "source": "item/kami/ItemProtoclay.java"
+      }
+    ]
+  },
+  {
+    "feature": "kami_gateway",
+    "generator": "tools/gen_kami_gateway.py",
+    "test": "src/main/java/thaumictinkerer/test/GatewayGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "pearl_attunes_to_gate",
+      "teleports_to_installed_pearl",
+      "rejects_forged_destinations",
+      "locked_gate_refuses",
+      "persists_inventory_and_binding",
+      "menu_accepts_only_pearls",
+      "button_payload_validated",
+      "drops_pearls_when_broken"
+    ],
+    "original_sources": [
+      "block/kami/BlockWarpGate.java",
+      "block/tile/container/kami/ContainerWarpGate.java",
+      "block/tile/container/slot/kami/SlotSkyPearl.java",
+      "block/tile/kami/TileWarpGate.java",
+      "item/kami/ItemBlockWarpGate.java",
+      "item/kami/ItemSkyPearl.java",
+      "network/packet/kami/PacketWarpGateButton.java",
+      "network/packet/kami/PacketWarpGateTeleport.java"
+    ],
+    "coverage": "Назначения, телепортация, блокировка и persistence",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/kami/gateway/GatewayFeature.java"
+    ],
+    "research": [
+      {
+        "key": "WARP_GATE",
+        "source": "block/kami/BlockWarpGate.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "WARP_GATE",
+        "type": "infusion",
+        "research": "WARP_GATE",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:warp_gate"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:warp_gate"
+        },
+        "source": "block/kami/BlockWarpGate.java"
+      },
+      {
+        "key": "SKY_PEARL",
+        "type": "infusion",
+        "research": "WARP_GATE",
+        "result": {
+          "count": 2,
+          "ids": [
+            "thaumictinkerer:sky_pearl"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:sky_pearl"
+        },
+        "source": "item/kami/ItemSkyPearl.java"
+      }
+    ]
+  },
+  {
+    "feature": "kami_foci",
+    "generator": "tools/gen_kami_foci.py",
+    "test": "src/main/java/thaumictinkerer/test/KamiFociGameTests.java",
+    "cases": [
+      "research_registered",
+      "recipes_registered",
+      "vis_costs_and_rarity",
+      "beam_entity_registered",
+      "shadowbeam_damages_mob",
+      "shadowbeam_reflects",
+      "xp_drain_moves_xp_into_vis",
+      "xp_drain_needs_xp_and_room",
+      "recall_teleports_and_consumes_vis",
+      "recall_refuses_invalid"
+    ],
+    "original_sources": [
+      "item/kami/foci/ItemFocusRecall.java",
+      "item/kami/foci/ItemFocusShadowbeam.java",
+      "item/kami/foci/ItemFocusXPDrain.java"
+    ],
+    "coverage": "Луч, опыт, отражения и возврат",
+    "manual_acceptance": "pending",
+    "implementation": [
+      "src/main/java/thaumictinkerer/kami/foci/KamiFociFeature.java"
+    ],
+    "research": [
+      {
+        "key": "FOCUS_RECALL",
+        "source": "item/kami/foci/ItemFocusRecall.java"
+      },
+      {
+        "key": "FOCUS_SHADOWBEAM",
+        "source": "item/kami/foci/ItemFocusShadowbeam.java"
+      },
+      {
+        "key": "FOCUS_XP_DRAIN",
+        "source": "item/kami/foci/ItemFocusXPDrain.java"
+      }
+    ],
+    "recipes": [
+      {
+        "key": "FOCUS_RECALL",
+        "type": "infusion",
+        "research": "FOCUS_RECALL",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:focus_recall"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:focus_recall"
+        },
+        "source": "item/kami/foci/ItemFocusRecall.java"
+      },
+      {
+        "key": "FOCUS_SHADOWBEAM",
+        "type": "infusion",
+        "research": "FOCUS_SHADOWBEAM",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:focus_shadowbeam"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:focus_shadowbeam"
+        },
+        "source": "item/kami/foci/ItemFocusShadowbeam.java"
+      },
+      {
+        "key": "FOCUS_XP_DRAIN",
+        "type": "infusion",
+        "research": "FOCUS_XP_DRAIN",
+        "result": {
+          "count": 1,
+          "ids": [
+            "thaumictinkerer:focus_xp_drain"
+          ],
+          "meta": 0,
+          "text": "thaumictinkerer:focus_xp_drain"
+        },
+        "source": "item/kami/foci/ItemFocusXPDrain.java"
+      }
+    ]
+  }
+]

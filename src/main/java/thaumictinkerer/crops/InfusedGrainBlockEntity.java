@@ -10,19 +10,15 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.model.data.ModelData;
-import net.neoforged.neoforge.model.data.ModelProperty;
+import thaumcraft.compat.ValueInput;
+import thaumcraft.compat.ValueOutput;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectContainer;
 import thaumcraft.aspect.AspectList;
-import thaumcraft.blockentity.TcBlockEntity;
 import thaumictinkerer.network.CropFxPayload;
 import thaumictinkerer.platform.TtNetwork;
 
-public class InfusedGrainBlockEntity extends TcBlockEntity implements AspectContainer {
-    public static final ModelProperty<Integer> COLOR = new ModelProperty<>();
+public class InfusedGrainBlockEntity extends thaumictinkerer.platform.TtCropBlockEntity implements AspectContainer {
     public static final int MAX_TENDENCIES = 50;
     public static final int MAX_ABSORBED = 5;
     public static final int GROWTH_LIGHT = 9;
@@ -143,7 +139,7 @@ public class InfusedGrainBlockEntity extends TcBlockEntity implements AspectCont
     }
 
     private void sendFx(ServerLevel level, BlockPos from, Aspect colorAspect) {
-        TtNetwork.sendToTrackingChunk(level, ChunkPos.containing(worldPosition), new CropFxPayload(from, worldPosition, colorAspect.getColor()));
+        TtNetwork.sendToTrackingChunk(level, new ChunkPos(worldPosition), new CropFxPayload(from, worldPosition, colorAspect.getColor()));
     }
 
     public void reduceSaturatedAspects(RandomSource random) {
@@ -156,11 +152,6 @@ public class InfusedGrainBlockEntity extends TcBlockEntity implements AspectCont
             tendencies.remove(aspects.get(random.nextInt(aspects.size())), 1);
             toRemove--;
         }
-    }
-
-    @Override
-    public ModelData getModelData() {
-        return ModelData.builder().with(COLOR, aspect.getColor()).build();
     }
 
     @Override

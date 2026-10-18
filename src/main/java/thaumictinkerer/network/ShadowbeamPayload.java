@@ -13,7 +13,7 @@ public record ShadowbeamPayload(List<Vec3> path) implements CustomPacketPayload 
 
     public static final Type<ShadowbeamPayload> TYPE = new Type<>(ThaumicTinkerer.id("shadowbeam"));
     public static final StreamCodec<RegistryFriendlyByteBuf, ShadowbeamPayload> STREAM_CODEC = StreamCodec.composite(
-        Vec3.STREAM_CODEC.apply(ByteBufCodecs.list(MAX_POINTS)), ShadowbeamPayload::path,
+        StreamCodec.composite(ByteBufCodecs.DOUBLE, Vec3::x, ByteBufCodecs.DOUBLE, Vec3::y, ByteBufCodecs.DOUBLE, Vec3::z, Vec3::new).apply(ByteBufCodecs.list(MAX_POINTS)), ShadowbeamPayload::path,
         ShadowbeamPayload::new
     );
 

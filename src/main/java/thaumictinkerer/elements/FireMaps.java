@@ -5,7 +5,7 @@ import java.util.Map;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 import thaumictinkerer.Config;
 
 public final class FireMaps {
-    private static final TagKey<Block> LOGS_THAT_BURN = TagKey.create(Registries.BLOCK, Identifier.withDefaultNamespace("logs_that_burn"));
+    private static final TagKey<Block> LOGS_THAT_BURN = TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("logs_that_burn"));
     private static final Block[] DIRTS = {Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.PODZOL};
     private static final Block[] SANDS = {Blocks.SAND, Blocks.RED_SAND};
     private static final Block[] STONES = {

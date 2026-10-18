@@ -62,12 +62,24 @@ def same(truth, runtime_text, soft, label, problems):
         if options:
             problems.append(f"{label}: expected empty, got {runtime_text}")
         return
+    if truth.get("count", 0) > 0 and count != truth["count"]:
+        problems.append(f"{label}: count TT {truth['count']} vs runtime {count}")
+    if truth["ids"] == ["minecraft:potion"] and truth.get("meta") in (8198, 8195):
+        potion = {8198: "night_vision", 8195: "fire_resistance"}[truth["meta"]]
+        if f"tt_potion=minecraft:{potion}" not in extra:
+            problems.append(f"{label}: potion data should be {potion}, got {extra}")
     if set(options) == set(wanted):
         return
     if options and set(options) <= set(wanted):
         soft.append(f"{label}: runtime {runtime_text} is a subset of TT {wanted}")
         return
     problems.append(f"{label}: TT {wanted} vs runtime {runtime_text}")
+
+
+def infusion_component(truth, runtime_text, soft, label, problems):
+    if truth.get("count", 1) != 1:
+        soft.append(f"{label}: TT declares x{truth['count']}; TC4 InfusionRecipe ignores ingredient stack size")
+    same({**truth, "count": 1}, runtime_text, soft, label, problems)
 
 
 def check_result(truth, runtime_text, label, problems, soft):
@@ -94,7 +106,7 @@ def load_json_recipe(path_id):
 
 def ingredient_id(value):
     if isinstance(value, dict):
-        return value.get("item") or value.get("tag") or str(value)
+        return value.get("item") or ("#" + value["tag"] if "tag" in value else str(value))
     if isinstance(value, list):
         return "|".join(ingredient_id(item) for item in value)
     return value
@@ -219,6 +231,10 @@ def run(recipes, dump_path):
             if entry["research"] != truth["research"]:
                 problems.append(f"{label}: research TT {truth['research']} vs {entry['research']}")
             check_result(truth["result"], entry["result"], label, problems, soft)
+            if key in {f"INFUSED_POTIONS{index}" for index in range(6)}:
+                aspect = ["aer", "ignis", "terra", "aqua", "ordo", "perditio"][int(key[-1])]
+                if f"seed_aspect={aspect}" not in entry["result"]:
+                    problems.append(f"{label}: wrong seed aspect, expected {aspect}")
             if runtime_aspects(entry["aspects"]) != truth["aspects"]:
                 problems.append(f"{label}: aspects TT {truth['aspects']} vs {entry['aspects']}")
             if entry.get("width") != truth["width"] or entry.get("height") != truth["height"]:
@@ -234,18 +250,20 @@ def run(recipes, dump_path):
             if entry["research"] != truth["research"]:
                 problems.append(f"{label}: research TT {truth['research']} vs {entry['research']}")
             check_result(truth["result"], entry["result"], label, problems, soft)
+            if key in {f"INFUSED_POTIONS{index}" for index in range(6)}:
+                aspect = ["aer", "ignis", "terra", "aqua", "ordo", "perditio"][int(key[-1])]
+                if f"seed_aspect={aspect}" not in entry["result"]:
+                    problems.append(f"{label}: wrong seed aspect, expected {aspect}")
             if runtime_aspects(entry["aspects"]) != truth["aspects"]:
                 problems.append(f"{label}: aspects TT {truth['aspects']} vs {entry['aspects']}")
             if entry["instability"] != truth["instability"]:
                 problems.append(f"{label}: instability TT {truth['instability']} vs {entry['instability']}")
-            same(truth["central"], entry["central"], soft, label + " central", problems)
+            infusion_component(truth["central"], entry["central"], soft, label + " central", problems)
             if len(truth["components"]) != len(entry["components"]):
                 problems.append(f"{label}: component count TT {len(truth['components'])} vs {len(entry['components'])}")
             else:
-                wanted = sorted(item["text"] for item in truth["components"])
-                actual_options = [parse_runtime(text)[0] for text in entry["components"]]
                 for index, (component, text) in enumerate(zip(truth["components"], entry["components"])):
-                    same(component, text, soft, f"{label} component {index}", problems)
+                    infusion_component(component, text, soft, f"{label} component {index}", problems)
         elif truth["type"] == "crucible":
             if entry["type"] != "CrucibleRecipe":
                 problems.append(f"{label}: addon type {entry['type']}")
@@ -253,6 +271,10 @@ def run(recipes, dump_path):
             if entry["research"] != RESEARCH_FIXES.get(key, truth["research"]):
                 problems.append(f"{label}: research TT {truth['research']} vs {entry['research']}")
             check_result(truth["result"], entry["result"], label, problems, soft)
+            if key in {f"INFUSED_POTIONS{index}" for index in range(6)}:
+                aspect = ["aer", "ignis", "terra", "aqua", "ordo", "perditio"][int(key[-1])]
+                if f"seed_aspect={aspect}" not in entry["result"]:
+                    problems.append(f"{label}: wrong seed aspect, expected {aspect}")
             if runtime_aspects(entry["aspects"]) != truth["aspects"]:
                 problems.append(f"{label}: aspects TT {truth['aspects']} vs {entry['aspects']}")
             same(truth["catalyst"], entry["catalyst"], soft, label + " catalyst", problems)
@@ -266,3 +288,4 @@ def run(recipes, dump_path):
     for line in soft:
         print("  " + line)
     print("ADDON ONLY", extras)
+    return {"problems": problems, "soft": soft, "extras": extras}

@@ -2,5 +2,13 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "thaumictinkerer:item/cleansingtalisman0"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "thaumictinkerer:active": 1.0
+      },
+      "model": "thaumictinkerer:item/cleansing_talisman_active"
+    }
+  ]
 }

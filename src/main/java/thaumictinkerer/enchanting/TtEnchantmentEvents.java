@@ -9,7 +9,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -21,7 +21,7 @@ import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
+import net.neoforged.neoforge.event.level.BlockEvent.BreakEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import thaumcraft.registry.ModSounds;
 import thaumictinkerer.ThaumicTinkerer;
@@ -101,7 +101,7 @@ public final class TtEnchantmentEvents {
         if (slowFall > 0 && !player.isShiftKeyDown() && player.getKnownMovement().y < SLOW_FALL_MIN_MOTION && player.fallDistance >= SLOW_FALL_MIN_DISTANCE) {
             Vec3 motion = player.getDeltaMovement();
             player.setDeltaMovement(motion.x, motion.y / (1 + slowFall * 0.33F), motion.z);
-            player.fallDistance = Math.max(SLOW_FALL_MIN_DISTANCE, player.fallDistance - slowFall / 3.0F);
+            player.fallDistance = (float) Math.max(SLOW_FALL_MIN_DISTANCE, player.fallDistance - slowFall / 3.0F);
             if (player.level().isClientSide()) {
                 player.level().addParticle(ParticleTypes.CLOUD, player.getX() + 0.25, player.getY() - 1, player.getZ() + 0.25, -motion.x, motion.y, -motion.z);
             }
@@ -114,7 +114,7 @@ public final class TtEnchantmentEvents {
     }
 
     public static int quickDrawDuration(LivingEntity entity, ItemStack using, int remaining) {
-        if (!(entity instanceof Player player) || using.getUseAnimation() != ItemUseAnimation.BOW) {
+        if (!(entity instanceof Player player) || using.getUseAnimation() != UseAnim.BOW) {
             return remaining;
         }
         int quickDraw = TtEnchantments.level(player.level().registryAccess(), player.getMainHandItem(), TtEnchantments.QUICK_DRAW);
@@ -152,14 +152,14 @@ public final class TtEnchantmentEvents {
             AABB area = new AABB(player.getX() - 10, player.getY() - 10, player.getZ() - 10, player.getX() + 10, player.getY() + 10, player.getZ() + 10);
             for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class, area)) {
                 if (target != player) {
-                    target.hurtServer(level, level.damageSources().fall(), (float) (0.1F * shockwave * distance));
+                    target.hurt(level.damageSources().fall(), (float) (0.1F * shockwave * distance));
                 }
             }
         }
     }
 
     @SubscribeEvent
-    static void onBreak(BreakBlockEvent event) {
+    static void onBreak(BreakEvent event) {
         Player player = event.getPlayer();
         if (TtEnchantments.level(player.level().registryAccess(), player.getMainHandItem(), TtEnchantments.TUNNEL) > 0) {
             EnchantingFeature.TUNNEL_DIRECTION.set(player, player.getYRot());

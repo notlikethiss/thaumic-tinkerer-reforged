@@ -35,7 +35,7 @@ public final class CropsEvents {
             if (!crop.isMaxAge(state)) {
                 crop.growCrops(serverLevel, pos, state);
             }
-            stack.hurtAndBreak(HOE_DAMAGE, player, event.getHand().asEquipmentSlot());
+            stack.hurtAndBreak(HOE_DAMAGE, player, (event.getHand() == net.minecraft.world.InteractionHand.MAIN_HAND ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND));
             event.setCancellationResult(InteractionResult.SUCCESS);
             event.setCanceled(true);
         } else {

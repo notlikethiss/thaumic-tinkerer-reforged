@@ -19,7 +19,7 @@ public final class GatewayTeleport {
     }
 
     public static boolean teleport(ServerPlayer player, PearlLocation location) {
-        ServerLevel level = player.level();
+        ServerLevel level = player.serverLevel();
         if (!level.dimension().equals(location.dimension())) {
             player.sendSystemMessage(Component.translatable("ttinkerer.ttmisc.noDest"));
             return false;

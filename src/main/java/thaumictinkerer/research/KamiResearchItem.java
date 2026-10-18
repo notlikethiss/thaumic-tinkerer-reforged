@@ -2,7 +2,7 @@ package thaumictinkerer.research;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.crafting.TcStack;
 import thaumcraft.research.ResearchCategories;
@@ -18,7 +18,7 @@ public class KamiResearchItem extends TtResearchItem {
         setConcealed();
     }
 
-    public KamiResearchItem(String key, AspectList tags, int column, int row, int complexity, Identifier icon) {
+    public KamiResearchItem(String key, AspectList tags, int column, int row, int complexity, ResourceLocation icon) {
         super(key, tags, column, row, complexity, icon);
         setConcealed();
     }

@@ -9,9 +9,11 @@
           "name": "thaumictinkerer:transvector_interface"
         }
       ],
-      "condition": {
-        "type": "minecraft:survives_explosion"
-      }
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
     }
   ],
   "random_sequence": "thaumictinkerer:blocks/transvector_interface"

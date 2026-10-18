@@ -1,19 +1,23 @@
 {
   "neoforge:conditions": [
     {
-      "type": "neoforge:registered",
-      "value": "thaumictinkerer:infused_inkwell"
+      "type": "neoforge:item_exists",
+      "item": "thaumictinkerer:infused_inkwell"
     },
     {
-      "type": "neoforge:registered",
-      "value": "thaumictinkerer:infused_inkwell"
+      "type": "neoforge:item_exists",
+      "item": "thaumictinkerer:infused_inkwell"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "Q": "minecraft:ink_sac",
-    "C": "thaumictinkerer:infused_inkwell"
+    "Q": {
+      "item": "minecraft:ink_sac"
+    },
+    "C": {
+      "item": "thaumictinkerer:infused_inkwell"
+    }
   },
   "pattern": [
     "QQQ",

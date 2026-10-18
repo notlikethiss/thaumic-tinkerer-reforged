@@ -2,5 +2,13 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "thaumictinkerer:item/bloodsword0"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "thaumictinkerer:active": 1.0
+      },
+      "model": "thaumictinkerer:item/blood_sword_active"
+    }
+  ]
 }

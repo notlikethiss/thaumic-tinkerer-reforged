@@ -1,8 +1,8 @@
 package thaumictinkerer.foci;
 
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.wand.focus.FocusItem;
 import thaumictinkerer.ThaumicTinkerer;
 
@@ -19,17 +19,17 @@ public abstract class TtFocus extends FocusItem {
     }
 
     @Override
-    public @Nullable Identifier getFocusTexture(ItemStack focus) {
+    public @Nullable ResourceLocation getFocusTexture(ItemStack focus) {
         return ThaumicTinkerer.id("item/" + texture);
     }
 
     @Override
-    public @Nullable Identifier getOrnamentTexture(ItemStack focus) {
+    public @Nullable ResourceLocation getOrnamentTexture(ItemStack focus) {
         return ornament ? ThaumicTinkerer.id("item/" + texture + "orn") : null;
     }
 
     @Override
-    public @Nullable Identifier getDepthLayerTexture(ItemStack focus) {
+    public @Nullable ResourceLocation getDepthLayerTexture(ItemStack focus) {
         return depth ? ThaumicTinkerer.id("item/" + texture + "depth") : null;
     }
 }

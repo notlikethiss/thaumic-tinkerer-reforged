@@ -1,18 +1,20 @@
 {
   "neoforge:conditions": [
     {
-      "type": "neoforge:registered",
-      "value": "thaumictinkerer:aer_soul_aspect"
+      "type": "neoforge:item_exists",
+      "item": "thaumictinkerer:aer_soul_aspect"
     },
     {
-      "type": "neoforge:registered",
-      "value": "thaumictinkerer:condensed_aer_soul_aspect"
+      "type": "neoforge:item_exists",
+      "item": "thaumictinkerer:condensed_aer_soul_aspect"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "X": "thaumictinkerer:aer_soul_aspect"
+    "X": {
+      "item": "thaumictinkerer:aer_soul_aspect"
+    }
   },
   "pattern": [
     "XXX",

@@ -1,6 +1,5 @@
 package thaumictinkerer.kami.tool;
 
-import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -28,12 +27,12 @@ public final class ToolHandler {
     }
 
     private static CustomModelData modeData(int mode) {
-        return new CustomModelData(List.of((float) mode), List.of(), List.of(), List.of());
+        return new CustomModelData(mode);
     }
 
     public static int getMode(ItemStack stack) {
         CustomModelData data = stack.get(DataComponents.CUSTOM_MODEL_DATA);
-        Float value = data == null ? null : data.getFloat(0);
+        Float value = data == null ? null : (float) data.value();
         return value == null ? 0 : Math.floorMod(value.intValue(), MODES);
     }
 
@@ -146,7 +145,7 @@ public final class ToolHandler {
         AABB area = new AABB(origin.getX() - 5, origin.getY() - 1, origin.getZ() - 5, origin.getX() + 5, origin.getY() + 64, origin.getZ() + 5);
         for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, area)) {
             item.setPos(origin.getX() + 0.5, origin.getY() + 0.5, origin.getZ() + 0.5);
-            item.setNoPickUpDelay();
+            item.tickCount += 20;
         }
     }
 

@@ -12,8 +12,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
@@ -65,7 +65,7 @@ public final class KamiFociGameTests {
     }
 
     private static ServerPlayer mockPlayer(GameTestHelper helper) {
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+        ServerPlayer player = (ServerPlayer) TtTestSupport.mockServerPlayer(helper, GameType.SURVIVAL);
         CommonListenerCookie cookie = CommonListenerCookie.createInitial(player.getGameProfile(), false);
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
         new EmbeddedChannel(connection);
@@ -75,7 +75,6 @@ public final class KamiFociGameTests {
             }
         };
         helper.getLevel().addNewPlayer(player);
-        player.connection.markClientLoaded();
         return player;
     }
 
@@ -201,7 +200,7 @@ public final class KamiFociGameTests {
     private static void shadowbeamDamages(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
         place(player, helper, 3.5, 1.0, 1.5, 0.0F, 0.0F);
-        Zombie zombie = helper.spawnWithNoFreeWill(EntityTypes.ZOMBIE, new BlockPos(3, 1, 4));
+        Zombie zombie = helper.spawnWithNoFreeWill(EntityType.ZOMBIE, new BlockPos(3, 1, 4));
         float before = zombie.getHealth();
         ShadowbeamFocus focus = KamiFociFeature.FOCUS_SHADOWBEAM.get();
         ItemStack empty = Wands.create(WandRegistry.CAP_THAUMIUM, KamiFeature.ichorclothRod, false);

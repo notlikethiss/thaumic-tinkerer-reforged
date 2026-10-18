@@ -6,8 +6,8 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.animal.pig.Pig;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -24,7 +24,6 @@ import thaumcraft.crafting.TcRecipes;
 import thaumcraft.research.ResearchCategories;
 import thaumcraft.research.ResearchItem;
 import thaumictinkerer.attractor.AttractorBlock;
-import thaumictinkerer.attractor.AttractorBlockEntity;
 import thaumictinkerer.attractor.AttractorFeature;
 import thaumictinkerer.attractor.CorporealAttractorBlockEntity;
 import thaumictinkerer.attractor.CorporealAttractorMenu;
@@ -142,8 +141,8 @@ public final class AttractorGameTests {
 
     private static void corporealFilter(GameTestHelper helper) {
         CorporealAttractorBlockEntity attractor = corporeal(helper, new BlockPos(2, 1, 2));
-        Pig pig = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(4, 1, 2));
-        var cow = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(4, 1, 3));
+        Pig pig = helper.spawnWithNoFreeWill(EntityType.PIG, new BlockPos(4, 1, 2));
+        var cow = helper.spawnWithNoFreeWill(EntityType.COW, new BlockPos(4, 1, 3));
         var item = spawnItem(helper, new Vec3(4.5, 1.1, 1.5));
         helper.assertTrue(attractor.applies(pig) && attractor.applies(cow), "empty filter should accept all adults");
         helper.assertTrue(!attractor.applies(item), "corporeal attractor must not take items");
@@ -151,7 +150,7 @@ public final class AttractorGameTests {
         helper.assertTrue(attractor.applies(pig) && !attractor.applies(cow), "pig filter");
         attractor.setItem(0, mould(""));
         helper.assertTrue(!attractor.applies(pig) && !attractor.applies(cow), "blank mould accepts nothing");
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+        ServerPlayer player = (ServerPlayer) TtTestSupport.mockServerPlayer(helper, GameType.SURVIVAL);
         attractor.setItem(0, ItemStack.EMPTY);
         helper.assertTrue(!attractor.applies(player), "players must be ignored");
         helper.succeed();
@@ -159,8 +158,8 @@ public final class AttractorGameTests {
 
     private static void corporealAge(GameTestHelper helper) {
         CorporealAttractorBlockEntity attractor = corporeal(helper, new BlockPos(2, 1, 2));
-        Pig adult = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(4, 1, 2));
-        Pig child = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(4, 1, 3));
+        Pig adult = helper.spawnWithNoFreeWill(EntityType.PIG, new BlockPos(4, 1, 2));
+        Pig child = helper.spawnWithNoFreeWill(EntityType.PIG, new BlockPos(4, 1, 3));
         child.setBaby(true);
         helper.assertTrue(attractor.applies(adult) && !attractor.applies(child), "adult mode");
         attractor.setAdult(false);
@@ -183,7 +182,7 @@ public final class AttractorGameTests {
 
     private static void buttonPayloadValidated(GameTestHelper helper) {
         CorporealAttractorBlockEntity attractor = corporeal(helper, new BlockPos(2, 1, 2));
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+        ServerPlayer player = (ServerPlayer) TtTestSupport.mockServerPlayer(helper, GameType.SURVIVAL);
         MobMagnetButtonPayload.handle(new MobMagnetButtonPayload(false), player);
         helper.assertTrue(attractor.isAdult(), "payload without an open menu changed the attractor");
         player.setPos(helper.absoluteVec(new Vec3(2.5, 1.0, 2.5)));
@@ -199,8 +198,8 @@ public final class AttractorGameTests {
     }
 
     private static void soulMouldPattern(GameTestHelper helper) {
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
-        Pig pig = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(2, 1, 2));
+        ServerPlayer player = (ServerPlayer) TtTestSupport.mockServerPlayer(helper, GameType.SURVIVAL);
+        Pig pig = helper.spawnWithNoFreeWill(EntityType.PIG, new BlockPos(2, 1, 2));
         ItemStack stack = mould("");
         player.setItemInHand(InteractionHand.MAIN_HAND, stack);
         stack.getItem().interactLivingEntity(stack, player, pig, InteractionHand.MAIN_HAND);

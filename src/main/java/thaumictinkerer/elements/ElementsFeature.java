@@ -66,7 +66,7 @@ public final class ElementsFeature {
             .instabreak()
             .noLootTable()
             .isSuffocating((state, level, pos) -> false)
-            .isViewBlocking((state, level, pos, box) -> false)
+            .isViewBlocking((state, level, pos) -> false)
     );
 
     public static final DeferredItem<InfusedPotionItem> AER_POTION = potion("aer_infused_potion", Aspect.AIR, AIR_IMBUED);
@@ -81,11 +81,11 @@ public final class ElementsFeature {
         return properties -> properties
             .mapColor(MapColor.FIRE)
             .replaceable()
-            .noCollision()
+            .noCollission()
             .instabreak()
             .lightLevel(state -> 15)
             .sound(SoundType.WOOL)
-            .pushReaction(PushReaction.POPPED)
+            .pushReaction(PushReaction.DESTROY)
             .noLootTable();
     }
 
@@ -94,7 +94,7 @@ public final class ElementsFeature {
     }
 
     private static DeferredItem<ImbuedFireItem> fireItem(DeferredBlock<ImbuedFireBlock> block) {
-        return ModItems.ITEMS.registerItem(block.getId().getPath(), properties -> new ImbuedFireItem(block.get(), properties.useBlockDescriptionPrefix()));
+        return ModItems.ITEMS.registerItem(block.getId().getPath(), properties -> new ImbuedFireItem(block.get(), properties));
     }
 
     private static DeferredItem<InfusedPotionItem> potion(String name, Aspect aspect, DeferredHolder<MobEffect, ImbuedEffect> effect) {

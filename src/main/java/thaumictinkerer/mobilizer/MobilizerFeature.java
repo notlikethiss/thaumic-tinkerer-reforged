@@ -32,11 +32,11 @@ public final class MobilizerFeature {
 
     public static final Supplier<BlockEntityType<MobilizerBlockEntity>> MOBILIZER_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "levitational_locomotive",
-        () -> new BlockEntityType<>(MobilizerBlockEntity::new, MOBILIZER.get())
+        () -> BlockEntityType.Builder.of(MobilizerBlockEntity::new,  MOBILIZER.get()).build(null)
     );
     public static final Supplier<BlockEntityType<RelayBlockEntity>> RELAY_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "levitational_locomotive_relay",
-        () -> new BlockEntityType<>(RelayBlockEntity::new, RELAY.get())
+        () -> BlockEntityType.Builder.of(RelayBlockEntity::new,  RELAY.get()).build(null)
     );
 
     private MobilizerFeature() {

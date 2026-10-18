@@ -3,6 +3,8 @@ OPPOSITE = {"down": "up", "up": "down", "north": "south", "south": "north", "wes
 
 
 def camo_variant(ctx, model):
+    if not ctx.profile.modern:
+        return {"model": model}
     return {"type": f"{ctx.NS}:camo", "fallback": {"model": model}}
 
 

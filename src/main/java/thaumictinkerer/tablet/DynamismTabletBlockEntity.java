@@ -11,7 +11,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.TriState;
+import net.neoforged.neoforge.common.util.TriState;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
@@ -30,14 +30,14 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import thaumcraft.compat.ValueInput;
+import thaumcraft.compat.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.blockentity.TcBlockEntity;
 import thaumictinkerer.ThaumicTinkerer;
 
@@ -263,7 +263,7 @@ public class DynamismTabletBlockEntity extends TcBlockEntity implements Containe
             boolean done = entity instanceof Mob mob
                 && (held.interactLivingEntity(fakePlayer, mob, InteractionHand.MAIN_HAND).consumesAction()
                 || !(mob instanceof Animal)
-                || mob.interact(fakePlayer, InteractionHand.MAIN_HAND, mob.position()).consumesAction());
+                || mob.interact(fakePlayer, InteractionHand.MAIN_HAND).consumesAction());
             if (!done) {
                 BlockHitResult hit = new BlockHitResult(Vec3.atLowerCornerOf(clicked), side, clicked, false);
                 InteractionResult result = fakePlayer.gameMode.useItemOn(fakePlayer, level, held, InteractionHand.MAIN_HAND, hit);
@@ -451,7 +451,7 @@ public class DynamismTabletBlockEntity extends TcBlockEntity implements Containe
         leftClick = input.getBooleanOr("leftClick", true);
         redstone = input.getBooleanOr("redstone", false);
         NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(input, items);
+        ContainerHelper.loadAllItems(input.tag(), items, input.lookup());
         stack = items.get(0);
         if (level == null || !level.isClientSide()) {
             swingProgress = input.getIntOr("progress", 0);
@@ -466,6 +466,6 @@ public class DynamismTabletBlockEntity extends TcBlockEntity implements Containe
         output.putBoolean("redstone", redstone);
         output.putInt("progress", swingProgress);
         output.putInt("mod", swingMod);
-        ContainerHelper.saveAllItems(output, NonNullList.of(ItemStack.EMPTY, stack), true);
+        ContainerHelper.saveAllItems(output.tag(), NonNullList.of(ItemStack.EMPTY, stack), true, output.lookup());
     }
 }

@@ -324,7 +324,9 @@ def main():
     print("unresolved:", unresolved)
     if arguments.compare:
         import compare_recipes
-        compare_recipes.run(recipes, Path(arguments.compare))
+        result = compare_recipes.run(recipes, Path(arguments.compare))
+        if result["problems"]:
+            raise SystemExit(1)
 
 
 if __name__ == "__main__":

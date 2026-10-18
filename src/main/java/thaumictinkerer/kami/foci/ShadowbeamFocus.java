@@ -20,12 +20,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.registry.ModSounds;
 import thaumcraft.wand.WandItem;
-import thaumcraft.wand.Wands;
 import thaumcraft.wand.focus.FocusUpgradeType;
 import thaumictinkerer.TtRarity;
 import thaumictinkerer.foci.TtFocus;
@@ -60,7 +59,7 @@ public class ShadowbeamFocus extends TtFocus {
     }
 
     @Override
-    public FocusUpgradeType @Nullable [] getPossibleUpgradesByRank(ItemStack focus, int rank) {
+    public @Nullable FocusUpgradeType[] getPossibleUpgradesByRank(ItemStack focus, int rank) {
         return new FocusUpgradeType[] {FocusUpgradeType.FRUGAL};
     }
 
@@ -109,7 +108,7 @@ public class ShadowbeamFocus extends TtFocus {
             double x = shooter.getX() - Mth.cos(yaw / 180.0F * (float) Math.PI) * 0.16F;
             double y = shooter.getEyeY() - 0.1F;
             double z = shooter.getZ() - Mth.sin(yaw / 180.0F * (float) Math.PI) * 0.16F;
-            beam.snapTo(x, y, z, yaw, pitch);
+            beam.moveTo(x, y, z, yaw, pitch);
             Vec3 direction = new Vec3(
                 -Mth.sin(yaw / 180.0F * (float) Math.PI) * Mth.cos(pitch / 180.0F * (float) Math.PI),
                 -Mth.sin(pitch / 180.0F * (float) Math.PI),
@@ -166,7 +165,7 @@ public class ShadowbeamFocus extends TtFocus {
             }
             if (blockHit.getType() != HitResult.Type.MISS) {
                 path.add(from);
-                Vec3 normal = Vec3.atLowerCornerOf(blockHit.getDirection().getUnitVec3i());
+                Vec3 normal = Vec3.atLowerCornerOf(blockHit.getDirection().getNormal());
                 movement = normal.scale(-2.0 * movement.dot(normal)).add(movement);
                 setDeltaMovement(movement);
             }
@@ -174,8 +173,8 @@ public class ShadowbeamFocus extends TtFocus {
         }
 
         private void damage(ServerLevel level, Entity target) {
-            if (getOwner() instanceof Player player && (level.isPvpAllowed() || !(target instanceof Player))) {
-                target.hurtServer(level, level.damageSources().playerAttack(player), BASE_DAMAGE + potency);
+            if (getOwner() instanceof Player player && (level.getServer().isPvpAllowed() || !(target instanceof Player))) {
+                target.hurt(level.damageSources().playerAttack(player), BASE_DAMAGE + potency);
             }
         }
     }

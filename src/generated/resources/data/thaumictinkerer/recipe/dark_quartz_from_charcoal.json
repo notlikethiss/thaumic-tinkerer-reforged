@@ -1,15 +1,19 @@
 {
   "neoforge:conditions": [
     {
-      "type": "neoforge:registered",
-      "value": "thaumictinkerer:dark_quartz"
+      "type": "neoforge:item_exists",
+      "item": "thaumictinkerer:dark_quartz"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "Q": "minecraft:quartz",
-    "C": "minecraft:charcoal"
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "C": {
+      "item": "minecraft:charcoal"
+    }
   },
   "pattern": [
     "Q Q",

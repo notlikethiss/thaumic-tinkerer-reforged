@@ -1,10 +1,7 @@
 {
   "variants": {
     "": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/ethereal_platform"
-      }
+      "model": "thaumictinkerer:block/ethereal_platform"
     }
   }
 }

@@ -3,7 +3,7 @@ package thaumictinkerer.kami.trinkets;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -15,14 +15,14 @@ public final class BlockStorage {
     private BlockStorage() {
     }
 
-    public static Item resolve(Identifier id) {
+    public static Item resolve(ResourceLocation id) {
         if (id == null) {
             return Items.AIR;
         }
         return BuiltInRegistries.ITEM.getOptional(id).orElse(Items.AIR);
     }
 
-    public static Identifier idOf(Item item) {
+    public static ResourceLocation idOf(Item item) {
         return BuiltInRegistries.ITEM.getKey(item);
     }
 

@@ -2,7 +2,7 @@ package thaumictinkerer.awakenedarmor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.FluidTags;
@@ -33,7 +33,7 @@ import thaumictinkerer.gas.BrightNitorItem;
 
 @EventBusSubscriber(modid = ThaumicTinkerer.MODID)
 public final class AwakenedArmorEvents {
-    public static final Identifier STEP_MODIFIER = ThaumicTinkerer.id("awakened_boots_step");
+    public static final ResourceLocation STEP_MODIFIER = ThaumicTinkerer.id("awakened_boots_step");
     public static final double STEP_BONUS = 0.4;
     public static final int FIRE_RESISTANCE_AMPLIFIER = 10;
     public static final int HASTE_AMPLIFIER = 1;
@@ -122,9 +122,9 @@ public final class AwakenedArmorEvents {
         if (!AwakenedArmor.isActive(player, EquipmentSlot.FEET, AwakenedArmorFeature.BOOTS.get())) {
             return;
         }
-        MobEffectInstance existing = player.getEffect(MobEffects.HASTE);
+        MobEffectInstance existing = player.getEffect(MobEffects.DIG_SPEED);
         if (existing == null || existing.getDuration() <= 1 && existing.getAmplifier() <= HASTE_AMPLIFIER) {
-            player.addEffect(new MobEffectInstance(MobEffects.HASTE, HASTE_DURATION, HASTE_AMPLIFIER, true, false));
+            player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, HASTE_DURATION, HASTE_AMPLIFIER, true, false));
         }
         player.resetFallDistance();
         BlockPos below = new BlockPos(Mth.floor(player.getX()), Mth.floor(player.getY()) - 1, Mth.floor(player.getZ()));
@@ -202,7 +202,7 @@ public final class AwakenedArmorEvents {
             }
             case LEGS -> removeOwned(player, MobEffects.FIRE_RESISTANCE, FIRE_RESISTANCE_AMPLIFIER);
             case FEET -> {
-                removeOwned(player, MobEffects.HASTE, HASTE_AMPLIFIER);
+                removeOwned(player, MobEffects.DIG_SPEED, HASTE_AMPLIFIER);
                 updateStepHeight(player);
             }
             default -> {
@@ -237,7 +237,7 @@ public final class AwakenedArmorEvents {
     @SubscribeEvent
     static void onFall(LivingFallEvent event) {
         if (event.getEntity() instanceof Player player && player.getItemBySlot(EquipmentSlot.FEET).is(AwakenedArmorFeature.BOOTS.get())) {
-            event.setDistance(0.0);
+            event.setDistance(0.0F);
         }
     }
 

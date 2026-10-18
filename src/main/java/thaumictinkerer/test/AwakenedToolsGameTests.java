@@ -3,7 +3,6 @@ package thaumictinkerer.test;
 import com.mojang.serialization.DataResult;
 import java.util.List;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.NbtOps;
@@ -12,9 +11,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -25,14 +24,13 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
+import net.neoforged.neoforge.event.level.BlockEvent.BreakEvent;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.crafting.InfusionRecipe;
 import thaumcraft.crafting.TcRecipes;
 import thaumcraft.research.ResearchCategories;
 import thaumcraft.research.ResearchItem;
 import thaumictinkerer.Config;
-import thaumictinkerer.kami.tool.AwakenedToolItem;
 import thaumictinkerer.kami.tool.AwakenedToolsFeature;
 import thaumictinkerer.kami.tool.SoulHeartHandler;
 import thaumictinkerer.kami.tool.ToolHandler;
@@ -54,7 +52,9 @@ public final class AwakenedToolsGameTests {
         .add("axe_fells_tree", AwakenedToolsGameTests::axeFellsTree)
         .add("sword_area_mode", AwakenedToolsGameTests::swordAreaMode)
         .add("sword_soul_mode", AwakenedToolsGameTests::swordSoulMode)
-        .add("soul_hearts_absorb_damage", AwakenedToolsGameTests::soulHeartsAbsorbDamage);
+        .add("soul_hearts_absorb_damage", AwakenedToolsGameTests::soulHeartsAbsorbDamage)
+        .add("mass_harvest_collects_drops", AwakenedToolsGameTests::massHarvestCollectsDrops)
+        .add("tree_preserves_pickup_delay", AwakenedToolsGameTests::treePreservesPickupDelay);
 
     private AwakenedToolsGameTests() {
     }
@@ -206,7 +206,7 @@ public final class AwakenedToolsGameTests {
         BlockPos protectedPos = helper.absolutePos(new BlockPos(4, 3, 3));
         Object listener = new Object() {
             @SubscribeEvent
-            public void onBreak(BreakBlockEvent event) {
+            public void onBreak(BreakEvent event) {
                 if (event.getPos().equals(protectedPos)) {
                     event.setCanceled(true);
                 }
@@ -236,6 +236,8 @@ public final class AwakenedToolsGameTests {
 
     private static void shovelColumnMode(GameTestHelper helper) {
         ServerPlayer player = player(helper, tool(AwakenedToolsFeature.AWAKENED_SHOVEL.get(), 2), 180.0F);
+        fill(helper, 3, -5, 3, 3, 0, 3, Blocks.STONE);
+        fill(helper, 3, 7, 3, 3, 10, 3, Blocks.STONE);
         fill(helper, 3, 1, 3, 3, 6, 3, Blocks.DIRT);
         helper.setBlock(new BlockPos(3, 5, 3), Blocks.STONE.defaultBlockState());
         helper.setBlock(new BlockPos(2, 3, 3), Blocks.DIRT.defaultBlockState());
@@ -278,7 +280,7 @@ public final class AwakenedToolsGameTests {
     }
 
     private static Zombie zombie(GameTestHelper helper, BlockPos pos) {
-        Zombie zombie = helper.spawnWithNoFreeWill(EntityTypes.ZOMBIE, pos);
+        Zombie zombie = helper.spawnWithNoFreeWill(EntityType.ZOMBIE, pos);
         zombie.setPersistenceRequired();
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             zombie.setItemSlot(slot, ItemStack.EMPTY);
@@ -322,16 +324,46 @@ public final class AwakenedToolsGameTests {
         ServerLevel level = helper.getLevel();
         SoulHeartHandler.setHP(player, 5);
         float health = player.getHealth();
-        player.hurtServer(level, level.damageSources().generic(), 3.0F);
+        player.hurt(level.damageSources().generic(), 3.0F);
         helper.assertTrue(player.getHealth() == health, "soul hearts must absorb the hit");
         helper.assertValueEqual(SoulHeartHandler.getHP(player), 2, "soul hearts left");
-        player.damageCooldownTime = 0;
-        player.hurtServer(level, level.damageSources().generic(), 4.0F);
+        player.invulnerableTime = 0;
+        player.hurt(level.damageSources().generic(), 4.0F);
         helper.assertValueEqual(SoulHeartHandler.getHP(player), 0, "soul hearts used up");
         helper.assertTrue(Math.abs((health - player.getHealth()) - 2.0F) < 0.001F, "overflow damage taken " + (health - player.getHealth()));
         SoulHeartHandler.setHP(player, 100);
         helper.assertValueEqual(SoulHeartHandler.getHP(player), SoulHeartHandler.MAX_HP, "soul hearts are capped");
         helper.assertTrue(!SoulHeartHandler.addHP(player, 1), "no hearts added at the cap");
+        helper.succeed();
+    }
+    private static void massHarvestCollectsDrops(GameTestHelper helper) {
+        ServerPlayer player = player(helper, tool(AwakenedToolsFeature.AWAKENED_PICKAXE.get(), 1), 180.0F);
+        fill(helper, 1, 1, 3, 5, 5, 3, Blocks.STONE);
+        Vec3 inside = helper.absoluteVec(new Vec3(3.5, 2.5, 3.5));
+        ItemEntity drop = new ItemEntity(helper.getLevel(), inside.x, inside.y, inside.z, new ItemStack(Items.DIAMOND));
+        drop.setPickUpDelay(40);
+        helper.getLevel().addFreshEntity(drop);
+        Vec3 outside = helper.absoluteVec(new Vec3(0.5, 2.5, 0.5));
+        ItemEntity untouched = new ItemEntity(helper.getLevel(), outside.x, outside.y, outside.z, new ItemStack(Items.EMERALD));
+        helper.getLevel().addFreshEntity(untouched);
+        player.gameMode.destroyBlock(helper.absolutePos(new BlockPos(3, 2, 3)));
+        helper.assertTrue(drop.position().distanceToSqr(player.position().add(0, 1, 0)) < 0.001, "mass harvest did not collect the existing drop at the player");
+        helper.assertTrue(untouched.position().distanceToSqr(outside) < 0.001 && drop.hasPickUpDelay(), "collection changed an unrelated drop or its pickup delay");
+        helper.succeed();
+    }
+
+    private static void treePreservesPickupDelay(GameTestHelper helper) {
+        ServerPlayer player = player(helper, tool(AwakenedToolsFeature.AWAKENED_AXE.get(), 2), 180.0F);
+        BlockPos origin = new BlockPos(3, 1, 3);
+        helper.setBlock(origin, Blocks.OAK_LOG);
+        helper.setBlock(origin.above(), Blocks.OAK_LOG);
+        Vec3 position = helper.absoluteVec(new Vec3(4.5, 2.5, 3.5));
+        ItemEntity drop = new ItemEntity(helper.getLevel(), position.x, position.y, position.z, new ItemStack(Items.DIAMOND));
+        drop.setPickUpDelay(40);
+        helper.getLevel().addFreshEntity(drop);
+        player.gameMode.destroyBlock(helper.absolutePos(origin));
+        helper.assertTrue(drop.position().distanceToSqr(Vec3.atCenterOf(helper.absolutePos(origin))) < 0.001, "tree harvest did not gather the drop at its origin");
+        helper.assertTrue(drop.hasPickUpDelay() && drop.tickCount == 20, "tree harvest changed original pickup timing");
         helper.succeed();
     }
 }

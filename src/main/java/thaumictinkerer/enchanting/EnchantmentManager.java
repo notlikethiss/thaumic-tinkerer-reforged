@@ -6,9 +6,8 @@ import java.util.Map;
 import java.util.Optional;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +25,7 @@ import thaumictinkerer.ThaumicTinkerer;
 public final class EnchantmentManager {
     public static final List<Aspect> PRIMAL_ASPECTS = List.of(Aspect.AIR, Aspect.EARTH, Aspect.FIRE, Aspect.WATER, Aspect.ORDER, Aspect.ENTROPY);
 
-    public record Data(ResourceKey<Enchantment> enchantment, Identifier texture, boolean vanilla, AspectList level1Aspects, String research) {
+    public record Data(ResourceKey<Enchantment> enchantment, ResourceLocation texture, boolean vanilla, AspectList level1Aspects, String research) {
         public AspectList aspects(int level) {
             double multiplier = level * (1.0 + level * 0.2);
             AspectList result = new AspectList();
@@ -72,14 +71,14 @@ public final class EnchantmentManager {
         custom(TtEnchantments.DESINTEGRATE, "desintegrate", new AspectList().add(Aspect.ENTROPY, 25).add(Aspect.AIR, 10).add(Aspect.EARTH, 10), EnchantingFeature.ENCHANT_DESINTEGRATE);
         custom(TtEnchantments.QUICK_DRAW, "quickdraw", new AspectList().add(Aspect.ORDER, 10).add(Aspect.AIR, 10).add(Aspect.WATER, 5), EnchantingFeature.ENCHANT_QUICK_DRAW);
         custom(TtEnchantments.VAMPIRISM, "vamprisim", new AspectList().add(Aspect.ENTROPY, 8).add(Aspect.FIRE, 10).add(Aspect.WATER, 10), EnchantingFeature.ENCHANT_VAMPIRISM);
-        custom(TtEnchantments.FOCUSED_STRIKE, "focusedstrikes", new AspectList().add(Aspect.ORDER, 12).add(Aspect.AIR, 10).add(Aspect.WATER, 10), EnchantingFeature.ENCHANT_FOCUSED_STRIKE);
-        custom(TtEnchantments.DISPERSED_STRIKE, "dispersedstrikes", new AspectList().add(Aspect.ENTROPY, 12).add(Aspect.FIRE, 10).add(Aspect.EARTH, 10), EnchantingFeature.ENCHANT_DISPERSED_STRIKE);
-        custom(TtEnchantments.VALIANCE, "valiance", new AspectList().add(Aspect.ORDER, 12).add(Aspect.FIRE, 10).add(Aspect.EARTH, 10), EnchantingFeature.ENCHANT_VALIANCE);
-        custom(TtEnchantments.FINAL_STRIKE, "finalstrike", new AspectList().add(Aspect.ENTROPY, 16).add(Aspect.FIRE, 16), EnchantingFeature.ENCHANT_FINAL_STRIKE);
-        custom(TtEnchantments.TUNNEL, "tunnel", new AspectList().add(Aspect.EARTH, 16).add(Aspect.ORDER, 16), EnchantingFeature.ENCHANT_TUNNEL);
-        custom(TtEnchantments.SHATTER, "shatter", new AspectList().add(Aspect.EARTH, 16).add(Aspect.ENTROPY, 16), EnchantingFeature.ENCHANT_SHATTER);
-        custom(TtEnchantments.SHOCKWAVE, "shockwave", new AspectList().add(Aspect.EARTH, 16).add(Aspect.AIR, 16), EnchantingFeature.ENCHANT_SHOCKWAVE);
-        custom(TtEnchantments.POUNCE, "pounce", new AspectList().add(Aspect.EARTH, 16).add(Aspect.AIR, 16), EnchantingFeature.ENCHANT_POUNCE);
+        custom(TtEnchantments.FOCUSED_STRIKE, "focusedstrikes", new AspectList().add(Aspect.ORDER, 12).add(Aspect.AIR, 10).add(Aspect.WATER, 10), EnchantingFeature.ENCHANT_VAMPIRISM);
+        custom(TtEnchantments.DISPERSED_STRIKE, "dispersedstrikes", new AspectList().add(Aspect.ENTROPY, 12).add(Aspect.FIRE, 10).add(Aspect.EARTH, 10), EnchantingFeature.ENCHANT_VAMPIRISM);
+        custom(TtEnchantments.VALIANCE, "valiance", new AspectList().add(Aspect.ORDER, 12).add(Aspect.FIRE, 10).add(Aspect.EARTH, 10), EnchantingFeature.ENCHANT_VAMPIRISM);
+        custom(TtEnchantments.FINAL_STRIKE, "finalstrike", new AspectList().add(Aspect.ENTROPY, 16).add(Aspect.FIRE, 16), EnchantingFeature.ENCHANT_VAMPIRISM);
+        custom(TtEnchantments.TUNNEL, "tunnel", new AspectList().add(Aspect.EARTH, 16).add(Aspect.ORDER, 16), EnchantingFeature.ENCHANT_VAMPIRISM);
+        custom(TtEnchantments.SHATTER, "shatter", new AspectList().add(Aspect.EARTH, 16).add(Aspect.ENTROPY, 16), EnchantingFeature.ENCHANT_VAMPIRISM);
+        custom(TtEnchantments.SHOCKWAVE, "shockwave", new AspectList().add(Aspect.EARTH, 16).add(Aspect.AIR, 16), EnchantingFeature.ENCHANT_VAMPIRISM);
+        custom(TtEnchantments.POUNCE, "pounce", new AspectList().add(Aspect.EARTH, 16).add(Aspect.AIR, 16), EnchantingFeature.ENCHANT_VAMPIRISM);
     }
 
     private EnchantmentManager() {
@@ -110,7 +109,7 @@ public final class EnchantmentManager {
         if (holder.isEmpty() || !DATA.containsKey(key) || current.contains(key) || !stack.supportsEnchantment(holder.get())) {
             return false;
         }
-        if (stack.is(TagKey.create(Registries.ITEM, ThaumicTinkerer.id("enchanter_excluded/" + key.identifier().getPath())))) {
+        if (stack.is(TagKey.create(Registries.ITEM, ThaumicTinkerer.id("enchanter_excluded/" + key.location().getPath())))) {
             return false;
         }
         for (ResourceKey<Enchantment> other : current) {
@@ -123,7 +122,7 @@ public final class EnchantmentManager {
     }
 
     public static boolean canEnchantStack(ItemStack stack) {
-        return isTool(stack) && stack.has(DataComponents.ENCHANTABLE) && !stack.isEnchanted();
+        return isTool(stack) && stack.getEnchantmentValue() > 0 && !stack.isEnchanted();
     }
 
     public static boolean canEnchantmentBeUsed(Player player, ResourceKey<Enchantment> key) {

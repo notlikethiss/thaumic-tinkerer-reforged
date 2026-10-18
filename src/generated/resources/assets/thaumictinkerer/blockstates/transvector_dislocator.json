@@ -1,76 +1,40 @@
 {
   "variants": {
     "facing=down,powered=false": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_down"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_down"
     },
     "facing=down,powered=true": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_down"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_down"
     },
     "facing=up,powered=false": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_up"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_up"
     },
     "facing=up,powered=true": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_up"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_up"
     },
     "facing=north,powered=false": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_north"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_north"
     },
     "facing=north,powered=true": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_north"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_north"
     },
     "facing=south,powered=false": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_south"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_south"
     },
     "facing=south,powered=true": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_south"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_south"
     },
     "facing=west,powered=false": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_west"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_west"
     },
     "facing=west,powered=true": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_west"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_west"
     },
     "facing=east,powered=false": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_east"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_east"
     },
     "facing=east,powered=true": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_dislocator_east"
-      }
+      "model": "thaumictinkerer:block/transvector_dislocator_east"
     }
   }
 }

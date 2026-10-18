@@ -5,7 +5,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import thaumictinkerer.ThaumicTinkerer;
 
 public final class ModEntities {
-    public static final DeferredRegister.Entities ENTITIES = DeferredRegister.createEntities(ThaumicTinkerer.MODID);
+    public static final DeferredRegister<net.minecraft.world.entity.EntityType<?>> ENTITIES = DeferredRegister.create(net.minecraft.core.registries.Registries.ENTITY_TYPE, ThaumicTinkerer.MODID);
 
     private ModEntities() {
     }

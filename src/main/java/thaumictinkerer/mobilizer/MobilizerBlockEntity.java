@@ -10,16 +10,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.Nullable;
+import thaumcraft.compat.ValueInput;
+import thaumcraft.compat.ValueOutput;
+import javax.annotation.Nullable;
 import thaumcraft.registry.ModBlocks;
 import thaumcraft.wand.focus.FocusUtils;
 
 public class MobilizerBlockEntity extends BlockEntity {
     private static final int PERIOD = 100;
     private static final int CARRY_FLAGS = Block.UPDATE_ALL;
-    private static final int CLEAR_FLAGS = Block.UPDATE_ALL | Block.UPDATE_SKIP_BLOCK_ENTITY_SIDEEFFECTS;
+    private static final int CLEAR_FLAGS = Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS;
 
     private boolean linked;
     private int firstRelayX;
@@ -189,8 +189,9 @@ public class MobilizerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(ValueInput input) {
-        super.loadAdditional(input);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        ValueInput input = ValueInput.of(tag, registries);
         linked = input.getBooleanOr("Linked", false);
         firstRelayX = input.getIntOr("FirstRelayX", 0);
         firstRelayZ = input.getIntOr("FirstRelayZ", 0);
@@ -200,8 +201,9 @@ public class MobilizerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(ValueOutput output) {
-        super.saveAdditional(output);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        ValueOutput output = ValueOutput.of(tag, registries);
         output.putBoolean("Linked", linked);
         output.putInt("FirstRelayX", firstRelayX);
         output.putInt("FirstRelayZ", firstRelayZ);

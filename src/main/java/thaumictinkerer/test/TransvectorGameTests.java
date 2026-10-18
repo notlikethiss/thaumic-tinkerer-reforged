@@ -9,7 +9,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -28,7 +28,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.minecraft.world.level.material.Fluids;
 import thaumcraft.aspect.Aspect;
-import thaumcraft.aspect.AspectList;
 import thaumcraft.crafting.ShapedArcaneRecipe;
 import thaumcraft.crafting.TcIngredient;
 import thaumcraft.crafting.TcRecipes;
@@ -100,7 +99,7 @@ public final class TransvectorGameTests {
             "dislocator aspects"
         );
         helper.assertTrue(dislocator.pages().size() == 2, "dislocator pages");
-        helper.assertTrue(dislocator.isAvailable() == thaumcraft.Config.allowMirrors(), "dislocator availability must follow allowMirrors");
+        helper.assertTrue(dislocator.isAvailable() == thaumictinkerer.platform.TtBaseConfig.allowMirrors(), "dislocator availability must follow allowMirrors");
 
         ResearchItem platform = ResearchCategories.getResearch(TransvectorFeature.PLATFORM);
         helper.assertTrue(platform != null, "PLATFORM is not registered");
@@ -371,8 +370,8 @@ public final class TransvectorGameTests {
         helper.setBlock(start, Blocks.AIR);
         TransvectorDislocatorBlockEntity dislocator = placeDislocator(helper, new BlockPos(2, 1, 1), Direction.EAST);
         dislocator.bind(helper.absolutePos(end));
-        Entity atStart = helper.spawnWithNoFreeWill(EntityTypes.PIG, start);
-        Entity atEnd = helper.spawnWithNoFreeWill(EntityTypes.PIG, end);
+        Entity atStart = helper.spawnWithNoFreeWill(EntityType.PIG, start);
+        Entity atEnd = helper.spawnWithNoFreeWill(EntityType.PIG, end);
         Vec3 startBefore = atStart.position();
         Vec3 endBefore = atEnd.position();
         dislocator.receiveRedstonePulse();
@@ -405,7 +404,7 @@ public final class TransvectorGameTests {
         player.setItemInHand(InteractionHand.MAIN_HAND, wand);
         BlockPos absolute = helper.absolutePos(new BlockPos(2, 1, 1));
         BlockState state = helper.getBlockState(new BlockPos(2, 1, 1));
-        InteractionResult result = state.useItemOn(wand, helper.getLevel(), player, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(absolute), Direction.WEST, absolute, false));
+        InteractionResult result = state.useItemOn(wand,  helper.getLevel(),  player,  InteractionHand.MAIN_HAND,  new BlockHitResult(Vec3.atCenterOf(absolute), Direction.WEST, absolute, false)).result();
         helper.assertTrue(result.consumesAction(), "wand click was not consumed");
         helper.assertBlockProperty(new BlockPos(2, 1, 1), TransvectorDislocatorBlock.FACING, Direction.WEST);
         helper.succeed();
@@ -419,7 +418,7 @@ public final class TransvectorGameTests {
         if (stack.isEmpty()) {
             return state.useWithoutItem(helper.getLevel(), player, hit);
         }
-        return state.useItemOn(stack, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit);
+        return state.useItemOn(stack,  helper.getLevel(),  player,  InteractionHand.MAIN_HAND,  hit).result();
     }
 
     private static void camoStoredAndSynced(GameTestHelper helper) {
@@ -500,7 +499,7 @@ public final class TransvectorGameTests {
         player.setPos(absolute.getX() + 0.5, absolute.getY(), absolute.getZ() + 0.5);
         helper.assertTrue(state.getCollisionShape(level, absolute, CollisionContext.of(player)).isEmpty(), "player at the same level collides");
 
-        Entity cow = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(2, 2, 1));
+        Entity cow = helper.spawnWithNoFreeWill(EntityType.PIG, new BlockPos(2, 2, 1));
         helper.assertTrue(!state.getCollisionShape(level, absolute, CollisionContext.of(cow)).isEmpty(), "mob on top falls through");
         cow.setPos(absolute.getX() + 0.5, absolute.getY() - 1.0, absolute.getZ() + 0.5);
         helper.assertTrue(state.getCollisionShape(level, absolute, CollisionContext.of(cow)).isEmpty(), "mob below collides");

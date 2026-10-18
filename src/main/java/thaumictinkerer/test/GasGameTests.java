@@ -107,7 +107,7 @@ public final class GasGameTests {
         helper.assertTrue(light.canBeReplaced(), "light gas is not replaceable");
         helper.setBlock(pos, GasFeature.GASEOUS_SHADOW.get().defaultBlockState());
         BlockState shadow = helper.getBlockState(pos);
-        helper.assertTrue(shadow.getLightEmission() == 0 && shadow.getLightDampening() == 15, "shadow gas light " + shadow.getLightEmission() + " " + shadow.getLightDampening());
+        helper.assertTrue(shadow.getLightEmission() == 0 && shadow.getLightBlock(helper.getLevel(), net.minecraft.core.BlockPos.ZERO) == 15, "shadow gas light " + shadow.getLightEmission() + " " + shadow.getLightBlock(helper.getLevel(), net.minecraft.core.BlockPos.ZERO));
         helper.setBlock(pos, GasFeature.NITOR_GAS.get().defaultBlockState());
         helper.assertTrue(helper.getBlockState(pos).getLightEmission() == 12, "nitor gas emission");
         helper.setBlock(pos, GasFeature.NITOR_GAS.get().defaultBlockState().setValue(NitorGasBlock.STRONG, true));
@@ -116,7 +116,7 @@ public final class GasGameTests {
     }
 
     private static ServerPlayer mockPlayer(GameTestHelper helper) {
-        return (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+        return (ServerPlayer) TtTestSupport.mockServerPlayer(helper, GameType.SURVIVAL);
     }
 
     private static void clearArea(GameTestHelper helper) {
@@ -209,7 +209,7 @@ public final class GasGameTests {
         ItemStack nitor = new ItemStack(GasFeature.BRIGHT_NITOR.get());
         player.getInventory().setItem(0, nitor);
         BlockPos gasPos = absolute.above();
-        nitor.getItem().inventoryTick(nitor, level, player, null);
+        nitor.getItem().inventoryTick(nitor, level, player, 0, true);
         BlockState placed = level.getBlockState(gasPos);
         helper.assertTrue(placed.is(GasFeature.NITOR_GAS.get()) && !placed.getValue(NitorGasBlock.STRONG), "nitor gas not placed: " + placed);
         helper.assertTrue(GasFeature.carriesLight(player), "carrier not detected");

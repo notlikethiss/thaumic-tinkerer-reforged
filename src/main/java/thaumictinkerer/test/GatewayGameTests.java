@@ -64,7 +64,7 @@ public final class GatewayGameTests {
     }
 
     private static ServerPlayer mockPlayer(GameTestHelper helper) {
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+        ServerPlayer player = (ServerPlayer) TtTestSupport.mockServerPlayer(helper, GameType.SURVIVAL);
         CommonListenerCookie cookie = CommonListenerCookie.createInitial(player.getGameProfile(), false);
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
         new EmbeddedChannel(connection);
@@ -74,7 +74,6 @@ public final class GatewayGameTests {
             }
         };
         helper.getLevel().addNewPlayer(player);
-        player.connection.markClientLoaded();
         return player;
     }
 

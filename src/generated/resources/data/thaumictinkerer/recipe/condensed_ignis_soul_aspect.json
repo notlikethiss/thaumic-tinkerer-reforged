@@ -1,18 +1,20 @@
 {
   "neoforge:conditions": [
     {
-      "type": "neoforge:registered",
-      "value": "thaumictinkerer:condensed_ignis_soul_aspect"
+      "type": "neoforge:item_exists",
+      "item": "thaumictinkerer:condensed_ignis_soul_aspect"
     },
     {
-      "type": "neoforge:registered",
-      "value": "thaumictinkerer:ignis_soul_aspect"
+      "type": "neoforge:item_exists",
+      "item": "thaumictinkerer:ignis_soul_aspect"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "X": "thaumictinkerer:ignis_soul_aspect"
+    "X": {
+      "item": "thaumictinkerer:ignis_soul_aspect"
+    }
   },
   "pattern": [
     "XXX",

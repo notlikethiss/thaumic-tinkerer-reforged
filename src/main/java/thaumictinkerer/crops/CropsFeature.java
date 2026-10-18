@@ -38,18 +38,18 @@ public final class CropsFeature {
         InfusedGrainBlock::new,
         properties -> properties
             .mapColor(MapColor.PLANT)
-            .noCollision()
+            .noCollission()
             .instabreak()
             .sound(SoundType.CROP)
     );
 
     public static final Supplier<BlockEntityType<InfusedFarmlandBlockEntity>> INFUSED_FARMLAND_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "infused_farmland",
-        () -> new BlockEntityType<>(InfusedFarmlandBlockEntity::new, INFUSED_FARMLAND.get())
+        () -> BlockEntityType.Builder.of(InfusedFarmlandBlockEntity::new,  INFUSED_FARMLAND.get()).build(null)
     );
     public static final Supplier<BlockEntityType<InfusedGrainBlockEntity>> INFUSED_GRAIN_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "infused_grain_crop",
-        () -> new BlockEntityType<>(InfusedGrainBlockEntity::new, INFUSED_GRAIN.get())
+        () -> BlockEntityType.Builder.of(InfusedGrainBlockEntity::new,  INFUSED_GRAIN.get()).build(null)
     );
 
     public static final DeferredItem<InfusedSeedsItem> INFUSED_SEEDS = ModItems.ITEMS.registerItem(

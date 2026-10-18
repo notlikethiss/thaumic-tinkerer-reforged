@@ -57,6 +57,8 @@ def matches_any(imported, patterns):
 
 
 def violated_rule(relative, imported):
+    if relative in ("platform/TtCamoBlockEntity.java", "platform/TtCropBlockEntity.java") and imported in ("net.neoforged.neoforge.client.model.data.ModelData", "net.neoforged.neoforge.client.model.data.ModelProperty"):
+        return None
     in_platform = relative.startswith(PLATFORM)
     in_client_platform = relative.startswith(CLIENT_PLATFORM)
     in_client = relative.startswith(CLIENT)

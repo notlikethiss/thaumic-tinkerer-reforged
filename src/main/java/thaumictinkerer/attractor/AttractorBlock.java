@@ -21,12 +21,12 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.platform.Menus;
 import thaumcraft.registry.ModSounds;
 import thaumcraft.wand.WandItem;
 
-public class AttractorBlock extends Block implements EntityBlock {
+public class AttractorBlock extends thaumictinkerer.platform.TtBlock implements EntityBlock {
     public static final BooleanProperty PULL = BooleanProperty.create("pull");
 
     private static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 2.0, 15.0);
@@ -54,13 +54,13 @@ public class AttractorBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    protected net.minecraft.world.ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (hand == InteractionHand.MAIN_HAND && stack.getItem() instanceof WandItem) {
             if (level.getBlockEntity(pos) instanceof CorporealAttractorBlockEntity attractor && player instanceof ServerPlayer serverPlayer) {
                 Menus.open(serverPlayer, attractor);
                 level.playSound(null, pos, ModSounds.KEY.get(), SoundSource.BLOCKS, 1.0F, 0.5F);
             }
-            return InteractionResult.SUCCESS;
+            return net.minecraft.world.ItemInteractionResult.SUCCESS;
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hit);
     }

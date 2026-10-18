@@ -1,14 +1,16 @@
 {
   "neoforge:conditions": [
     {
-      "type": "neoforge:registered",
-      "value": "thaumictinkerer:ward_slab"
+      "type": "neoforge:item_exists",
+      "item": "thaumictinkerer:ward_slab"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "Q": "thaumcraft:obsidian_totem"
+    "Q": {
+      "item": "thaumcraft:obsidian_totem"
+    }
   },
   "pattern": [
     "QQQ"

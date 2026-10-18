@@ -16,7 +16,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public final class OrderFireTransformation implements FireTransformation {
     private final Map<Block, Optional<Block>> results = new ConcurrentHashMap<>();
@@ -99,15 +99,15 @@ public final class OrderFireTransformation implements FireTransformation {
             grid.add(stack.copyWithCount(1));
         }
         CraftingInput input = CraftingInput.of(3, 3, grid);
-        return level.recipeAccess().getRecipeFor(RecipeType.CRAFTING, input, level)
-            .map(holder -> holder.value().assemble(input))
+        return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level)
+            .map(holder -> holder.value().assemble(input, level.registryAccess()))
             .orElse(ItemStack.EMPTY);
     }
 
     private static ItemStack smelt(ServerLevel level, ItemStack stack) {
         SingleRecipeInput input = new SingleRecipeInput(stack.copyWithCount(1));
-        return level.recipeAccess().getRecipeFor(RecipeType.SMELTING, input, level)
-            .map(holder -> holder.value().assemble(input))
+        return level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, input, level)
+            .map(holder -> holder.value().assemble(input, level.registryAccess()))
             .orElse(ItemStack.EMPTY);
     }
 }

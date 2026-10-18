@@ -1,11 +1,10 @@
 package thaumictinkerer.client.tablet;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import thaumictinkerer.ThaumicTinkerer;
 import thaumictinkerer.client.platform.TtClientNetwork;
@@ -14,7 +13,7 @@ import thaumictinkerer.network.TabletButtonPayload;
 import thaumictinkerer.tablet.DynamismTabletMenu;
 
 public class DynamismTabletScreen extends AbstractContainerScreen<DynamismTabletMenu> {
-    private static final Identifier TEXTURE = ThaumicTinkerer.id("textures/gui/animationtablet.png");
+    private static final ResourceLocation TEXTURE = ThaumicTinkerer.id("textures/gui/animationtablet.png");
     private static final int TEXT_COLOR = 0xFF999999;
     private static final int BUTTON_SIZE = 13;
     private static final int LEFT_X = 52;
@@ -27,7 +26,7 @@ public class DynamismTabletScreen extends AbstractContainerScreen<DynamismTablet
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
     }
 
     private int redstoneX() {
@@ -40,31 +39,30 @@ public class DynamismTabletScreen extends AbstractContainerScreen<DynamismTablet
         return offsetX >= 0 && offsetY >= 0 && offsetX < BUTTON_SIZE && offsetY < BUTTON_SIZE;
     }
 
-    private void button(GuiGraphicsExtractor graphics, int x, int y, boolean enabled) {
+    private void button(GuiGraphics graphics, int x, int y, boolean enabled) {
         if (enabled) {
             TtGuiBlit.blit(graphics, TEXTURE, leftPos + x, topPos + y, 176, 13, BUTTON_SIZE, BUTTON_SIZE);
         }
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        super.extractBackground(graphics, mouseX, mouseY, partialTick);
+    protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         TtGuiBlit.blit(graphics, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight);
         button(graphics, LEFT_X, MODE_Y, menu.isLeftClick());
         button(graphics, RIGHT_X, MODE_Y, !menu.isLeftClick());
         button(graphics, redstoneX(), REDSTONE_Y, menu.isRedstone());
         Component left = Component.translatable("ttinkerer.ttmisc.leftClick");
         Component redstone = Component.translatable("ttinkerer.ttmisc.redstoneControl");
-        graphics.text(font, left, leftPos + 48 - font.width(left), topPos + 18, TEXT_COLOR, false);
-        graphics.text(font, Component.translatable("ttinkerer.ttmisc.rightClick"), leftPos + 128, topPos + 18, TEXT_COLOR, false);
-        graphics.text(font, redstone, leftPos + imageWidth / 2 - font.width(redstone) / 2, topPos + 50, TEXT_COLOR, false);
+        graphics.drawString(font, left, leftPos + 48 - font.width(left), topPos + 18, TEXT_COLOR, false);
+        graphics.drawString(font, Component.translatable("ttinkerer.ttmisc.rightClick"), leftPos + 128, topPos + 18, TEXT_COLOR, false);
+        graphics.drawString(font, redstone, leftPos + imageWidth / 2 - font.width(redstone) / 2, topPos + 50, TEXT_COLOR, false);
     }
 
     @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        if (event.button() == InputConstants.MOUSE_BUTTON_LEFT) {
-            double x = event.x();
-            double y = event.y();
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == InputConstants.MOUSE_BUTTON_LEFT) {
+            double x = mouseX;
+            double y = mouseY;
             if (over(x, y, LEFT_X, MODE_Y)) {
                 TtClientNetwork.sendToServer(new TabletButtonPayload(true, menu.isRedstone()));
                 return true;
@@ -78,6 +76,12 @@ public class DynamismTabletScreen extends AbstractContainerScreen<DynamismTablet
                 return true;
             }
         }
-        return super.mouseClicked(event, doubleClick);
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+    @Override
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        renderBackground(graphics, mouseX, mouseY, partialTick);
+        super.render(graphics, mouseX, mouseY, partialTick);
+        renderTooltip(graphics, mouseX, mouseY);
     }
 }

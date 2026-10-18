@@ -11,11 +11,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FarmlandBlock;
+import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectList;
@@ -56,12 +55,12 @@ public class InfusedSeedsItem extends BlockItem implements CreativeVariants {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
-        super.appendHoverText(stack, context, display, builder, flag);
-        builder.accept(getAspect(stack).getDescription());
+    public void appendHoverText(ItemStack stack, TooltipContext context, java.util.List<Component> builder, TooltipFlag flag) {
+        super.appendHoverText(stack, context, builder, flag);
+        builder.add(getAspect(stack).getDescription());
         AspectList tendencies = getTendencies(stack);
         for (Aspect aspect : tendencies.getAspects()) {
-            builder.accept(aspect.getDescription().copy().append(": " + tendencies.getAmount(aspect)));
+            builder.add(aspect.getDescription().copy().append(": " + tendencies.getAmount(aspect)));
         }
     }
 
@@ -75,7 +74,7 @@ public class InfusedSeedsItem extends BlockItem implements CreativeVariants {
         BlockPos above = pos.above();
         Player player = context.getPlayer();
         ItemStack stack = context.getItemInHand();
-        if (!(level.getBlockState(pos).getBlock() instanceof FarmlandBlock) || level.isOutsideBuildHeight(above)) {
+        if (!(level.getBlockState(pos).getBlock() instanceof FarmBlock) || level.isOutsideBuildHeight(above)) {
             return InteractionResult.PASS;
         }
         if (player != null && (!player.mayUseItemAt(pos, Direction.UP, stack) || !player.mayUseItemAt(above, Direction.UP, stack))) {

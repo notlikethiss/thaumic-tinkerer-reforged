@@ -10,7 +10,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.EntityBlock;
@@ -23,7 +22,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectList;
 import thaumictinkerer.Config;
@@ -85,7 +84,7 @@ public class InfusedGrainBlock extends CropBlock implements EntityBlock {
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
         return Config.cropsAllowBonemeal() && !isMaxAge(state);
     }
 
@@ -95,12 +94,10 @@ public class InfusedGrainBlock extends CropBlock implements EntityBlock {
     }
 
     @Override
-    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
         if (level.getBlockEntity(pos) instanceof InfusedGrainBlockEntity grain) {
             ItemStack stack = InfusedSeedsItem.stackFor(grain.getAspect());
-            if (includeData) {
-                InfusedSeedsItem.setTendencies(stack, grain.getTendencies());
-            }
+            InfusedSeedsItem.setTendencies(stack, grain.getTendencies());
             return stack;
         }
         return new ItemStack(CropsFeature.INFUSED_SEEDS.get());

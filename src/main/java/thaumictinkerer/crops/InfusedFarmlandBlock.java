@@ -4,23 +4,22 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.TriState;
+import net.neoforged.neoforge.common.util.TriState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.FarmlandBlock;
+import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 
-public class InfusedFarmlandBlock extends FarmlandBlock implements EntityBlock {
+public class InfusedFarmlandBlock extends FarmBlock implements EntityBlock {
     public InfusedFarmlandBlock(Properties properties) {
-        super(Blocks.DIRT, properties);
+        super(properties);
     }
 
     @Override
@@ -47,7 +46,7 @@ public class InfusedFarmlandBlock extends FarmlandBlock implements EntityBlock {
     }
 
     @Override
-    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
+    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
         entity.causeFallDamage(fallDistance, 1.0F, entity.damageSources().fall());
     }
 }

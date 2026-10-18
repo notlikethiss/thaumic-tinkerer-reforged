@@ -8,7 +8,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public final class TtStackKey<T> {
     private final Supplier<DataComponentType<T>> type;

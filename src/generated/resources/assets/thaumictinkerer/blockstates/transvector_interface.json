@@ -1,10 +1,7 @@
 {
   "variants": {
     "": {
-      "type": "thaumictinkerer:camo",
-      "fallback": {
-        "model": "thaumictinkerer:block/transvector_interface"
-      }
+      "model": "thaumictinkerer:block/transvector_interface"
     }
   }
 }

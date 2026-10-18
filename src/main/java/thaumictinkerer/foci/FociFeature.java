@@ -109,7 +109,7 @@ public final class FociFeature {
             .setPages(TtResearch.text(0), TtResearch.infusion(FLIGHT))
             .registerResearchItem();
         TtResearch.item(DISLOCATION, new AspectList().add(Aspect.ELDRITCH, 2).add(Aspect.MAGIC, 1).add(Aspect.EXCHANGE, 1), -5, -5, 2, TcStack.of("thaumictinkerer:focus_dislocation"))
-            .when(thaumcraft.Config::allowMirrors)
+            .when(thaumictinkerer.platform.TtBaseConfig::allowMirrors)
             .setSecondary()
             .setParents(FLIGHT)
             .setConcealed()
@@ -122,21 +122,21 @@ public final class FociFeature {
             .setSecondary()
             .registerResearchItem();
         TtResearch.item(DEFLECT, new AspectList().add(Aspect.MOTION, 2).add(Aspect.AIR, 1).add(Aspect.ORDER, 1).add(Aspect.DEATH, 1), -4, -3, 3, TcStack.of("thaumictinkerer:focus_deflect"))
-            .when(thaumcraft.Config::allowMirrors)
+            .when(thaumictinkerer.platform.TtBaseConfig::allowMirrors)
             .setConcealed()
             .setParents(SMELT)
             .setPages(TtResearch.text(0), TtResearch.infusion(DEFLECT))
             .setSecondary()
             .registerResearchItem();
         TtResearch.item(HEAL, new AspectList().add(Aspect.HEAL, 2).add(Aspect.SOUL, 1).add(Aspect.MAGIC, 1), -6, -4, 2, TcStack.of("thaumictinkerer:focus_heal"))
-            .when(thaumcraft.Config::allowMirrors)
+            .when(thaumictinkerer.platform.TtBaseConfig::allowMirrors)
             .setParents(DEFLECT)
             .setConcealed()
             .setPages(TtResearch.text(0), TtResearch.infusion(HEAL))
             .setSecondary()
             .registerResearchItem();
         TtResearch.item(ENDER_CHEST, new AspectList().add(Aspect.ELDRITCH, 2).add(Aspect.VOID, 1).add(Aspect.MAGIC, 1), -6, -2, 2, TcStack.of("thaumictinkerer:focus_ender_chest"))
-            .when(thaumcraft.Config::allowMirrors)
+            .when(thaumictinkerer.platform.TtBaseConfig::allowMirrors)
             .setWarp(1)
             .setParents(DEFLECT)
             .setConcealed()

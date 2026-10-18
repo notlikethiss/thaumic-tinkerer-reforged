@@ -1,32 +1,29 @@
 package thaumictinkerer.client.repairer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import thaumictinkerer.client.platform.TtBlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
-import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.item.ItemModelResolver;
-import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
+import thaumictinkerer.client.platform.TtBlockEntityRenderState;
+
+import thaumictinkerer.client.platform.TtItemRenderState;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumictinkerer.repairer.RepairerBlockEntity;
 
-public class RepairerRenderer implements BlockEntityRenderer<RepairerBlockEntity, RepairerRenderer.State> {
-    private final ItemModelResolver itemModelResolver;
+public class RepairerRenderer extends TtBlockEntityRenderer<RepairerBlockEntity, RepairerRenderer.State> {
 
-    public static class State extends BlockEntityRenderState {
-        final ItemStackRenderState item = new ItemStackRenderState();
+    public static class State extends TtBlockEntityRenderState {
+        final TtItemRenderState item = new TtItemRenderState();
         float rotation;
         float ticks;
         boolean tookLastTick;
     }
 
     public RepairerRenderer(BlockEntityRendererProvider.Context context) {
-        this.itemModelResolver = context.itemModelResolver();
+
     }
 
     @Override
@@ -35,20 +32,20 @@ public class RepairerRenderer implements BlockEntityRenderer<RepairerBlockEntity
     }
 
     @Override
-    public void extractRenderState(RepairerBlockEntity entity, State state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
-        BlockEntityRenderer.super.extractRenderState(entity, state, partialTicks, cameraPosition, breakProgress);
+    public void extractRenderState(RepairerBlockEntity entity, State state, float partialTicks, Vec3 cameraPosition, @Nullable Object breakProgress) {
+        super.extractRenderState(entity, state, partialTicks, cameraPosition, breakProgress);
         state.rotation = RepairerRendering.rotation(entity.orientation());
         state.ticks = entity.ticksExisted() + partialTicks;
         state.tookLastTick = entity.tookLastTick();
         ItemStack stack = entity.getTheItem();
         state.item.clear();
         if (!stack.isEmpty() && entity.getLevel() != null) {
-            itemModelResolver.updateForTopItem(state.item, stack.copyWithCount(1), ItemDisplayContext.GROUND, entity.getLevel(), null, (int) entity.getBlockPos().asLong());
+            TtItemRenderState.updateForTopItem(state.item, stack.copyWithCount(1), ItemDisplayContext.GROUND, entity.getLevel(), null, (int) entity.getBlockPos().asLong());
         }
     }
 
     @Override
-    public void submit(State state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
+    public void submit(State state, PoseStack poseStack, MultiBufferSource collector, Object camera) {
         RepairerRendering.submit(collector, poseStack, state.lightCoords, state.rotation, state.ticks, state.tookLastTick, state.item);
     }
 }

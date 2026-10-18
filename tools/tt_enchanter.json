@@ -1,0 +1,429 @@
+[
+  {
+    "aspects": {
+      "EARTH": 10,
+      "ENTROPY": 7
+    },
+    "id": "minecraft:protection",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/protection.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "ENTROPY": 3,
+      "FIRE": 10,
+      "WATER": 4
+    },
+    "id": "minecraft:fire_protection",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/fireprotection.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "AIR": 16,
+      "ORDER": 5
+    },
+    "id": "minecraft:feather_falling",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/featherfalling.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "EARTH": 5,
+      "ENTROPY": 8,
+      "FIRE": 5
+    },
+    "id": "minecraft:blast_protection",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/blastprotection.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "AIR": 10,
+      "ENTROPY": 7
+    },
+    "id": "minecraft:projectile_protection",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/projectileprotection.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "AIR": 8,
+      "ORDER": 5,
+      "WATER": 10
+    },
+    "id": "minecraft:respiration",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/respiration.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "EARTH": 5,
+      "ORDER": 20,
+      "WATER": 25
+    },
+    "id": "minecraft:aqua_affinity",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/aquaaffinity.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "EARTH": 10,
+      "ENTROPY": 12
+    },
+    "id": "minecraft:thorns",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/thorns.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "ORDER": 10
+    },
+    "id": "minecraft:sharpness",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/sharpness.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "AIR": 5,
+      "ORDER": 5
+    },
+    "id": "minecraft:smite",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/smite.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "FIRE": 5,
+      "ORDER": 5
+    },
+    "id": "minecraft:bane_of_arthropods",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/baneofawfulturds.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "AIR": 10,
+      "ENTROPY": 5
+    },
+    "id": "minecraft:knockback",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/knockback.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "EARTH": 4,
+      "FIRE": 15
+    },
+    "id": "minecraft:fire_aspect",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/fireaspect.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "AIR": 10,
+      "EARTH": 10,
+      "ENTROPY": 15,
+      "FIRE": 10,
+      "ORDER": 15,
+      "WATER": 10
+    },
+    "id": "minecraft:looting",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/looting.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "EARTH": 4,
+      "ENTROPY": 12
+    },
+    "id": "minecraft:efficiency",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/efficiency.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "EARTH": 10,
+      "ENTROPY": 10,
+      "ORDER": 50
+    },
+    "id": "minecraft:silk_touch",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/silktouch.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "EARTH": 8,
+      "ORDER": 15,
+      "WATER": 8
+    },
+    "id": "minecraft:unbreaking",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/unbreaking.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "AIR": 10,
+      "EARTH": 10,
+      "ENTROPY": 15,
+      "FIRE": 10,
+      "ORDER": 15,
+      "WATER": 10
+    },
+    "id": "minecraft:fortune",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/fortune.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "EARTH": 5,
+      "ORDER": 10
+    },
+    "id": "minecraft:power",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/power.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "AIR": 4,
+      "EARTH": 10,
+      "ENTROPY": 5
+    },
+    "id": "minecraft:punch",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/punch.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "EARTH": 5,
+      "ENTROPY": 5,
+      "FIRE": 20
+    },
+    "id": "minecraft:flame",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/flame.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "EARTH": 10,
+      "ENTROPY": 40,
+      "ORDER": 40
+    },
+    "id": "minecraft:infinity",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/infinity.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "BEAST": 20,
+      "WATER": 20
+    },
+    "id": "minecraft:lure",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/lure.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "ENTROPY": 20,
+      "WATER": 20
+    },
+    "id": "minecraft:luck_of_the_sea",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/luckofthesea.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "AIR": 10,
+      "EARTH": 5,
+      "ENTROPY": 5
+    },
+    "id": "thaumcraft:haste",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/haste.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "AIR": 20,
+      "EARTH": 20,
+      "ENTROPY": 5,
+      "FIRE": 20,
+      "ORDER": 20,
+      "WATER": 20
+    },
+    "id": "thaumcraft:repair",
+    "research": "",
+    "texture": "thaumictinkerer:textures/enchants/repair.png",
+    "vanilla": true
+  },
+  {
+    "aspects": {
+      "AIR": 10,
+      "ENTROPY": 8
+    },
+    "id": "thaumictinkerer:ascent_boost",
+    "research": "TTENCH_ASCENT_BOOST",
+    "texture": "thaumictinkerer:textures/enchants/ascentboost.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "AIR": 10,
+      "ORDER": 8
+    },
+    "id": "thaumictinkerer:slow_fall",
+    "research": "TTENCH_SLOW_FALL",
+    "texture": "thaumictinkerer:textures/enchants/slowfall.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "ENTROPY": 20,
+      "FIRE": 30
+    },
+    "id": "thaumictinkerer:auto_smelt",
+    "research": "TTENCH_AUTO_SMELT",
+    "texture": "thaumictinkerer:textures/enchants/autosmelt.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "AIR": 10,
+      "EARTH": 10,
+      "ENTROPY": 25
+    },
+    "id": "thaumictinkerer:desintegrate",
+    "research": "TTENCH_DESINTEGRATE",
+    "texture": "thaumictinkerer:textures/enchants/desintegrate.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "AIR": 10,
+      "ORDER": 10,
+      "WATER": 5
+    },
+    "id": "thaumictinkerer:quick_draw",
+    "research": "TTENCH_QUICK_DRAW",
+    "texture": "thaumictinkerer:textures/enchants/quickdraw.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "ENTROPY": 8,
+      "FIRE": 10,
+      "WATER": 10
+    },
+    "id": "thaumictinkerer:vampirism",
+    "research": "TTENCH_VAMPIRISM",
+    "texture": "thaumictinkerer:textures/enchants/vamprisim.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "AIR": 10,
+      "ORDER": 12,
+      "WATER": 10
+    },
+    "id": "thaumictinkerer:focused_strike",
+    "research": "TTENCH_VAMPIRISM",
+    "texture": "thaumictinkerer:textures/enchants/focusedstrikes.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "EARTH": 10,
+      "ENTROPY": 12,
+      "FIRE": 10
+    },
+    "id": "thaumictinkerer:dispersed_strike",
+    "research": "TTENCH_VAMPIRISM",
+    "texture": "thaumictinkerer:textures/enchants/dispersedstrikes.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "EARTH": 10,
+      "FIRE": 10,
+      "ORDER": 12
+    },
+    "id": "thaumictinkerer:valiance",
+    "research": "TTENCH_VAMPIRISM",
+    "texture": "thaumictinkerer:textures/enchants/valiance.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "ENTROPY": 16,
+      "FIRE": 16
+    },
+    "id": "thaumictinkerer:final_strike",
+    "research": "TTENCH_VAMPIRISM",
+    "texture": "thaumictinkerer:textures/enchants/finalstrike.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "EARTH": 16,
+      "ORDER": 16
+    },
+    "id": "thaumictinkerer:tunnel",
+    "research": "TTENCH_VAMPIRISM",
+    "texture": "thaumictinkerer:textures/enchants/tunnel.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "EARTH": 16,
+      "ENTROPY": 16
+    },
+    "id": "thaumictinkerer:shatter",
+    "research": "TTENCH_VAMPIRISM",
+    "texture": "thaumictinkerer:textures/enchants/shatter.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "AIR": 16,
+      "EARTH": 16
+    },
+    "id": "thaumictinkerer:shockwave",
+    "research": "TTENCH_VAMPIRISM",
+    "texture": "thaumictinkerer:textures/enchants/shockwave.png",
+    "vanilla": false
+  },
+  {
+    "aspects": {
+      "AIR": 16,
+      "EARTH": 16
+    },
+    "id": "thaumictinkerer:pounce",
+    "research": "TTENCH_VAMPIRISM",
+    "texture": "thaumictinkerer:textures/enchants/pounce.png",
+    "vanilla": false
+  }
+]

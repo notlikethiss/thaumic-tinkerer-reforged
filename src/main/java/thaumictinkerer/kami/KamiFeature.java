@@ -3,7 +3,6 @@ package thaumictinkerer.kami;
 import java.util.List;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import thaumcraft.aspect.Aspect;
@@ -114,13 +113,13 @@ public final class KamiFeature {
     }
 
     private static Item.Properties unbreakable(Item.Properties properties) {
-        return properties.rarity(TtRarity.kami()).component(DataComponents.UNBREAKABLE, Unit.INSTANCE);
+        return properties.rarity(TtRarity.kami()).component(DataComponents.UNBREAKABLE, new net.minecraft.world.item.component.Unbreakable(true));
     }
 
     private static DeferredItem<IchorclothArmorItem> armor(String name, ArmorSlot slot, int discount) {
         return ModItems.ITEMS.registerItem(
             name,
-            properties -> new IchorclothArmorItem(properties, discount),
+            properties -> new IchorclothArmorItem(properties, discount, ICHORCLOTH_ARMOR, slot),
             properties -> unbreakable(Registration.armor(properties, ICHORCLOTH_ARMOR, slot))
         );
     }

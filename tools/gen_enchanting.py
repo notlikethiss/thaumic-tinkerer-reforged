@@ -58,6 +58,8 @@ def enchantments(ctx):
             "weight": 1,
         }
         denied = exclusive_set(name, spec)
+        if not ctx.profile.modern:
+            denied = [value for value in denied if value != "minecraft:lunge"]
         if denied:
             content["exclusive_set"] = denied
         ctx.write(ctx.DATA / ctx.NS / "enchantment" / f"{name}.json", content)

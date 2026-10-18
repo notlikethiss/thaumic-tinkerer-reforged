@@ -29,7 +29,7 @@ public final class FunnelFeature {
 
     public static final Supplier<BlockEntityType<FunnelBlockEntity>> FUNNEL_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "essentia_funnel",
-        () -> new BlockEntityType<>(FunnelBlockEntity::new, FUNNEL.get())
+        () -> BlockEntityType.Builder.of(FunnelBlockEntity::new,  FUNNEL.get()).build(null)
     );
 
     private FunnelFeature() {

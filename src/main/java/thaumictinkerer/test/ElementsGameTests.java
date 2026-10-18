@@ -6,15 +6,15 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.animal.pig.Pig;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.GameRules;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -147,7 +147,7 @@ public final class ElementsGameTests {
 
     private static void allowFireSpread(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
-        level.getGameRules().set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, -1, level.getServer());
+        level.getGameRules().getRule(GameRules.RULE_DOFIRETICK).set(true, level.getServer());
     }
 
     private static void transform(GameTestHelper helper, ImbuedFireBlock fire, Block source, Block expected) {
@@ -280,7 +280,7 @@ public final class ElementsGameTests {
     private static void fireRespectsGameRule(GameTestHelper helper) {
         clearArea(helper);
         ServerLevel level = helper.getLevel();
-        level.getGameRules().set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, 0, level.getServer());
+        level.getGameRules().getRule(GameRules.RULE_DOFIRETICK).set(false, level.getServer());
         BlockPos center = new BlockPos(3, 3, 3);
         ImbuedFireBlock fire = ElementsFeature.AER_FIRE.get();
         helper.setBlock(center, fire.defaultBlockState());
@@ -338,9 +338,9 @@ public final class ElementsGameTests {
         }
         Player player = playerAt(helper, new BlockPos(1, 2, 3));
         player.addEffect(new MobEffectInstance(ElementsFeature.AIR_IMBUED, 200));
-        Pig pig = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(3, 2, 3));
+        Pig pig = helper.spawnWithNoFreeWill(EntityType.PIG, new BlockPos(3, 2, 3));
         double startY = pig.getY();
-        pig.hurtServer(helper.getLevel(), helper.getLevel().damageSources().playerAttack(player), 1.0F);
+        pig.hurt(helper.getLevel().damageSources().playerAttack(player), 1.0F);
         helper.assertTrue(ElementsEvents.isAirHit(pig), "target was not marked");
         helper.succeedWhen(() -> helper.assertTrue(pig.getY() > startY + 0.05, "target did not rise: " + (pig.getY() - startY)));
     }
@@ -354,8 +354,8 @@ public final class ElementsGameTests {
         }
         Player player = playerAt(helper, new BlockPos(1, 2, 3));
         player.addEffect(new MobEffectInstance(ElementsFeature.FIRE_IMBUED, 200));
-        Pig pig = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(3, 2, 3));
-        pig.hurtServer(helper.getLevel(), helper.getLevel().damageSources().playerAttack(player), 1.0F);
+        Pig pig = helper.spawnWithNoFreeWill(EntityType.PIG, new BlockPos(3, 2, 3));
+        pig.hurt(helper.getLevel().damageSources().playerAttack(player), 1.0F);
         helper.assertTrue(ElementsEvents.isFireHit(pig), "target was not marked");
         helper.succeedWhen(() -> helper.assertTrue(pig.isOnFire() || !pig.isAlive(), "target is not burning"));
     }
@@ -364,7 +364,7 @@ public final class ElementsGameTests {
         clearArea(helper);
         Player player = playerAt(helper, new BlockPos(1, 2, 3));
         player.addEffect(new MobEffectInstance(ElementsFeature.EARTH_IMBUED, 200));
-        Pig pig = helper.spawnWithNoFreeWill(EntityTypes.PIG, new BlockPos(5, 2, 3));
+        Pig pig = helper.spawnWithNoFreeWill(EntityType.PIG, new BlockPos(5, 2, 3));
         ElementsEvents.hit(player, pig);
         BlockPos wallCenter = new BlockPos(3, 4, 3);
         helper.assertTrue(helper.getBlockState(wallCenter).is(ElementsFeature.FORCEFIELD.get()), "no wall at the center " + helper.getBlockState(wallCenter));
@@ -386,7 +386,7 @@ public final class ElementsGameTests {
         helper.assertTrue(!state.getCollisionShape(helper.getLevel(), absolute).isEmpty(), "forcefield has no collision");
         helper.assertTrue(state.canBeReplaced(), "forcefield is not replaceable");
         helper.assertTrue(state.getRenderShape() == RenderShape.INVISIBLE, "forcefield is visible");
-        helper.assertTrue(!state.isSolidRender(), "forcefield is opaque");
+        helper.assertTrue(!state.isSolidRender(helper.getLevel(), net.minecraft.core.BlockPos.ZERO), "forcefield is opaque");
         helper.succeed();
     }
 

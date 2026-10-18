@@ -15,7 +15,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.SubmitCustomGeometryEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import thaumcraft.client.platform.TcRenderTypes;
 import thaumcraft.client.platform.TcRenderTypes.Kind;
 import thaumictinkerer.Config;
@@ -34,15 +34,15 @@ public final class MirrorOverlay {
     }
 
     @SubscribeEvent
-    static void onSubmit(SubmitCustomGeometryEvent event) {
-        if (!Config.placementMirrorBlocks()) {
+    static void onSubmit(RenderLevelStageEvent event) {
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS || !Config.placementMirrorBlocks()) {
             return;
         }
         ClientLevel level = Minecraft.getInstance().level;
         if (level == null) {
             return;
         }
-        Vec3 camera = event.getLevelRenderState().cameraRenderState.pos;
+        Vec3 camera = event.getCamera().getPosition();
         PoseStack poseStack = event.getPoseStack();
         for (Player player : level.players()) {
             ItemStack stack = player.getMainHandItem();
@@ -58,9 +58,9 @@ public final class MirrorOverlay {
                 continue;
             }
             BlockState state = blockItem.getBlock().defaultBlockState();
-            TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getBlockStateModelSet().getParticleMaterial(state).sprite();
+            TextureAtlasSprite sprite = Minecraft.getInstance().getBlockRenderer().getBlockModel(state).getParticleIcon();
             UvRect uv = new UvRect(sprite.getU(0.0F), sprite.getV(0.0F), sprite.getU(1.0F), sprite.getV(1.0F));
-            event.getSubmitNodeCollector().submitCustomGeometry(
+            thaumcraft.client.platform.ItemGeometry.submit(Minecraft.getInstance().renderBuffers().bufferSource(),
                 poseStack,
                 TcRenderTypes.of(Kind.ENTITY_TRANSLUCENT, sprite.atlasLocation()),
                 (pose, buffer) -> {
@@ -77,5 +77,6 @@ public final class MirrorOverlay {
                 }
             );
         }
+        Minecraft.getInstance().renderBuffers().bufferSource().endBatch();
     }
 }

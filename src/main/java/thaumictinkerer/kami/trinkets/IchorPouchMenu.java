@@ -7,10 +7,10 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.wand.focus.FocusPouchItem;
 
 public class IchorPouchMenu extends AbstractContainerMenu {
@@ -34,7 +34,7 @@ public class IchorPouchMenu extends AbstractContainerMenu {
     public IchorPouchMenu(int containerId, Inventory inventory, @Nullable ItemStack pouch) {
         super(TrinketsFeature.ICHOR_POUCH_MENU.get(), containerId);
         this.pouch = pouch;
-        this.blockedSlot = HOTBAR_START + inventory.getSelectedSlot();
+        this.blockedSlot = HOTBAR_START + inventory.selected;
         if (pouch != null) {
             load(pouch);
         }
@@ -90,11 +90,11 @@ public class IchorPouchMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public void clicked(int slotIndex, int buttonNum, ContainerInput containerInput, Player player) {
+    public void clicked(int slotIndex, int buttonNum, ClickType containerInput, Player player) {
         if (slotIndex == blockedSlot) {
             return;
         }
-        if (containerInput == ContainerInput.SWAP && buttonNum == blockedSlot - HOTBAR_START) {
+        if (containerInput == ClickType.SWAP && buttonNum == blockedSlot - HOTBAR_START) {
             return;
         }
         super.clicked(slotIndex, buttonNum, containerInput, player);
@@ -130,7 +130,7 @@ public class IchorPouchMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return pouch == null || player.getInventory().getSelectedItem().getItem() instanceof IchorPouchItem;
+        return pouch == null || player.getInventory().getSelected().getItem() instanceof IchorPouchItem;
     }
 
     private static final class PouchSlot extends Slot {

@@ -9,9 +9,11 @@
           "name": "thaumictinkerer:essentia_funnel"
         }
       ],
-      "condition": {
-        "type": "minecraft:survives_explosion"
-      }
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
     }
   ],
   "random_sequence": "thaumictinkerer:blocks/essentia_funnel"

@@ -72,7 +72,7 @@ public final class EnchantingFeature {
     ));
     public static final Supplier<BlockEntityType<EnchanterBlockEntity>> ENCHANTER_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "osmotic_enchanter",
-        () -> new BlockEntityType<>(EnchanterBlockEntity::new, ENCHANTER.get())
+        () -> BlockEntityType.Builder.of(EnchanterBlockEntity::new,  ENCHANTER.get()).build(null)
     );
     public static final DeferredHolder<MenuType<?>, MenuType<EnchanterMenu>> ENCHANTER_MENU = ModMenus.MENUS.register(
         "osmotic_enchanter",

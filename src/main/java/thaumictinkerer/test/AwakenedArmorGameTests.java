@@ -69,7 +69,7 @@ public final class AwakenedArmorGameTests {
     }
 
     private static ServerPlayer mockPlayer(GameTestHelper helper, GameType gameType) {
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(gameType);
+        ServerPlayer player = (ServerPlayer) TtTestSupport.mockServerPlayer(helper, gameType);
         CommonListenerCookie cookie = CommonListenerCookie.createInitial(player.getGameProfile(), false);
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
         new EmbeddedChannel(connection);
@@ -79,7 +79,6 @@ public final class AwakenedArmorGameTests {
             }
         };
         helper.getLevel().addNewPlayer(player);
-        player.connection.markClientLoaded();
         player.setPos(helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)));
         return player;
     }
@@ -134,7 +133,7 @@ public final class AwakenedArmorGameTests {
             helper.assertTrue(recipe.aspects().getAmount((Aspect) row[1]) == 50, key + " has wrong primary aspect");
             helper.assertTrue(recipe.aspects().getAmount(Aspect.ARMOR) == 32 && recipe.aspects().getAmount(Aspect.LIGHT) == 64, key + " has wrong aspects");
             helper.assertTrue(recipe.result().item().toString().equals(row[2]), key + " has wrong result " + recipe.result().item());
-            helper.assertTrue(recipe.central().displayStacks().get(0).getItem().builtInRegistryHolder().key().identifier().toString().equals(row[3]), key + " has wrong central item");
+            helper.assertTrue(recipe.central().displayStacks().get(0).getItem().builtInRegistryHolder().key().location().toString().equals(row[3]), key + " has wrong central item");
         }
         ItemStack nightVision = new ItemStack(Items.POTION);
         nightVision.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.NIGHT_VISION));
@@ -158,7 +157,7 @@ public final class AwakenedArmorGameTests {
         ItemStack cowl = new ItemStack(AwakenedArmorFeature.COWL.get());
         helper.assertTrue(cowl.getItem() instanceof Goggles goggles && goggles.showIngamePopups(cowl, player), "cowl goggles");
         helper.assertTrue(cowl.getItem() instanceof Revealer revealer && revealer.showNodes(cowl, player), "cowl revealer");
-        helper.assertTrue(cowl.has(DataComponents.UNBREAKABLE) && cowl.has(DataComponents.EQUIPPABLE), "cowl components");
+        helper.assertTrue(cowl.has(DataComponents.UNBREAKABLE) && cowl.getItem() instanceof net.minecraft.world.item.ArmorItem, "cowl components");
         helper.assertTrue(cowl.getRarity() == TtRarity.kami(), "cowl rarity");
         helper.succeed();
     }
@@ -273,18 +272,18 @@ public final class AwakenedArmorGameTests {
         helper.getLevel().setBlock(dirt, Blocks.DIRT.defaultBlockState(), 2);
         player.setItemSlot(EquipmentSlot.FEET, new ItemStack(AwakenedArmorFeature.BOOTS.get()));
         tick(player);
-        MobEffectInstance haste = player.getEffect(MobEffects.HASTE);
+        MobEffectInstance haste = player.getEffect(MobEffects.DIG_SPEED);
         helper.assertTrue(haste != null && haste.getAmplifier() == 1, "haste missing while worn");
         helper.assertTrue(helper.getLevel().getBlockState(dirt).is(Blocks.GRASS_BLOCK), "dirt was not turned into grass");
         float health = player.getHealth();
-        player.causeFallDamage(20.0, 1.0F, player.damageSources().fall());
+        player.causeFallDamage(20.0F, 1.0F, player.damageSources().fall());
         helper.assertTrue(player.getHealth() == health, "fall damage taken with boots");
         double before = player.getDeltaMovement().y;
         player.jumpFromGround();
         helper.assertTrue(player.getDeltaMovement().y - before > 0.5F + AwakenedArmorEvents.JUMP_BOOST - 0.2F, "jump not boosted " + (player.getDeltaMovement().y - before));
         player.setItemSlot(EquipmentSlot.FEET, ItemStack.EMPTY);
         AwakenedArmorEvents.release(player, EquipmentSlot.FEET);
-        helper.assertTrue(player.getEffect(MobEffects.HASTE) == null, "haste remained after unequip");
+        helper.assertTrue(player.getEffect(MobEffects.DIG_SPEED) == null, "haste remained after unequip");
         helper.succeed();
     }
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 import thaumcraft.aspect.Aspect;
 import thaumictinkerer.necromancy.MobAspect;
 import thaumictinkerer.necromancy.NecromancyFeature;
@@ -13,7 +13,7 @@ public final class SoulDrops {
     private SoulDrops() {
     }
 
-    public static Aspect @Nullable [] aspectsFor(Entity entity) {
+    public static @Nullable Aspect[] aspectsFor(Entity entity) {
         MobAspect mob = MobAspect.forEntity(entity);
         return mob == null ? null : mob.aspects().toArray(Aspect[]::new);
     }

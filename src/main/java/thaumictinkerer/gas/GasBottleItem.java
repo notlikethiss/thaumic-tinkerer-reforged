@@ -6,7 +6,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +22,7 @@ public class GasBottleItem extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public net.minecraft.world.InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         BlockPos pos = new BlockPos((int) player.getX(), (int) player.getY() + 1, (int) player.getZ());
         boolean free = GasBlock.canHoldGas(level.getBlockState(pos));
@@ -35,6 +34,6 @@ public class GasBottleItem extends Item {
                 gas.get().release(serverLevel, pos, RELEASE_LEVEL);
             }
         }
-        return InteractionResult.SUCCESS;
+        return net.minecraft.world.InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());
     }
 }

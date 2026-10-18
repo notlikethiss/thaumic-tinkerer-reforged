@@ -7,7 +7,7 @@ import thaumcraft.node.Revealer;
 
 public class AwakenedCowlItem extends AwakenedArmorItem implements Goggles, Revealer {
     public AwakenedCowlItem(Properties properties, int visDiscount) {
-        super(properties, visDiscount);
+        super(properties, visDiscount, AwakenedArmorFeature.AWAKENED_ARMOR, thaumcraft.platform.ArmorSlot.HELMET);
     }
 
     @Override

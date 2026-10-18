@@ -5,9 +5,8 @@ import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -97,16 +96,16 @@ public class NecromancyTabletBlockEntity extends TcBlockEntity {
 
     private void spawn(ServerLevel serverLevel, MobAspect recipe) {
         EntityType<?> type = recipe.entityType().get();
-        if (type == EntityTypes.SKELETON && serverLevel.dimension() == Level.NETHER) {
-            type = EntityTypes.WITHER_SKELETON;
+        if (type == EntityType.SKELETON && serverLevel.dimension() == Level.NETHER) {
+            type = EntityType.WITHER_SKELETON;
         }
-        Entity entity = type.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
+        Entity entity = type.create(serverLevel);
         if (entity == null) {
             return;
         }
-        entity.snapTo(worldPosition.getX() + 0.5, worldPosition.getY() + 1, worldPosition.getZ() + 0.5, 0.0F, 0.0F);
+        entity.moveTo(worldPosition.getX() + 0.5, worldPosition.getY() + 1, worldPosition.getZ() + 0.5, 0.0F, 0.0F);
         if (entity instanceof Mob mob) {
-            EventHooks.finalizeMobSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(worldPosition), EntitySpawnReason.MOB_SUMMONED, null);
+            EventHooks.finalizeMobSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(worldPosition), MobSpawnType.MOB_SUMMONED, null);
         }
         serverLevel.addFreshEntity(entity);
         if (entity instanceof Mob mob) {

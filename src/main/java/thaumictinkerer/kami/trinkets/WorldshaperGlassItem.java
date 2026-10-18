@@ -2,7 +2,6 @@ package thaumictinkerer.kami.trinkets;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -18,7 +17,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -127,7 +125,7 @@ public class WorldshaperGlassItem extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public net.minecraft.world.InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (player.isShiftKeyDown()) {
             if (!level.isClientSide()) {
@@ -135,13 +133,13 @@ public class WorldshaperGlassItem extends Item {
                 int newSize = size == MAX_SIZE ? DEFAULT_SIZE : size + 2;
                 setSize(stack, newSize);
                 if (player instanceof ServerPlayer serverPlayer) {
-                    serverPlayer.sendOverlayMessage(Component.literal(newSize + " x " + newSize));
+                    serverPlayer.displayClientMessage(Component.literal(newSize + " x " + newSize), true);
                 }
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.3F, 0.1F);
             }
-            return InteractionResult.SUCCESS;
+            return net.minecraft.world.InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());
         }
-        return InteractionResult.PASS;
+        return net.minecraft.world.InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
     public static int placeAllBlocks(ItemStack stack, Player player) {
@@ -170,13 +168,13 @@ public class WorldshaperGlassItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
-        super.appendHoverText(stack, context, display, builder, flag);
+    public void appendHoverText(ItemStack stack, TooltipContext context, java.util.List<Component> builder, TooltipFlag flag) {
+        super.appendHoverText(stack, context, builder, flag);
         int size = getSize(stack);
-        builder.accept(Component.literal(size + " x " + size));
+        builder.add(Component.literal(size + " x " + size));
         Item item = getItem(stack);
         if (item != Items.AIR) {
-            builder.accept(new ItemStack(item).getHoverName());
+            builder.add(new ItemStack(item).getHoverName());
         }
     }
 }

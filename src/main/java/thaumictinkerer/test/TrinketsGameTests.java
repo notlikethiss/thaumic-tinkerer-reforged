@@ -12,7 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
@@ -119,7 +119,7 @@ public final class TrinketsGameTests {
     }
 
     private static ServerPlayer player(GameTestHelper helper, GameType type) {
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(type);
+        ServerPlayer player = (ServerPlayer) TtTestSupport.mockServerPlayer(helper, type);
         CommonListenerCookie cookie = CommonListenerCookie.createInitial(player.getGameProfile(), false);
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
         new EmbeddedChannel(connection);
@@ -129,7 +129,6 @@ public final class TrinketsGameTests {
             }
         };
         helper.getLevel().addNewPlayer(player);
-        player.connection.markClientLoaded();
         return player;
     }
 
@@ -244,7 +243,7 @@ public final class TrinketsGameTests {
         player.setPos(helper.absoluteVec(new Vec3(1.5, 2.0, 1.5)));
         BlockPos chestPos = new BlockPos(3, 2, 3);
         helper.setBlock(chestPos, Blocks.CHEST.defaultBlockState());
-        ChestBlockEntity chest = (ChestBlockEntity) helper.getBlockEntity(chestPos, ChestBlockEntity.class);
+        ChestBlockEntity chest = (ChestBlockEntity) helper.<ChestBlockEntity>getBlockEntity(chestPos);
         chest.setItem(0, new ItemStack(Items.STONE, 60));
         ItemStack ring = ring(Items.STONE, 100, false);
         player.setItemInHand(InteractionHand.MAIN_HAND, ring);
@@ -470,7 +469,7 @@ public final class TrinketsGameTests {
     private static void catAmuletStopsCreepers(GameTestHelper helper) {
         ServerPlayer player = player(helper, GameType.SURVIVAL);
         player.setPos(helper.absoluteVec(new Vec3(3.5, 2.0, 3.5)));
-        Creeper creeper = helper.spawn(EntityTypes.CREEPER, new BlockPos(5, 2, 3));
+        Creeper creeper = helper.spawn(EntityType.CREEPER, new BlockPos(5, 2, 3));
         helper.assertTrue(creeper.goalSelector.getAvailableGoals().stream().anyMatch(wrapped -> wrapped.getGoal() instanceof WearerAvoidGoal), "creepers must get the avoid goal");
         creeper.setTarget(player);
         helper.assertTrue(creeper.getTarget() == player, "creeper must target a player without the amulet");
@@ -510,7 +509,7 @@ public final class TrinketsGameTests {
         Inventory inventory = player.getInventory();
         ItemStack pick = new ItemStack(KamiFeature.ICHORIUM_PICKAXE.get());
         ItemStack shovel = new ItemStack(KamiFeature.ICHORIUM_SHOVEL.get());
-        inventory.setSelectedSlot(2);
+        inventory.selected = 2;
         inventory.setItem(2, pick);
         inventory.setItem(20, shovel);
         BlockState dirt = Blocks.DIRT.defaultBlockState();

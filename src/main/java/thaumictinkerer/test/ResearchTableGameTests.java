@@ -13,9 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.resources.ResourceKey;
 import net.neoforged.bus.api.IEventBus;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.crafting.CraftingRecipeRef;
@@ -88,7 +86,7 @@ public final class ResearchTableGameTests {
                         continue;
                     }
                     if (recipe instanceof CraftingRecipeRef reference) {
-                        boolean present = helper.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, reference.recipe())).isPresent();
+                        boolean present = helper.getLevel().getServer().getRecipeManager().byKey(reference.recipe()).isPresent();
                         if (!present) {
                             problems.add(research.key() + ": crafting recipe missing for " + key);
                         }

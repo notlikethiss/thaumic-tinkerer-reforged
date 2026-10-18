@@ -3,9 +3,7 @@ package thaumictinkerer.test;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -56,7 +54,7 @@ public final class DarkQuartzGameTests {
             helper.assertTrue(TcRecipes.get(key) instanceof CraftingRecipeRef, "recipe ref missing: " + key);
             CraftingRecipeRef reference = (CraftingRecipeRef) TcRecipes.get(key);
             helper.assertTrue(reference.result().exists(), "result item missing for " + key);
-            boolean present = helper.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, reference.recipe())).isPresent();
+            boolean present = helper.getLevel().getServer().getRecipeManager().byKey(reference.recipe()).isPresent();
             helper.assertTrue(present, "crafting recipe missing in datapack: " + reference.recipe());
         }
         helper.succeed();

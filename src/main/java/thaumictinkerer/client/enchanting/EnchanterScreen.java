@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.ARGB;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -28,7 +27,7 @@ import thaumictinkerer.network.EnchanterAddEnchantPayload;
 import thaumictinkerer.network.EnchanterStartWorkingPayload;
 
 public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
-    private static final Identifier TEXTURE = ThaumicTinkerer.id("textures/gui/enchanter.png");
+    private static final ResourceLocation TEXTURE = ThaumicTinkerer.id("textures/gui/enchanter.png");
     private static final int MAX_BUTTONS = 16;
 
     private enum Kind {
@@ -42,14 +41,16 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
     }
 
     public EnchanterScreen(EnchanterMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, 176, 166);
+        super(menu, inventory, title);
+        imageWidth = 176;
+        imageHeight = 166;
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
     }
 
-    private void sheet(GuiGraphicsExtractor graphics, int x, int y, int width, int height, int u, int v, int color) {
+    private void sheet(GuiGraphics graphics, int x, int y, int width, int height, int u, int v, int color) {
         if (width > 0 && height > 0) {
             GuiBlit.blit(graphics, TEXTURE, x, y, width, height, u, v, width, height, 256, 256, color);
         }
@@ -98,12 +99,11 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
     private Component enchantName(ResourceKey<Enchantment> key) {
         return TtEnchantments.holder(minecraft.player.level().registryAccess(), key)
             .map(holder -> holder.value().description())
-            .orElse(Component.literal(key.identifier().toString()));
+            .orElse(Component.literal(key.location().toString()));
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        super.extractBackground(graphics, mouseX, mouseY, partialTick);
+    protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         sheet(graphics, leftPos, topPos, imageWidth, imageHeight, 0, 0, 0xFFFFFFFF);
         EnchanterBlockEntity enchanter = menu.enchanter();
         if (enchanter == null) {
@@ -130,12 +130,12 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
         for (Hit hit : layout(enchanter, available)) {
             switch (hit.kind()) {
                 case START -> sheet(graphics, hit.x(), hit.y(), 15, 15, 176, menu.isWorking() ? 39 : 24, 0xFFFFFFFF);
-                case PICK -> GuiBlit.blit(graphics, EnchantmentManager.data(hit.key()).texture(), hit.x(), hit.y(), 0.0F, 0.0F, 16, 16, 16, 16);
+                case PICK -> GuiBlit.blit(graphics, EnchantmentManager.data(hit.key()).texture(), hit.x(), hit.y(), 0, 0, 16, 16, 16, 16);
                 case FRAMED -> {
                     sheet(graphics, hit.x() - 4, hit.y() - 4, 24, 24, 176, 0, 0xFFFFFFFF);
-                    GuiBlit.blit(graphics, EnchantmentManager.data(hit.key()).texture(), hit.x(), hit.y(), 0.0F, 0.0F, 16, 16, 16, 16);
+                    GuiBlit.blit(graphics, EnchantmentManager.data(hit.key()).texture(), hit.x(), hit.y(), 0, 0, 16, 16, 16, 16);
                     int level = enchanter.getLevels().get(hit.index());
-                    graphics.text(font, Component.translatable("enchantment.level." + level), hit.x() + 26, hit.y() + 8, 0xFFFFFFFF, true);
+                    graphics.drawString(font, Component.translatable("enchantment.level." + level), hit.x() + 26, hit.y() + 8, 0xFFFFFFFF, true);
                 }
                 case MINUS -> sheet(graphics, hit.x(), hit.y(), 7, 7, 218, 0, 0xFFFFFFFF);
                 case PLUS -> sheet(graphics, hit.x(), hit.y(), 7, 7, 225, 0, 0xFFFFFFFF);
@@ -143,7 +143,7 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
         }
     }
 
-    private void drawAspectBar(GuiGraphicsExtractor graphics, Aspect aspect, int x, int y) {
+    private void drawAspectBar(GuiGraphics graphics, Aspect aspect, int x, int y) {
         int total = menu.total(aspect);
         int current = menu.current(aspect);
         int size = total == 0 ? 11 : 59;
@@ -152,14 +152,15 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
             sheet(graphics, x, y - size + 4, 10, 10, 200, 52, 0xFFFFFFFF);
         } else {
             int pixels = (int) (48.0 * ((double) current / (double) total));
-            sheet(graphics, x + 1, y - size + 4 + 48 - pixels, 8, pixels, 210, 48 - pixels, ARGB.opaque(aspect.getColor()));
+            sheet(graphics, x + 1, y - size + 4 + 48 - pixels, 8, pixels, 210, 48 - pixels, FastColor.ARGB32.opaque(aspect.getColor()));
             sheet(graphics, x, y - size, 10, size, 200, 0, 0xFFFFFFFF);
         }
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        renderBackground(graphics, mouseX, mouseY, partialTick);
+        super.render(graphics, mouseX, mouseY, partialTick);
         EnchanterBlockEntity enchanter = menu.enchanter();
         if (enchanter == null) {
             return;
@@ -170,7 +171,7 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
                 continue;
             }
             if (hit.kind() == Kind.START && !menu.isWorking()) {
-                graphics.setTooltipForNextFrame(font, Component.translatable("ttinkerer.ttmisc.startEnchant").withStyle(ChatFormatting.AQUA), mouseX, mouseY);
+                graphics.renderTooltip(font, Component.translatable("ttinkerer.ttmisc.startEnchant").withStyle(ChatFormatting.AQUA), mouseX, mouseY);
             } else if (hit.kind() == Kind.PICK || hit.kind() == Kind.FRAMED) {
                 List<Component> lines = new ArrayList<>();
                 lines.add(enchantName(hit.key()).copy().withStyle(ChatFormatting.AQUA));
@@ -183,7 +184,7 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
                 if (hit.kind() == Kind.FRAMED && !menu.isWorking()) {
                     lines.add(Component.literal(" ").append(Component.translatable("ttinkerer.ttmisc.clickToRemove")).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
                 }
-                graphics.setTooltipForNextFrame(font, lines, Optional.empty(), mouseX, mouseY);
+                graphics.renderTooltip(font, lines, Optional.empty(), mouseX, mouseY);
             }
         }
         if (!enchanter.getEnchantments().isEmpty()) {
@@ -198,7 +199,7 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
                         aspect.getDescription().copy().withColor(aspect.getColor()),
                         Component.literal(menu.current(aspect) + "/" + menu.total(aspect))
                     );
-                    graphics.setTooltipForNextFrame(font, lines, Optional.empty(), mouseX, mouseY);
+                    graphics.renderTooltip(font, lines, Optional.empty(), mouseX, mouseY);
                 }
                 offset += 15;
             }
@@ -206,14 +207,14 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
     }
 
     @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        boolean handled = super.mouseClicked(event, doubleClick);
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        boolean handled = super.mouseClicked(mouseX, mouseY, button);
         EnchanterBlockEntity enchanter = menu.enchanter();
-        if (event.button() != InputConstants.MOUSE_BUTTON_LEFT || enchanter == null) {
+        if (button != InputConstants.MOUSE_BUTTON_LEFT || enchanter == null) {
             return handled;
         }
         for (Hit hit : layout(enchanter, available(enchanter))) {
-            if (!hit.contains(event.x(), event.y())) {
+            if (!hit.contains(mouseX, mouseY)) {
                 continue;
             }
             switch (hit.kind()) {

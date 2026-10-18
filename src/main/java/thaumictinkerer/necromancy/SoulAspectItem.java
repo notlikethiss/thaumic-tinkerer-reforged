@@ -1,11 +1,9 @@
 package thaumictinkerer.necromancy;
 
-import java.util.function.Consumer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import thaumcraft.aspect.Aspect;
 
 public class SoulAspectItem extends Item {
@@ -45,9 +43,9 @@ public class SoulAspectItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
-        super.appendHoverText(stack, context, display, builder, flag);
-        builder.accept(Component.literal(aspect.getName()));
+    public void appendHoverText(ItemStack stack, TooltipContext context, java.util.List<Component> builder, TooltipFlag flag) {
+        super.appendHoverText(stack, context, builder, flag);
+        builder.add(Component.literal(aspect.getName()));
     }
 
     @Override

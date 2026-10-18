@@ -9,9 +9,11 @@
           "name": "thaumictinkerer:warp_gate"
         }
       ],
-      "condition": {
-        "type": "minecraft:survives_explosion"
-      }
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
     }
   ],
   "random_sequence": "thaumictinkerer:blocks/warp_gate"

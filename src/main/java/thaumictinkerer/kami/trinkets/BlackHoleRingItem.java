@@ -1,6 +1,5 @@
 package thaumictinkerer.kami.trinkets;
 
-import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -18,7 +17,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -66,16 +64,16 @@ public class BlackHoleRingItem extends Item implements Bauble {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public net.minecraft.world.InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (getItem(stack) != Items.AIR && player.isShiftKeyDown()) {
             if (!level.isClientSide()) {
                 setActive(stack, !isActive(stack));
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.3F, 0.1F);
             }
-            return InteractionResult.SUCCESS;
+            return net.minecraft.world.InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());
         }
-        return InteractionResult.PASS;
+        return net.minecraft.world.InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
     @Override
@@ -164,13 +162,13 @@ public class BlackHoleRingItem extends Item implements Bauble {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
-        super.appendHoverText(stack, context, display, builder, flag);
+    public void appendHoverText(ItemStack stack, TooltipContext context, java.util.List<Component> builder, TooltipFlag flag) {
+        super.appendHoverText(stack, context, builder, flag);
         Item stored = getItem(stack);
         if (stored != Items.AIR) {
-            builder.accept(Component.empty().append(new ItemStack(stored).getHoverName()).append(" (x" + getCount(stack) + ")"));
+            builder.add(Component.empty().append(new ItemStack(stored).getHoverName()).append(" (x" + getCount(stack) + ")"));
         }
-        builder.accept(Component.translatable(isActive(stack) ? "ttinkerer.ttmisc.active" : "ttinkerer.ttmisc.inactive"));
+        builder.add(Component.translatable(isActive(stack) ? "ttinkerer.ttmisc.active" : "ttinkerer.ttmisc.inactive"));
     }
 
     @Override

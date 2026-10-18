@@ -1,48 +1,37 @@
 package thaumictinkerer.gear;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.crafting.CraftingInput;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.world.item.crafting.ShapedRecipePattern;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import thaumictinkerer.Config;
 
 public class ShareTomeRecipe extends ShapedRecipe {
-    public static final MapCodec<ShareTomeRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-        Recipe.CommonInfo.MAP_CODEC.forGetter(recipe -> recipe.commonInfo),
-        CraftingRecipe.CraftingBookInfo.MAP_CODEC.forGetter(recipe -> recipe.bookInfo),
-        ShapedRecipePattern.MAP_CODEC.forGetter(recipe -> recipe.pattern),
-        ItemStackTemplate.CODEC.fieldOf("result").forGetter(recipe -> recipe.resultTemplate)
-    ).apply(instance, ShareTomeRecipe::new));
+    public static final RecipeSerializer<ShareTomeRecipe> SERIALIZER = new RecipeSerializer<>() {
+        private final ShapedRecipe.Serializer delegate = new ShapedRecipe.Serializer();
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, ShareTomeRecipe> STREAM_CODEC = StreamCodec.composite(
-        Recipe.CommonInfo.STREAM_CODEC, recipe -> recipe.commonInfo,
-        CraftingRecipe.CraftingBookInfo.STREAM_CODEC, recipe -> recipe.bookInfo,
-        ShapedRecipePattern.STREAM_CODEC, recipe -> recipe.pattern,
-        ItemStackTemplate.STREAM_CODEC, recipe -> recipe.resultTemplate,
-        ShareTomeRecipe::new
-    );
+        public MapCodec<ShareTomeRecipe> codec() {
+            return delegate.codec().xmap(ShareTomeRecipe::copy, recipe -> recipe);
+        }
 
-    public static final RecipeSerializer<ShareTomeRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+        public StreamCodec<RegistryFriendlyByteBuf, ShareTomeRecipe> streamCodec() {
+            return delegate.streamCodec().map(ShareTomeRecipe::copy, recipe -> recipe);
+        }
+    };
 
-    private final ItemStackTemplate resultTemplate;
+    public ShareTomeRecipe(String group, CraftingBookCategory category, ShapedRecipePattern pattern, ItemStack result, boolean notification) {
+        super(group, category, pattern, result, notification);
+    }
 
-    public ShareTomeRecipe(Recipe.CommonInfo commonInfo, CraftingRecipe.CraftingBookInfo bookInfo, ShapedRecipePattern pattern, ItemStackTemplate result) {
-        super(commonInfo, bookInfo, pattern, result);
-        this.resultTemplate = result;
+    private static ShareTomeRecipe copy(ShapedRecipe recipe) {
+        return new ShareTomeRecipe(recipe.getGroup(), recipe.category(), recipe.pattern, recipe.getResultItem(null), recipe.showNotification());
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public RecipeSerializer<ShapedRecipe> getSerializer() {
-        return (RecipeSerializer<ShapedRecipe>) (RecipeSerializer<?>) SERIALIZER;
+    public RecipeSerializer<?> getSerializer() {
+        return SERIALIZER;
     }
 
     @Override

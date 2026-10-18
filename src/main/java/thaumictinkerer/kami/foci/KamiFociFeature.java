@@ -25,11 +25,9 @@ public final class KamiFociFeature {
     public static final DeferredItem<XpDrainFocus> FOCUS_XP_DRAIN = ModItems.ITEMS.registerItem("focus_xp_drain", XpDrainFocus::new, FocusItem::properties);
     public static final DeferredItem<RecallFocus> FOCUS_RECALL = ModItems.ITEMS.registerItem("focus_recall", RecallFocus::new, FocusItem::properties);
 
-    public static final DeferredHolder<EntityType<?>, EntityType<ShadowbeamFocus.Beam>> BEAM = ModEntities.ENTITIES.registerEntityType(
+    public static final DeferredHolder<EntityType<?>, EntityType<ShadowbeamFocus.Beam>> BEAM = ModEntities.ENTITIES.register(
         "shadowbeam_staff_beam",
-        ShadowbeamFocus.Beam::new,
-        MobCategory.MISC,
-        builder -> builder.sized(0.25F, 0.25F).noSave().noSummon().clientTrackingRange(4).updateInterval(20)
+        () -> EntityType.Builder.<ShadowbeamFocus.Beam>of(ShadowbeamFocus.Beam::new, MobCategory.MISC).sized(0.25F, 0.25F).noSave().noSummon().clientTrackingRange(4).updateInterval(20).build("thaumictinkerer:shadowbeam_staff_beam")
     );
 
     private KamiFociFeature() {
@@ -117,7 +115,7 @@ public final class KamiFociFeature {
             5,
             TcStack.of("thaumictinkerer:focus_recall")
         )
-            .when(thaumcraft.Config::allowMirrors)
+            .when(thaumictinkerer.platform.TtBaseConfig::allowMirrors)
             .setParents(WARP_GATE)
             .setParentsHidden(KamiFeature.ICHORCLOTH_ROD_RESEARCH)
             .setPages(TtResearch.text(0), TtResearch.infusion(RECALL))

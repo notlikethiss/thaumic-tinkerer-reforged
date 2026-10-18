@@ -3,7 +3,7 @@ package thaumictinkerer.research;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BooleanSupplier;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import thaumcraft.aspect.AspectList;
 import thaumcraft.crafting.TcStack;
 import thaumcraft.research.ResearchItem;
@@ -20,7 +20,7 @@ public class TtResearchItem extends ResearchItem {
         super(key, TtResearch.TT_CATEGORY, tags, column, row, complexity, icon);
     }
 
-    public TtResearchItem(String key, AspectList tags, int column, int row, int complexity, Identifier icon) {
+    public TtResearchItem(String key, AspectList tags, int column, int row, int complexity, ResourceLocation icon) {
         super(key, TtResearch.TT_CATEGORY, tags, column, row, complexity, icon);
     }
 

@@ -49,7 +49,7 @@ public final class GatewayFeature {
 
     public static final Supplier<BlockEntityType<WarpGateBlockEntity>> WARP_GATE_ENTITY = ModBlockEntities.BLOCK_ENTITIES.register(
         "warp_gate",
-        () -> new BlockEntityType<>(WarpGateBlockEntity::new, WARP_GATE.get())
+        () -> BlockEntityType.Builder.of(WarpGateBlockEntity::new,  WARP_GATE.get()).build(null)
     );
 
     public static final Supplier<MenuType<WarpGateMenu>> WARP_GATE_MENU = ModMenus.MENUS.register(
@@ -100,7 +100,7 @@ public final class GatewayFeature {
             5,
             TcStack.of("thaumictinkerer:warp_gate")
         )
-            .when(thaumcraft.Config::allowMirrors)
+            .when(thaumictinkerer.platform.TtBaseConfig::allowMirrors)
             .setParents(CHEST_GEM_RESEARCH)
             .setParentsHidden(BOOTS_GEM_RESEARCH)
             .setPages(

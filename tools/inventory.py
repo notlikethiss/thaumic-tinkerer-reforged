@@ -1,4 +1,5 @@
 import argparse
+import mcformat
 import json
 import re
 import sys
@@ -122,10 +123,10 @@ def check(strict, show_all):
     for name in blocks:
         if not (ASSETS / "blockstates" / f"{name}.json").exists():
             missing_models.append(f"block:{name}")
-        if name not in without_item and not (ASSETS / "items" / f"{name}.json").exists():
+        if name not in without_item and not (ASSETS / ("items" if mcformat.gradle_version() == "26.3" else "models/item") / f"{name}.json").exists():
             missing_models.append(f"block item:{name}")
     for name in items:
-        if name not in blocks and not (ASSETS / "items" / f"{name}.json").exists():
+        if name not in blocks and not (ASSETS / ("items" if mcformat.gradle_version() == "26.3" else "models/item") / f"{name}.json").exists():
             missing_models.append(f"item:{name}")
     missing_lang = [f"block:{name}" for name in blocks if f"block.{NS}.{name}" not in lang]
     missing_lang += [f"item:{name}" for name in items if name not in blocks and f"item.{NS}.{name}" not in lang]

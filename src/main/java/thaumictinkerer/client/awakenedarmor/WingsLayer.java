@@ -2,53 +2,46 @@ package thaumictinkerer.client.awakenedarmor;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.player.PlayerModel;
-import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.AvatarRenderState;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.resources.ResourceLocation;
 import thaumcraft.client.platform.ItemGeometry;
 import thaumictinkerer.ThaumicTinkerer;
 import thaumictinkerer.awakenedarmor.AwakenedArmorFeature;
 import thaumictinkerer.client.geom.WingsGeometry;
 
-public class WingsLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
-    private static final Identifier TEXTURE = ThaumicTinkerer.id("textures/model/ichorgem1.png");
+public class WingsLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
+    private static final ResourceLocation TEXTURE = ThaumicTinkerer.id("textures/model/ichorgem1.png");
     private static final int WHITE = 0xFFFFFFFF;
 
-    public WingsLayer(RenderLayerParent<AvatarRenderState, PlayerModel> renderer) {
+    public WingsLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> renderer) {
         super(renderer);
     }
 
     @Override
-    public void submit(PoseStack poseStack, SubmitNodeCollector collector, int lightCoords, AvatarRenderState state, float yRot, float xRot) {
-        if (!state.chestEquipment.is(AwakenedArmorFeature.ROBES.get()) || state.isInvisible) {
+    public void render(PoseStack poseStack, MultiBufferSource collector, int lightCoords, AbstractClientPlayer player, float limbSwing, float limbAmount, float partialTick, float ageInTicks, float yRot, float xRot) {
+        if (!player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(AwakenedArmorFeature.ROBES.get()) || player.isInvisible()) {
             return;
         }
-        boolean flying = false;
-        if (Minecraft.getInstance().level != null) {
-            Entity entity = Minecraft.getInstance().level.getEntity(state.id);
-            flying = entity instanceof Player player && player.getAbilities().flying;
-        }
+        boolean flying = player.getAbilities().flying;
         poseStack.pushPose();
         getParentModel().body.translateAndRotate(poseStack);
-        wing(collector, poseStack, lightCoords, WingsGeometry.LEFT_PIVOT_X, WingsGeometry.leftAngle(flying, state.ageInTicks), true);
-        wing(collector, poseStack, lightCoords, WingsGeometry.RIGHT_PIVOT_X, WingsGeometry.rightAngle(flying, state.ageInTicks), false);
+        wing(collector, poseStack, lightCoords, WingsGeometry.LEFT_PIVOT_X, WingsGeometry.leftAngle(flying, ageInTicks), true);
+        wing(collector, poseStack, lightCoords, WingsGeometry.RIGHT_PIVOT_X, WingsGeometry.rightAngle(flying, ageInTicks), false);
         poseStack.popPose();
     }
 
-    private static void wing(SubmitNodeCollector collector, PoseStack poseStack, int light, float pivotX, float angle, boolean left) {
+    private static void wing(MultiBufferSource collector, PoseStack poseStack, int light, float pivotX, float angle, boolean left) {
         poseStack.pushPose();
         poseStack.translate(pivotX * WingsGeometry.PIXEL, WingsGeometry.PIVOT_Y * WingsGeometry.PIXEL, WingsGeometry.PIVOT_Z * WingsGeometry.PIXEL);
-        poseStack.rotateDegrees(Axis.YP, (float) Math.toDegrees(angle));
+        poseStack.mulPose(Axis.YP.rotationDegrees((float) Math.toDegrees(angle)));
         if (left) {
-            ItemGeometry.solid(collector.order(1), poseStack, TEXTURE, false, sink -> WingsGeometry.leftWing(sink::vertex, WHITE, light));
+            ItemGeometry.solid(collector, poseStack, TEXTURE, false, sink -> WingsGeometry.leftWing(sink::vertex, WHITE, light));
         } else {
-            ItemGeometry.solid(collector.order(1), poseStack, TEXTURE, false, sink -> WingsGeometry.rightWing(sink::vertex, WHITE, light));
+            ItemGeometry.solid(collector, poseStack, TEXTURE, false, sink -> WingsGeometry.rightWing(sink::vertex, WHITE, light));
         }
         poseStack.popPose();
     }

@@ -4,12 +4,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import thaumcraft.fx.Fx;
 
-public class ForcefieldBlock extends Block {
+public class ForcefieldBlock extends thaumictinkerer.platform.TtBlock {
     public static final int LIFETIME = 62;
 
     public ForcefieldBlock(Properties properties) {
