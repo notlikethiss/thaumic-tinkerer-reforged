@@ -18,7 +18,7 @@ The project is a scaffold for now: registries, platform seams, config, game test
 
 Versions match the base mod:
 
-- Mod `1.0`
+- Thaumcraft 4: Reforged `1.0`
 - Minecraft `26.3`
 - NeoForge `26.3.0.57-beta`
 - ModDevGradle `2.0.148`
@@ -44,11 +44,11 @@ python3 tools/inventory.py --check
 
 | Script                    | Purpose                                                                                    |
 | ------------------------- | ------------------------------------------------------------------------------------------ |
-| `tools/fetch_tt.py`       | Downloads the Thaumic Tinkerer source (branch `1.7-final`) into `reference/tt-src`          |
-| `tools/convert_assets.py` | Converts original textures and `.lang` files, merges extra translations from `tools/lang/`  |
+| `tools/fetch_tt.py`       | Downloads the Thaumic Tinkerer source (branch `1.7-final`) into `reference/tt-src`         |
+| `tools/convert_assets.py` | Converts original textures and `.lang` files, merges extra translations from `tools/lang/` |
 | `tools/gen_resources.py`  | Generates blockstates, models, loot tables, recipes and tags from per-feature generators   |
 | `tools/check_seams.py`    | Checks version-specific API boundaries                                                     |
-| `tools/inventory.py`      | Checks `tools/id_map.json` against registrations, models and lang                         |
+| `tools/inventory.py`      | Checks `tools/id_map.json` against registrations, models and lang                          |
 | `tools/id_map.json`       | Maps every original block and item (with metadata) to a modern id                          |
 
 ## Credits
