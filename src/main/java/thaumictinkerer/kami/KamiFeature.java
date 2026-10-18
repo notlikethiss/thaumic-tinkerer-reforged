@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import thaumcraft.aspect.Aspect;
 import thaumcraft.aspect.AspectList;
+import thaumcraft.aspect.AspectRegistry;
 import thaumcraft.crafting.TcIngredient;
 import thaumcraft.crafting.TcStack;
 import thaumcraft.item.gear.TcMaterials;
@@ -146,6 +147,11 @@ public final class KamiFeature {
             false,
             ThaumicTinkerer.id("textures/model/rodichorcloth.png")
         );
+    }
+
+    public static void aspects(AspectRegistry registry) {
+        registry.register(NETHER_SHARD.get(), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.MAGIC, 1).add(Aspect.FIRE, 2).add(Aspect.ENTROPY, 2));
+        registry.register(ENDER_SHARD.get(), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.MAGIC, 1).add(Aspect.ELDRITCH, 2).add(Aspect.TRAVEL, 2));
     }
 
     public static void recipes() {

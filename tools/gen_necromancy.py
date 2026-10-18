@@ -21,6 +21,7 @@ def generate(ctx):
     faces["down"] = {"texture": "#bottom", "cullface": "down"}
     faces["up"] = {"texture": "#top"}
     ctx.block_model("necromancy_tablet", {
+        "parent": "minecraft:block/block",
         "textures": {
             "particle": ctx.ref("spawner2"),
             "bottom": "minecraft:block/obsidian",

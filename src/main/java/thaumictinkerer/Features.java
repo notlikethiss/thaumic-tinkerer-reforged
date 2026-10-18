@@ -122,6 +122,7 @@ public final class Features {
 
     public static void aspects(AspectRegistry registry) {
         NecromancyFeature.aspects(registry);
+        KamiFeature.aspects(registry);
     }
 
     public static void tests(IEventBus modEventBus) {

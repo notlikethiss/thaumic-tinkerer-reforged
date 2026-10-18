@@ -23,6 +23,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import thaumcraft.aspect.Aspect;
+import thaumcraft.aspect.AspectHelper;
+import thaumcraft.aspect.AspectList;
 import thaumcraft.crafting.ArcaneCrafting;
 import thaumcraft.crafting.InfusionRecipe;
 import thaumcraft.crafting.ShapedArcaneRecipe;
@@ -46,6 +48,7 @@ public final class KamiGameTests {
         .add("research_registered", KamiGameTests::researchRegistered)
         .add("recipes_registered", KamiGameTests::recipesRegistered)
         .add("resources_rarity", KamiGameTests::resourcesRarity)
+        .add("shard_aspects", KamiGameTests::shardAspects)
         .add("shard_drops", KamiGameTests::shardDrops)
         .add("wand_parts", KamiGameTests::wandParts)
         .add("tools_unbreakable", KamiGameTests::toolsUnbreakable)
@@ -121,6 +124,22 @@ public final class KamiGameTests {
         helper.assertTrue(new ItemStack(KamiFeature.NETHER_SHARD.get()).getRarity() == Rarity.COMMON, "nether shard rarity");
         helper.assertTrue(new ItemStack(KamiFeature.ENDER_SHARD.get()).getRarity() == Rarity.COMMON, "ender shard rarity");
         helper.succeed();
+    }
+
+    private static void shardAspects(GameTestHelper helper) {
+        assertShardAspects(helper, KamiFeature.NETHER_SHARD.get(), Aspect.FIRE, Aspect.ENTROPY);
+        assertShardAspects(helper, KamiFeature.ENDER_SHARD.get(), Aspect.ELDRITCH, Aspect.TRAVEL);
+        helper.succeed();
+    }
+
+    private static void assertShardAspects(GameTestHelper helper, Item item, Aspect first, Aspect second) {
+        ItemStack stack = new ItemStack(item);
+        AspectList tags = AspectHelper.getBonusTags(stack, AspectHelper.getObjectTags(stack));
+        helper.assertTrue(tags != null && tags.size() == 4, "missing shard aspects for " + item);
+        helper.assertValueEqual(tags.getAmount(Aspect.CRYSTAL), 1, "shard crystal aspect");
+        helper.assertValueEqual(tags.getAmount(Aspect.MAGIC), 1, "shard magic aspect");
+        helper.assertValueEqual(tags.getAmount(first), 2, "shard " + first.getTag() + " aspect");
+        helper.assertValueEqual(tags.getAmount(second), 2, "shard " + second.getTag() + " aspect");
     }
 
     private static int shards(List<ItemEntity> drops, Item item) {

@@ -1,6 +1,7 @@
 def generate(ctx):
     side = {"uv": [0, 14, 16, 16], "texture": "#side"}
     ctx.block_model("essentia_funnel", {
+        "parent": "minecraft:block/block",
         "textures": {"top": ctx.ref("funnel0"), "side": ctx.ref("funnel1"), "particle": ctx.ref("funnel1")},
         "elements": [{
             "from": [0, 0, 0],

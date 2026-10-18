@@ -16,6 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -216,8 +217,12 @@ public final class FociGameTests {
         WandItem item = (WandItem) wand.getItem();
         int fireBefore = Wands.getVis(wand, Aspect.FIRE);
         int entropyBefore = Wands.getVis(wand, Aspect.ENTROPY);
+        player.setNoGravity(true);
+        player.setItemInHand(InteractionHand.MAIN_HAND, wand);
+        helper.assertTrue(player.gameMode.useItem(player, level, wand, InteractionHand.MAIN_HAND).consumesAction(), "smelt wand use was not accepted");
+        helper.assertTrue(player.isUsingItem(), "smelt wand did not start continuous use");
         for (int tick = 0; tick < 40 && !helper.getBlockState(target).is(Blocks.STONE); tick++) {
-            focus.onUsingFocusTick(wand, player, 72000 - tick);
+            player.doTick();
         }
         helper.assertTrue(helper.getBlockState(target).is(Blocks.STONE), "cobblestone was not smelted into stone: " + helper.getBlockState(target));
         helper.assertTrue(
@@ -228,6 +233,7 @@ public final class FociGameTests {
             entropyBefore - Wands.getVis(wand, Aspect.ENTROPY) == spent(wand, item, player, focus.getVisCost(ItemStack.EMPTY), Aspect.ENTROPY),
             "smelt entropy vis cost"
         );
+        player.releaseUsingItem();
         BlockPos plain = new BlockPos(1, 2, 3);
         helper.setBlock(plain, Blocks.OBSIDIAN);
         SmeltFocus.clearStates();
@@ -388,12 +394,16 @@ public final class FociGameTests {
         entity.setDeltaMovement(Vec3.ZERO);
         level.addFreshEntity(entity);
         int airBefore = Wands.getVis(wand, Aspect.AIR);
-        focus.onUsingFocusTick(wand, player, 72000);
+        player.setItemInHand(InteractionHand.MAIN_HAND, wand);
+        helper.assertTrue(player.gameMode.useItem(player, level, wand, InteractionHand.MAIN_HAND).consumesAction(), "telekinesis wand use was not accepted");
+        helper.assertTrue(player.isUsingItem(), "telekinesis wand did not start continuous use");
+        player.doTick();
         Vec3 motion = entity.getDeltaMovement();
         Vec3 expectedDirection = player.position().add(0.0, player.getBbHeight() / 2.0 + 0.5, 0.0).subtract(entity.position().add(0.0, entity.getBbHeight() / 2.0, 0.0));
         helper.assertTrue(motion.length() > 0.2 && motion.length() < 0.34, "pull strength " + motion.length());
         helper.assertTrue(motion.normalize().dot(expectedDirection.normalize()) > 0.99, "item was not pulled to the caster");
         helper.assertTrue(airBefore - Wands.getVis(wand, Aspect.AIR) == spent(wand, item, player, focus.getVisCost(ItemStack.EMPTY), Aspect.AIR), "telekinesis vis cost");
+        player.releaseUsingItem();
         int idle = Wands.getVis(wand, Aspect.AIR);
         entity.discard();
         focus.onUsingFocusTick(wand, player, 72000);

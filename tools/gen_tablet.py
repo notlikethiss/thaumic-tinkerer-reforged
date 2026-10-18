@@ -6,6 +6,7 @@ def generate(ctx):
     faces["down"] = {"texture": "#bottom", "cullface": "down"}
     faces["up"] = {"texture": "#top"}
     ctx.block_model("dynamism_tablet", {
+        "parent": "minecraft:block/block",
         "textures": {
             "particle": ctx.ref("animationtablet2"),
             "bottom": ctx.ref("animationtablet0"),

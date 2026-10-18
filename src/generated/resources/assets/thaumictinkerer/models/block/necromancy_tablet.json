@@ -1,4 +1,5 @@
 {
+  "parent": "minecraft:block/block",
   "textures": {
     "particle": "thaumictinkerer:block/spawner2",
     "bottom": "minecraft:block/obsidian",
