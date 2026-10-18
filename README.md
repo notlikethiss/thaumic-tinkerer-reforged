@@ -54,4 +54,5 @@ python3 tools/inventory.py --check
 ## Credits
 
 - **Vazkii, pixlepix and nekosune** for the original Thaumic Tinkerer (CC BY-NC-SA 3.0)
+- **overseas** for the port
 - **Azanor** for Thaumcraft

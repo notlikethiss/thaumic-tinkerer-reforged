@@ -285,7 +285,7 @@ def main():
     results, mapped, unmapped, unmapped_keys, uncovered, escape_stats = convert_lang(id_map)
     if ASSETS_EXTRA.exists():
         shutil.copytree(ASSETS_EXTRA, ASSETS, dirs_exist_ok=True)
-    shutil.copyfile(SOURCE / "textures" / "logo.png", RESOURCES / "TTLogo.png")
+    shutil.copyfile(ROOT / "poster.png", RESOURCES / "TTLogo.png")
     validate(results)
 
     print("\n== textures ==")
