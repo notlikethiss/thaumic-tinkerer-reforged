@@ -161,6 +161,7 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(graphics, mouseX, mouseY, partialTick);
         super.render(graphics, mouseX, mouseY, partialTick);
+        renderTooltip(graphics, mouseX, mouseY);
         EnchanterBlockEntity enchanter = menu.enchanter();
         if (enchanter == null) {
             return;

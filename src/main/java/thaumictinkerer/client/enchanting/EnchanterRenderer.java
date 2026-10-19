@@ -69,7 +69,7 @@ public class EnchanterRenderer extends TtBlockEntityRenderer<EnchanterBlockEntit
         if (!state.wand.isEmpty()) {
             double millis = state.ticks * 50.0;
             poseStack.pushPose();
-            poseStack.translate(0.7F, 0.78F + (float) (Math.cos(millis / 1000.0) - 1.2) / 40.0F, 0.35F);
+            poseStack.translate(0.7F, 0.9F + (float) Math.cos(millis / 1000.0) / 40.0F, 0.35F);
             poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
             poseStack.mulPose(Axis.ZP.rotationDegrees(-70.0F));
             poseStack.mulPose(Axis.XP.rotationDegrees((float) Math.cos(millis / 500.0) * 5.0F));

@@ -54,6 +54,8 @@ public final class EnchantingGameTests {
         .add("quick_draw", EnchantingGameTests::quickDraw)
         .add("flaming_touch_and_desintegrate", EnchantingGameTests::flamingTouch)
         .add("enchanter_applies_enchant", EnchantingGameTests::enchanterApplies)
+        .add("enchanter_requires_nitor", EnchantingGameTests::enchanterRequiresNitor)
+        .add("enchanter_uses_spare_pillars", EnchantingGameTests::enchanterUsesSparePillars)
         .add("enchanter_rejects_unresearched", EnchantingGameTests::enchanterRejects)
         .add("spell_cloth_recipe", EnchantingGameTests::spellClothRecipe)
         .add("original_enchantment_research", EnchantingGameTests::originalEnchantmentResearch);
@@ -274,6 +276,54 @@ public final class EnchantingGameTests {
         helper.assertTrue(enchanter.getTool().getEnchantmentLevel(holder(helper, TtEnchantments.FOCUSED_STRIKE)) == 1, "enchant not applied");
         helper.assertTrue(Wands.getVis(wand, Aspect.ORDER) < before, "vis was not consumed");
         helper.assertTrue(enchanter.getEnchantments().isEmpty(), "selection not cleared");
+        helper.succeed();
+    }
+
+    private static EnchanterBlockEntity workingEnchanter(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        buildPillars(helper);
+        EnchanterBlockEntity enchanter = enchanter(helper);
+        ItemStack wand = Wands.create(WandRegistry.CAP_THAUMIUM, WandRegistry.ROD_GREATWOOD, false);
+        Wands.fill(wand);
+        enchanter.setItem(EnchanterBlockEntity.WAND, wand);
+        enchanter.setItem(EnchanterBlockEntity.TOOL, new ItemStack(Items.DIAMOND_SWORD));
+        enchanter.applyEdit(player, Enchantments.SHARPNESS, 0);
+        helper.assertTrue(enchanter.startWorking(), "start failed");
+        run(helper, enchanter, 1);
+        helper.assertTrue(enchanter.isWorking() && enchanter.pillarCount() == 6, "six pillars must allow work");
+        helper.assertTrue(enchanter.getCurrentAspects().size() > 0, "enchanting must have made progress");
+        return enchanter;
+    }
+
+    private static void enchanterRequiresNitor(GameTestHelper helper) {
+        EnchanterBlockEntity enchanter = workingEnchanter(helper);
+        int remainingVis = Wands.getAllVis(enchanter.getWand()).visSize();
+        helper.setBlock(new BlockPos(1, 3, 1), Blocks.AIR.defaultBlockState());
+        helper.setBlock(new BlockPos(5, 3, 5), Blocks.AIR.defaultBlockState());
+        run(helper, enchanter, 1);
+        helper.assertTrue(!enchanter.isWorking(), "removing nitor with only four valid pillars must stop enchanting");
+        helper.assertTrue(enchanter.pillarCount() == 0, "incomplete pillar set must be discarded");
+        helper.assertTrue(enchanter.getCurrentAspects().size() == 0, "lost pillars must reset progress");
+        helper.assertTrue(!enchanter.getTool().isEnchanted(), "broken pillars must not enchant the item");
+        helper.assertTrue(Wands.getAllVis(enchanter.getWand()).visSize() == remainingVis, "stopped enchanter must not consume vis");
+        helper.assertTrue(!enchanter.getEnchantments().isEmpty(), "selected enchantments must remain");
+        helper.succeed();
+    }
+
+    private static void enchanterUsesSparePillars(GameTestHelper helper) {
+        EnchanterBlockEntity enchanter = workingEnchanter(helper);
+        for (int x : new int[]{1, 5}) {
+            helper.setBlock(new BlockPos(x, 1, 4), ModBlocks.OBSIDIAN_TOTEM.get().defaultBlockState());
+            helper.setBlock(new BlockPos(x, 2, 4), ModBlocks.OBSIDIAN_TOTEM.get().defaultBlockState());
+            helper.setBlock(new BlockPos(x, 3, 4), ModBlocks.NITOR_LIGHT.get().defaultBlockState());
+        }
+        helper.setBlock(new BlockPos(1, 3, 1), Blocks.AIR.defaultBlockState());
+        helper.setBlock(new BlockPos(5, 3, 5), Blocks.AIR.defaultBlockState());
+        run(helper, enchanter, 1);
+        helper.assertTrue(enchanter.isWorking() && enchanter.pillarCount() == 6, "spare pillars must replace broken pillars");
+        run(helper, enchanter, 200);
+        helper.assertTrue(!enchanter.isWorking(), "enchanting with replacement pillars must finish");
+        helper.assertTrue(enchanter.getTool().getEnchantmentLevel(holder(helper, Enchantments.SHARPNESS)) == 1, "replacement pillars must allow enchanting");
         helper.succeed();
     }
 
