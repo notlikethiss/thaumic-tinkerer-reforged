@@ -88,6 +88,8 @@
 
 ## Генерируемые файлы (руками не править)
 
+- В `neoforge.mods.toml` корневой `logoFile="icon.png"` нужен для Prism Launcher; `iconFile` и `bannerFile` внутри `[[mods]]` задают отдельные иконку списка и баннер карточки NeoForge 26.3. `convert_assets.py` копирует иконку из корневого `icon.png`, баннер из `poster.png`.
+
 | Файл | Генератор |
 |---|---|
 | `src/main/resources/assets/thaumictinkerer` (текстуры, lang) | `tools/convert_assets.py` (+ `tools/assets_extra/`, `tools/lang/`) |
