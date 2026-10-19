@@ -431,11 +431,22 @@ public final class FociGameTests {
         own.setDeltaMovement(-0.5, 0.0, 0.0);
         level.addFreshEntity(own);
         int orderBefore = Wands.getVis(wand, Aspect.ORDER);
-        focus.onUsingFocusTick(wand, player, 72000);
+        player.setItemInHand(InteractionHand.MAIN_HAND, wand);
+        helper.assertTrue(player.gameMode.useItem(player, level, wand, InteractionHand.MAIN_HAND).consumesAction(), "deflect wand use was not accepted");
+        helper.assertTrue(player.isUsingItem(), "deflect wand did not start continuous use");
+        player.doTick();
         helper.assertTrue(snowball.getX() < player.getX() - 1.0, "snowball was not carried past the caster: " + snowball.getX());
         helper.assertTrue(bottle.getX() == start.x, "experience bottle was deflected");
         helper.assertTrue(own.getX() == start.x, "own projectile was deflected");
         helper.assertTrue(orderBefore - Wands.getVis(wand, Aspect.ORDER) == (int) (8 * item.getConsumptionModifier(wand, player, Aspect.ORDER, false)), "deflect vis cost");
+        for (int tick = 0; tick < 5; tick++) {
+            player.doTick();
+        }
+        helper.assertTrue(player.isUsingItem() && player.getTicksUsingItem() == 6, "deflect use restarted while spending vis");
+        player.releaseUsingItem();
+        int orderAfter = Wands.getVis(wand, Aspect.ORDER);
+        player.doTick();
+        helper.assertTrue(Wands.getVis(wand, Aspect.ORDER) == orderAfter, "deflect kept consuming vis after release");
         helper.succeed();
     }
 
