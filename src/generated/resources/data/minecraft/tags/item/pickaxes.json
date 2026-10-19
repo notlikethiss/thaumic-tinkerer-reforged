@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:awakened_ichorium_pickaxe",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:ichorium_pickaxe",
+      "required": false
+    }
+  ]
+}

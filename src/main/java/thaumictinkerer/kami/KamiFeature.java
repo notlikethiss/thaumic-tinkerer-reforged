@@ -22,6 +22,7 @@ import thaumcraft.wand.WandRod;
 import thaumictinkerer.ThaumicTinkerer;
 import thaumictinkerer.TtRarity;
 import thaumictinkerer.crafting.TtRecipes;
+import thaumictinkerer.platform.TtToolItem;
 import thaumictinkerer.registry.ModItems;
 import thaumictinkerer.research.TtResearch;
 
@@ -78,22 +79,22 @@ public final class KamiFeature {
 
     public static final DeferredItem<Item> ICHORIUM_PICKAXE = ModItems.ITEMS.registerItem(
         "ichorium_pickaxe",
-        Item::new,
+        properties -> new TtToolItem(properties, ICHOR_TOOL),
         properties -> unbreakable(Registration.pickaxe(properties, ICHOR_TOOL, 2.0F, -2.8F))
     );
     public static final DeferredItem<Item> ICHORIUM_SHOVEL = ModItems.ITEMS.registerItem(
         "ichorium_shovel",
-        Item::new,
+        properties -> new TtToolItem(properties, ICHOR_TOOL),
         properties -> unbreakable(Registration.shovel(properties, ICHOR_TOOL, 1.0F, -3.0F))
     );
     public static final DeferredItem<Item> ICHORIUM_AXE = ModItems.ITEMS.registerItem(
         "ichorium_axe",
-        Item::new,
+        properties -> new TtToolItem(properties, ICHOR_TOOL),
         properties -> unbreakable(Registration.axe(properties, ICHOR_TOOL, 3.0F, -3.0F))
     );
     public static final DeferredItem<Item> ICHORIUM_SWORD = ModItems.ITEMS.registerItem(
         "ichorium_sword",
-        Item::new,
+        properties -> new TtToolItem(properties, ICHOR_TOOL),
         properties -> unbreakable(Registration.sword(properties, ICHOR_TOOL, 4.0F, -2.4F))
     );
 

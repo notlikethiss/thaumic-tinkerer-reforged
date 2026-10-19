@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:ichorcloth_robe",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:robes_of_the_stratosphere",
+      "required": false
+    }
+  ]
+}

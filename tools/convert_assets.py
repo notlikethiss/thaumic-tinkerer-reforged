@@ -207,6 +207,15 @@ def add_prefixed_research_text(result):
             result[f"ttinkerer.research_text_kami.{name}"] = prefix_kami + value
 
 
+def convert_image_links(value):
+    def replace(match):
+        directory, separator, name = match.group(1).partition("/")
+        path = f"{TEXTURE_DIRS[directory]}/{clean_name(name)}" if separator and directory in TEXTURE_DIRS else clean_name(match.group(1))
+        return f"<IMG>{NS}:textures/{path}{match.group(2)}</IMG>"
+
+    return re.sub(r"<IMG>ttinkerer:textures/([^:]+)(:[^<]*)</IMG>", replace, value)
+
+
 def convert_lang(id_map):
     key_map = build_key_map(id_map)
     dropped = skipped_keys(id_map)
@@ -250,6 +259,7 @@ def convert_lang(id_map):
         for extra_path in extra_paths:
             if extra_path.exists():
                 result.update(json.loads(extra_path.read_text(encoding="utf-8")))
+        result = {key: convert_image_links(value) for key, value in result.items()}
         add_prefixed_research_text(result)
         results[language] = result
         write_json(ASSETS / "lang" / f"{language}.json", dict(sorted(result.items())))

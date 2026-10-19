@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:cowl_of_the_abyssal_depths",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:ichorcloth_cowl",
+      "required": false
+    }
+  ]
+}

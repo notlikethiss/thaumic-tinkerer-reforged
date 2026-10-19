@@ -8,6 +8,7 @@ TOOLS = {
 
 def generate(ctx):
     for name, texture in TOOLS.items():
+        ctx.item_tags[f"minecraft:{name.rsplit('_', 1)[1]}s"].add(f"{ctx.NS}:{name}")
         for mode in range(3):
             ctx.item_model(f"{name}_{mode}", {"parent": "minecraft:item/handheld", "textures": {"layer0": ctx.ref(f"{texture}{mode}", "item")}})
         ctx.write(ctx.ASSETS / "items" / f"{name}.json", {

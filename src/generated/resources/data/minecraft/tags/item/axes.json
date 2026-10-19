@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:awakened_ichorium_axe",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:ichorium_axe",
+      "required": false
+    }
+  ]
+}

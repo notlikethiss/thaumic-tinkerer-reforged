@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:awakened_ichorium_sword",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:ichorium_sword",
+      "required": false
+    }
+  ]
+}

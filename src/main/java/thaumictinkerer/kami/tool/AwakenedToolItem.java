@@ -8,7 +8,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -16,15 +15,17 @@ import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import thaumcraft.item.tool.ToolHarvest;
+import thaumictinkerer.kami.KamiFeature;
+import thaumictinkerer.platform.TtToolItem;
 
-public class AwakenedToolItem extends Item {
+public class AwakenedToolItem extends TtToolItem {
     private static final float SHEARS_LEAVES = 15.0F;
     private static final float SHEARS_WOOL = 5.0F;
 
     private final ToolKind kind;
 
     public AwakenedToolItem(Properties properties, ToolKind kind) {
-        super(properties);
+        super(properties, KamiFeature.ICHOR_TOOL);
         this.kind = kind;
     }
 

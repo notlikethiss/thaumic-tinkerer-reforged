@@ -101,7 +101,7 @@ public final class EnchantmentManager {
     }
 
     public static boolean isTool(ItemStack stack) {
-        return !stack.isEmpty() && !stack.is(Items.BOOK) && stack.getMaxStackSize() == 1 && stack.isDamageableItem();
+        return !stack.isEmpty() && !stack.is(Items.BOOK) && stack.getMaxStackSize() == 1 && stack.getMaxDamage() > 0;
     }
 
     public static boolean canApply(HolderLookup.Provider access, ItemStack stack, ResourceKey<Enchantment> key, List<ResourceKey<Enchantment>> current) {

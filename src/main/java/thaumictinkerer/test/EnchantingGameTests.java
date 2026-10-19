@@ -4,6 +4,7 @@ import io.netty.channel.embedded.EmbeddedChannel;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.Connection;
@@ -15,6 +16,7 @@ import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -35,12 +37,16 @@ import thaumcraft.research.ResearchItem;
 import thaumcraft.research.ResearchManager;
 import thaumcraft.wand.WandRegistry;
 import thaumcraft.wand.Wands;
+import thaumictinkerer.awakenedarmor.AwakenedArmorFeature;
 import thaumictinkerer.enchanting.EnchanterBlockEntity;
+import thaumictinkerer.enchanting.EnchanterMenu;
 import thaumictinkerer.enchanting.EnchantingFeature;
 import thaumictinkerer.enchanting.EnchantmentManager;
 import thaumictinkerer.enchanting.SpellClothRecipe;
 import thaumictinkerer.enchanting.TtEnchantmentEvents;
 import thaumictinkerer.enchanting.TtEnchantments;
+import thaumictinkerer.kami.KamiFeature;
+import thaumictinkerer.kami.tool.AwakenedToolsFeature;
 import thaumictinkerer.research.TtResearch;
 
 public final class EnchantingGameTests {
@@ -54,6 +60,10 @@ public final class EnchantingGameTests {
         .add("quick_draw", EnchantingGameTests::quickDraw)
         .add("flaming_touch_and_desintegrate", EnchantingGameTests::flamingTouch)
         .add("enchanter_applies_enchant", EnchantingGameTests::enchanterApplies)
+        .add("enchanter_accepts_ichor_gear", EnchantingGameTests::enchanterAcceptsIchorGear)
+        .add("enchanter_enchants_ichor_gear", EnchantingGameTests::enchanterEnchantsIchorGear)
+        .add("enchanter_ichor_restrictions", EnchantingGameTests::enchanterIchorRestrictions)
+        .add("enchanter_rune_event", EnchantingGameTests::enchanterRuneEvent)
         .add("enchanter_requires_nitor", EnchantingGameTests::enchanterRequiresNitor)
         .add("enchanter_uses_spare_pillars", EnchantingGameTests::enchanterUsesSparePillars)
         .add("enchanter_rejects_unresearched", EnchantingGameTests::enchanterRejects)
@@ -293,6 +303,113 @@ public final class EnchantingGameTests {
         helper.assertTrue(enchanter.isWorking() && enchanter.pillarCount() == 6, "six pillars must allow work");
         helper.assertTrue(enchanter.getCurrentAspects().size() > 0, "enchanting must have made progress");
         return enchanter;
+    }
+
+    private record IchorEnchant(Item item, ResourceKey<Enchantment> enchantment) {
+    }
+
+    private static List<IchorEnchant> ichorGear() {
+        return List.of(
+            new IchorEnchant(KamiFeature.ICHORIUM_PICKAXE.get(), Enchantments.EFFICIENCY),
+            new IchorEnchant(KamiFeature.ICHORIUM_SHOVEL.get(), Enchantments.EFFICIENCY),
+            new IchorEnchant(KamiFeature.ICHORIUM_AXE.get(), Enchantments.EFFICIENCY),
+            new IchorEnchant(KamiFeature.ICHORIUM_SWORD.get(), TtEnchantments.FOCUSED_STRIKE),
+            new IchorEnchant(KamiFeature.ICHORCLOTH_COWL.get(), Enchantments.RESPIRATION),
+            new IchorEnchant(KamiFeature.ICHORCLOTH_ROBE.get(), Enchantments.PROTECTION),
+            new IchorEnchant(KamiFeature.ICHORCLOTH_LEGGINGS.get(), TtEnchantments.POUNCE),
+            new IchorEnchant(KamiFeature.ICHORCLOTH_BOOTS.get(), TtEnchantments.SLOW_FALL),
+            new IchorEnchant(AwakenedToolsFeature.AWAKENED_PICKAXE.get(), Enchantments.EFFICIENCY),
+            new IchorEnchant(AwakenedToolsFeature.AWAKENED_SHOVEL.get(), Enchantments.EFFICIENCY),
+            new IchorEnchant(AwakenedToolsFeature.AWAKENED_AXE.get(), Enchantments.EFFICIENCY),
+            new IchorEnchant(AwakenedToolsFeature.AWAKENED_SWORD.get(), TtEnchantments.FOCUSED_STRIKE),
+            new IchorEnchant(AwakenedArmorFeature.COWL.get(), Enchantments.RESPIRATION),
+            new IchorEnchant(AwakenedArmorFeature.ROBES.get(), Enchantments.PROTECTION),
+            new IchorEnchant(AwakenedArmorFeature.LEGGINGS.get(), TtEnchantments.POUNCE),
+            new IchorEnchant(AwakenedArmorFeature.BOOTS.get(), Enchantments.FEATHER_FALLING)
+        );
+    }
+
+    private static void enchanterAcceptsIchorGear(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        EnchanterBlockEntity enchanter = enchanter(helper);
+        EnchanterMenu menu = new EnchanterMenu(1, player.getInventory(), enchanter.getBlockPos());
+        for (IchorEnchant entry : ichorGear()) {
+            ItemStack stack = new ItemStack(entry.item());
+            helper.assertTrue(!stack.isDamageableItem() && EnchantmentManager.canEnchantStack(stack), "unbreakable gear must be enchantable: " + entry.item());
+            helper.assertTrue(menu.getSlot(EnchanterBlockEntity.TOOL).mayPlace(stack), "slot rejected " + entry.item());
+            player.getInventory().setItem(9, stack);
+            helper.assertTrue(menu.quickMoveStack(player, 2).is(entry.item()), "shift insertion failed: " + entry.item());
+            helper.assertTrue(enchanter.getTool().is(entry.item()) && player.getInventory().getItem(9).isEmpty(), "shift insertion lost or duplicated " + entry.item());
+            helper.assertTrue(menu.quickMoveStack(player, EnchanterBlockEntity.TOOL).is(entry.item()), "shift extraction failed: " + entry.item());
+            helper.assertTrue(enchanter.getTool().isEmpty() && player.getInventory().getItem(9).is(entry.item()), "shift extraction lost or duplicated " + entry.item());
+            player.getInventory().setItem(9, ItemStack.EMPTY);
+        }
+        helper.assertTrue(!menu.getSlot(EnchanterBlockEntity.TOOL).mayPlace(new ItemStack(Items.BOOK)), "book accepted");
+        helper.assertTrue(!menu.getSlot(EnchanterBlockEntity.TOOL).mayPlace(new ItemStack(Items.STICK)), "stick accepted");
+        helper.succeed();
+    }
+
+    private static void enchanterEnchantsIchorGear(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        buildPillars(helper);
+        EnchanterBlockEntity enchanter = enchanter(helper);
+        for (IchorEnchant entry : ichorGear()) {
+            String research = EnchantmentManager.data(entry.enchantment()).research();
+            if (!research.isEmpty()) {
+                ResearchManager.complete(player, research);
+            }
+            ItemStack wand = Wands.create(WandRegistry.CAP_THAUMIUM, WandRegistry.ROD_GREATWOOD, false);
+            Wands.fill(wand);
+            int before = Wands.getAllVis(wand).visSize();
+            enchanter.setItem(EnchanterBlockEntity.WAND, wand);
+            enchanter.setItem(EnchanterBlockEntity.TOOL, new ItemStack(entry.item()));
+            enchanter.applyEdit(player, entry.enchantment(), 0);
+            helper.assertTrue(enchanter.getEnchantments().equals(List.of(entry.enchantment())), "enchant not selected for " + entry.item());
+            helper.assertTrue(enchanter.startWorking(), "start failed for " + entry.item());
+            run(helper, enchanter, 200);
+            ItemStack result = enchanter.getTool();
+            helper.assertTrue(!enchanter.isWorking() && result.getEnchantmentLevel(holder(helper, entry.enchantment())) == 1, "enchant not applied to " + entry.item());
+            helper.assertTrue(Wands.getAllVis(wand).visSize() < before, "no vis consumed for " + entry.item());
+            helper.assertTrue(result.has(DataComponents.UNBREAKABLE) && !result.isDamageableItem(), "unbreakability lost for " + entry.item());
+            helper.assertTrue(!EnchantmentManager.canEnchantStack(result), "enchanted gear can be enchanted again: " + entry.item());
+            helper.assertTrue(enchanter.getEnchantments().isEmpty() && enchanter.getCurrentAspects().size() == 0, "progress not cleared for " + entry.item());
+        }
+        helper.succeed();
+    }
+
+    private static void enchanterIchorRestrictions(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        EnchanterBlockEntity enchanter = enchanter(helper);
+        for (Item item : List.of(KamiFeature.ICHORIUM_SWORD.get(), AwakenedToolsFeature.AWAKENED_SWORD.get())) {
+            enchanter.setItem(EnchanterBlockEntity.TOOL, new ItemStack(item));
+            enchanter.applyEdit(player, TtEnchantments.FOCUSED_STRIKE, 0);
+            enchanter.applyEdit(player, Enchantments.PROTECTION, 0);
+            helper.assertTrue(enchanter.getEnchantments().isEmpty(), "unresearched or unsuitable enchant accepted for " + item);
+            enchanter.applyEdit(player, Enchantments.SHARPNESS, 0);
+            enchanter.applyEdit(player, Enchantments.SMITE, 0);
+            helper.assertTrue(enchanter.getEnchantments().equals(List.of(Enchantments.SHARPNESS)), "exclusive enchant accepted for " + item);
+        }
+        ResearchManager.complete(player, EnchantingFeature.ENCHANT_SLOW_FALL);
+        ResearchManager.complete(player, EnchantingFeature.ENCHANT_SHOCKWAVE);
+        enchanter.setItem(EnchanterBlockEntity.TOOL, new ItemStack(AwakenedArmorFeature.BOOTS.get()));
+        helper.assertTrue(enchanter.getTool().supportsEnchantment(holder(helper, TtEnchantments.SLOW_FALL)), "boots foot armor tag missing");
+        helper.assertTrue(enchanter.getTool().supportsEnchantment(holder(helper, TtEnchantments.SHOCKWAVE)), "boots shockwave support missing");
+        enchanter.applyEdit(player, TtEnchantments.SLOW_FALL, 0);
+        enchanter.applyEdit(player, TtEnchantments.SHOCKWAVE, 0);
+        helper.assertTrue(enchanter.getEnchantments().isEmpty(), "excluded boots enchant accepted");
+        enchanter.applyEdit(player, Enchantments.FEATHER_FALLING, 0);
+        helper.assertTrue(enchanter.getEnchantments().equals(List.of(Enchantments.FEATHER_FALLING)), "valid boots enchant rejected");
+        helper.succeed();
+    }
+
+    private static void enchanterRuneEvent(GameTestHelper helper) {
+        EnchanterBlockEntity enchanter = enchanter(helper);
+        for (int index = 0; index < EnchanterBlockEntity.PILLAR_COUNT; index++) {
+            helper.assertTrue(enchanter.getBlockState().triggerEvent(helper.getLevel(), enchanter.getBlockPos(), EnchanterBlockEntity.EVENT_RUNES, index), "server rejected rune event " + index);
+        }
+        helper.assertTrue(enchanter.pillarCount() == 0, "server event must not run client effects");
+        helper.assertTrue(!enchanter.getBlockState().triggerEvent(helper.getLevel(), enchanter.getBlockPos(), 99, 0), "unknown event accepted");
+        helper.succeed();
     }
 
     private static void enchanterRequiresNitor(GameTestHelper helper) {

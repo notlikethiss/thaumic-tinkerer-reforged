@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:awakened_ichorium_shovel",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:ichorium_shovel",
+      "required": false
+    }
+  ]
+}
