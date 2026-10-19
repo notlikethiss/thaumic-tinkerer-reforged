@@ -842,6 +842,8 @@
       "quick_draw",
       "flaming_touch_and_desintegrate",
       "enchanter_applies_enchant",
+      "enchanter_requires_nitor",
+      "enchanter_uses_spare_pillars",
       "enchanter_rejects_unresearched",
       "spell_cloth_recipe",
       "original_enchantment_research"
