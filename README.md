@@ -6,7 +6,7 @@ Unofficial port of **Thaumic Tinkerer 2.5** by Vazkii, pixlepix and nekosune fro
 
 The goal is to recreate the original gameplay as closely as possible, including the KAMI content. The Bedrock dimension, ComputerCraft peripherals and integrations with other mods (except JEI) are not ported. The technical side is rebuilt on modern APIs.
 
-This branch includes every existing addon feature module, including KAMI. See [BACKPORT.md](BACKPORT.md) for branch differences and [the validation report](docs/BACKPORT_VALIDATION.md) for verified results and remaining manual checks.
+This branch includes every existing addon feature module, including KAMI. Visual acceptance and two-client gameplay checks remain manual.
 
 > **Personal use only.** The original Thaumic Tinkerer is licensed under CC BY-NC-SA 3.0. This port is not intended for redistribution.
 
@@ -14,7 +14,7 @@ This branch includes every existing addon feature module, including KAMI. See [B
 
 - Java 21 toolchain; Java 25 to run the bundled Gradle wrapper
 - Python 3
-- A checkout of Thaumcraft 4: Reforged next to this repository (`../thaumcraft-4-reforged`), on `mc/1.21.1` with the addon API commit listed in `BACKPORT.md`
+- A checkout of Thaumcraft 4: Reforged next to this repository (`../thaumcraft-4-reforged`), on `mc/1.21.1` with the addon API from commit `1d10115` or a compatible descendant
 
 Versions match the base mod:
 
