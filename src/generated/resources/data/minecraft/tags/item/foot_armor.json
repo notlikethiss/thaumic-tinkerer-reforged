@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:boots_of_the_horizontal_shield",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:ichorcloth_boots",
+      "required": false
+    }
+  ]
+}

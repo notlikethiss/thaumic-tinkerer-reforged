@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "thaumictinkerer:ichorcloth_leggings",
+      "required": false
+    },
+    {
+      "id": "thaumictinkerer:leggings_of_the_burning_mantle",
+      "required": false
+    }
+  ]
+}

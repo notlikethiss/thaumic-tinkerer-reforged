@@ -293,8 +293,11 @@ public class EnchanterBlockEntity extends TcBlockEntity implements Container, Me
 
     @Override
     public boolean triggerEvent(int id, int type) {
-        if (id != EVENT_RUNES || level == null || !level.isClientSide()) {
+        if (id != EVENT_RUNES || level == null) {
             return super.triggerEvent(id, type);
+        }
+        if (!level.isClientSide()) {
+            return true;
         }
         if (pillars.size() != PILLAR_COUNT) {
             pillars.clear();

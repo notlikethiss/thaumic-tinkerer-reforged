@@ -31,7 +31,10 @@ def generate(ctx):
         ctx.generated_item(name, texture)
     for name, texture in ARMOR.items():
         ctx.generated_item(name, texture)
+    for name, tag in zip(ARMOR, ("head_armor", "chest_armor", "leg_armor", "foot_armor"), strict=True):
+        ctx.item_tags[f"minecraft:{tag}"].add(f"{ctx.NS}:{name}")
     for name, texture in TOOLS.items():
+        ctx.item_tags[f"minecraft:{name.rsplit('_', 1)[1]}s"].add(f"{ctx.NS}:{name}")
         ctx.item_model(name, {"parent": "minecraft:item/handheld", "textures": {"layer0": ctx.ref(texture, "item")}})
         ctx.item_definition(name, ctx.ref(name, "item"))
 
