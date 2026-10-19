@@ -14,6 +14,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import thaumictinkerer.ThaumicTinkerer;
 import thaumictinkerer.crops.CreativeVariants;
 import thaumictinkerer.kami.KamiFeature;
+import thaumictinkerer.kami.WandVariant;
 
 public final class ModCreativeTabs {
     private static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ThaumicTinkerer.MODID);
@@ -23,6 +24,11 @@ public final class ModCreativeTabs {
         .title(Component.translatable("itemGroup.thaumictinkerer"))
         .icon(() -> new ItemStack(KamiFeature.ICHOR.get()))
         .displayItems((parameters, output) -> {
+            for (WandVariant variant : WandVariant.values()) {
+                if (variant.available()) {
+                    output.accept(variant.creativeStack());
+                }
+            }
             for (DeferredHolder<Item, ? extends Item> holder : ModItems.ITEMS.getEntries()) {
                 if (HIDDEN.contains(holder)) {
                     continue;

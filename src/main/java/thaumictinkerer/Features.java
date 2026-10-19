@@ -40,6 +40,7 @@ import thaumictinkerer.test.AwakenedToolsGameTests;
 import thaumictinkerer.kami.trinkets.TrinketsFeature;
 import thaumictinkerer.test.TrinketsGameTests;
 import thaumictinkerer.test.KamiGameTests;
+import thaumictinkerer.test.WandGameTests;
 import thaumictinkerer.test.ElementsGameTests;
 import thaumictinkerer.kami.foci.KamiFociFeature;
 import thaumictinkerer.kami.gateway.GatewayFeature;
@@ -142,6 +143,7 @@ public final class Features {
         GearGameTests.register(modEventBus);
         NecromancyGameTests.register(modEventBus);
         KamiGameTests.register(modEventBus);
+        WandGameTests.register(modEventBus);
         AwakenedToolsGameTests.register(modEventBus);
         AwakenedArmorGameTests.register(modEventBus);
         TrinketsGameTests.register(modEventBus);
