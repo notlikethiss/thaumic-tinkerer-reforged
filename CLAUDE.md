@@ -144,6 +144,7 @@ python3 tools/validate_backport.py
 
 ## Особенности API 1.21.1
 
+- В `neoforge.mods.toml` корневой `logoFile="icon.png"` задаёт квадратную иконку для Prism (он предпочитает корневое поле), а `logoFile="TTLogo.png"` внутри `[[mods]]` задаёт баннер карточки NeoForge (он предпочитает поле мода). Поля `iconFile` и `bannerFile` в 1.21.1 не поддерживаются; стандартный список NeoForge не рисует иконки в строках модов.
 - Предметы и блоки регистрируются через `TtRegistration`; обработчик свойств вычисляется внутри supplier регистрации. Раннее вычисление обращается к ещё не привязанным эффектам.
 - `TtBlock.onRemove` вызывает `TcBlockEntity.beforeRemove`; без этого теряется содержимое механизмов. При перемещении блоков сначала отсоединяется их block entity.
 - `TtCamoBlockEntity` и `TtCropBlockEntity` содержат два безопасных серверных типа `ModelData`/`ModelProperty`, несмотря на `client` в пакете NeoForge. Только эти импорты в этих двух файлах разрешены проверкой швов.

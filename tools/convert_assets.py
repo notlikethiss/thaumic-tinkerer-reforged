@@ -286,6 +286,7 @@ def main():
     if ASSETS_EXTRA.exists():
         shutil.copytree(ASSETS_EXTRA, ASSETS, dirs_exist_ok=True)
     shutil.copyfile(ROOT / "poster.png", RESOURCES / "TTLogo.png")
+    shutil.copyfile(ROOT / "icon.png", RESOURCES / "icon.png")
     validate(results)
 
     print("\n== textures ==")
