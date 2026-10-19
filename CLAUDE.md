@@ -17,7 +17,7 @@
 
 ## Окружение
 
-- Мод `thaumictinkerer`, пакет `thaumictinkerer`, namespace ассетов `thaumictinkerer`, архив `thaumic-tinkerer-reforged`, версия 1.0.
+- Мод `thaumictinkerer`, пакет `thaumictinkerer`, namespace ассетов `thaumictinkerer`, архив `thaumic-tinkerer-reforged`, версия 1.1.
 - MC 1.21.1, NeoForge 21.1.256, ModDevGradle 2.0.148, JEI 19.57.0.451, TerraBlender 1.21.1-4.1.0.1, Curios 9.5.1+1.21.1, тулчейн Java 21. Gradle запускается на Java 25. Версии совпадают с базой.
 - JDK: `export JAVA_HOME=/opt/homebrew/opt/openjdk@25`, системной `java` нет.
 - Python 3, скрипты `tools/` без внешних зависимостей.
