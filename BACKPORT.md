@@ -4,6 +4,8 @@ Source addon baseline: `e498a76` on `main`. Minecraft 26.3 remains on `main`; th
 
 Required Thaumcraft base: branch `mc/1.21.1`, commit `1d10115` or a descendant containing its addon contracts. Base baseline before these changes: `8348611`. The base changes are committed separately and do not import its general configuration phase.
 
+CI resource validation also requires the base's portable Java selection fix `9d274e3`. Update the base branch before rerunning the addon workflow; the validator no longer requires a Homebrew JDK path.
+
 Targets: Minecraft 1.21.1, NeoForge 21.1.256, ModDevGradle 2.0.148, Java 21 toolchain, Gradle on Java 25, JEI 19.57.0.451, TerraBlender 1.21.1-4.1.0.1, Curios 9.5.1+1.21.1. The base retains its Parchment 1.21.1 / 2024.11.17 mapping profile; the addon uses the same mappings.
 
 ## Maintenance

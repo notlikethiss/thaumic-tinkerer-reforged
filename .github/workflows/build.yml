@@ -56,6 +56,7 @@ jobs:
 
       - name: Verify resources
         run: |
+          python3 ../thaumcraft-4-reforged/tools/test_validate_ids.py
           python3 tools/fetch_tt.py
           python3 tools/convert_assets.py
           python3 tools/gen_resources.py
