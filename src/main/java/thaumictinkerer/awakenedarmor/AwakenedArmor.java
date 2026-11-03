@@ -33,6 +33,10 @@ public final class AwakenedArmor {
         return false;
     }
 
+    public static boolean convertsFire(Player player) {
+        return player.getItemBySlot(EquipmentSlot.LEGS).is(AwakenedArmorFeature.LEGGINGS.get()) && isEnabled(player);
+    }
+
     public static boolean carriesLight(Player player) {
         return isActive(player, EquipmentSlot.LEGS, AwakenedArmorFeature.LEGGINGS.get());
     }
