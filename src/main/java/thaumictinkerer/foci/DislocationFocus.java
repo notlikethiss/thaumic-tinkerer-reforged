@@ -1,5 +1,6 @@
 package thaumictinkerer.foci;
 
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -9,12 +10,17 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractBedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.entity.TrialSpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jspecify.annotations.Nullable;
@@ -51,6 +57,40 @@ public class DislocationFocus extends TtFocus {
             || state.is(Blocks.MOVING_PISTON)
             || state.is(FocusUtils.PORTABLE_HOLE_BLACKLIST)
             || state.getDestroySpeed(level, pos) == -1.0F;
+    }
+
+    private static @Nullable Direction pairDirection(BlockState state) {
+        if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
+            return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN;
+        }
+        if (state.getBlock() instanceof AbstractBedBlock) {
+            return AbstractBedBlock.getConnectedDirection(state);
+        }
+        return null;
+    }
+
+    private static boolean isMainPart(BlockState state) {
+        if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
+            return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER;
+        }
+        if (state.getBlock() instanceof AbstractBedBlock) {
+            return state.getValue(AbstractBedBlock.PART) == BedPart.FOOT;
+        }
+        return true;
+    }
+
+    private static BlockState otherPart(BlockState state) {
+        if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
+            return state.cycle(BlockStateProperties.DOUBLE_BLOCK_HALF);
+        }
+        return state.cycle(AbstractBedBlock.PART);
+    }
+
+    private static boolean canPlaceAt(ServerLevel level, Player player, ItemStack wand, BlockPos pos, Direction face) {
+        return level.isInWorldBounds(pos)
+            && level.getBlockState(pos).canBeReplaced()
+            && player.mayUseItemAt(pos, face, wand)
+            && level.mayInteract(player, pos);
     }
 
     public static @Nullable DislocatedBlock held(ItemStack focus) {
@@ -99,15 +139,23 @@ public class DislocationFocus extends TtFocus {
     public static boolean place(ServerLevel level, Player player, ItemStack wand, ItemStack focus, DislocatedBlock held, BlockPos clicked, Direction face) {
         BlockPos target = clicked.relative(face);
         BlockState state = held.state();
-        if (!level.isInWorldBounds(target)
-            || !level.getBlockState(target).canBeReplaced()
-            || !player.mayUseItemAt(target, face, wand)
-            || !level.mayInteract(player, target)
+        BlockState pair = held.pair().orElse(null);
+        if (!isMainPart(state)) {
+            pair = state;
+            state = otherPart(state);
+        }
+        Direction pairDirection = pairDirection(state);
+        BlockPos pairPos = pair == null || pairDirection == null ? null : target.relative(pairDirection);
+        if (!canPlaceAt(level, player, wand, target, face)
+            || pairPos != null && !canPlaceAt(level, player, wand, pairPos, face)
             || !state.canSurvive(level, target)) {
             return false;
         }
         if (!level.setBlock(target, state, Block.UPDATE_ALL)) {
             return false;
+        }
+        if (pairPos != null) {
+            level.setBlock(pairPos, DoublePlantBlock.copyWaterloggedFrom(level, pairPos, pair), Block.UPDATE_ALL);
         }
         if (!held.tile().isEmpty()) {
             CompoundTag tag = held.tile().copy();
@@ -127,10 +175,35 @@ public class DislocationFocus extends TtFocus {
         return true;
     }
 
-    public static boolean pickUp(ServerLevel level, Player player, ItemStack wand, ItemStack focus, BlockPos pos) {
+    public static boolean pickUp(ServerLevel level, Player player, ItemStack wand, ItemStack focus, BlockPos clicked) {
+        BlockPos pos = clicked;
         BlockState state = level.getBlockState(pos);
         if (isBlacklisted(level, pos, state)) {
             return false;
+        }
+        Direction pairDirection = pairDirection(state);
+        if (!isMainPart(state)) {
+            BlockPos mainPos = pos.relative(pairDirection);
+            BlockState main = level.getBlockState(mainPos);
+            if (!main.is(state.getBlock()) || !isMainPart(main) || !level.mayInteract(player, mainPos)) {
+                return false;
+            }
+            pos = mainPos;
+            state = main;
+            pairDirection = pairDirection(state);
+        }
+        BlockPos pairPos = null;
+        BlockState pair = null;
+        if (pairDirection != null) {
+            BlockPos otherPos = pos.relative(pairDirection);
+            BlockState other = level.getBlockState(otherPos);
+            if (other.is(state.getBlock()) && !isMainPart(other)) {
+                if (!level.mayInteract(player, otherPos)) {
+                    return false;
+                }
+                pairPos = otherPos;
+                pair = other;
+            }
         }
         BlockEntity blockEntity = level.getBlockEntity(pos);
         CompoundTag tile = blockEntity == null ? new CompoundTag() : blockEntity.saveWithFullMetadata(level.registryAccess());
@@ -138,12 +211,19 @@ public class DislocationFocus extends TtFocus {
         if (!item.consumeAllVis(wand, player, cost(blockEntity), true, false)) {
             return false;
         }
-        FociFeature.DISLOCATED.set(focus, new DislocatedBlock(state, tile));
+        FociFeature.DISLOCATED.set(focus, new DislocatedBlock(state, tile, Optional.ofNullable(pair)));
         Wands.setFocus(wand, focus);
         if (blockEntity != null) {
             level.removeBlockEntity(pos);
         }
-        level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        if (pairPos != null) {
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE);
+            level.setBlock(pairPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+            level.updateNeighborsAt(pos, state.getBlock());
+            Blocks.AIR.defaultBlockState().updateNeighbourShapes(level, pos, Block.UPDATE_ALL);
+        } else {
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        }
         FociEffects.send(player, FociEffectPayload.PICK_BURST, pos);
         level.playSound(null, player.getX(), player.getY(), player.getZ(), state.getSoundType().getBreakSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
         level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.WAND.get(), SoundSource.PLAYERS, 0.5F, 1.0F);
