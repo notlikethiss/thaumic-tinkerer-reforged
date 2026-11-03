@@ -37,7 +37,6 @@ export JAVA_HOME=/path/to/openjdk-25
 ./gradlew runClient           # client: run/client
 ./gradlew runClient -PwithoutJei # optional JEI must not be required
 ./gradlew runServer           # start a development server (game folder: run/server)
-./gradlew runGameTestServer   # run the addon game tests only
 python3 tools/check_seams.py  # check version-specific API boundaries
 python3 tools/inventory.py --check --strict
 python3 tools/validate_backport.py
@@ -49,7 +48,7 @@ GitHub Actions builds pushes to `main` and `mc/**` and can also be started manua
 
 The workflow checks out Thaumcraft 4: Reforged alongside the addon, using the matching `mc/**` branch for Minecraft branches and `main` otherwise. Java, Minecraft and mod versions are read from `gradle.properties`.
 
-After resource validation, seam checks, the Gradle build, GameTests and recipe comparison pass, the workflow replaces the release and tag named after the Minecraft version (currently `1.21.1`), attaches the addon JAR and uses the latest commit as release notes. Releases from `main` are marked as latest. This follows the release process used by Thaumcraft 4: Reforged.
+After resource validation, seam checks and the Gradle build pass, the workflow replaces the release and tag named after the Minecraft version (currently `1.21.1`), attaches the addon JAR and uses the latest commit as release notes. Releases from `main` are marked as latest. This follows the release process used by Thaumcraft 4: Reforged.
 
 ## Tools
 

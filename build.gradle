@@ -60,21 +60,11 @@ neoForge {
                 programArgument "--quickPlayMultiplayer"
                 programArgument providers.gradleProperty("validationServer").get()
             }
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
         server {
             server()
             gameDirectory = file("run/server")
             programArgument '--nogui'
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        }
-        gameTestServer {
-            type = "gameTestServer"
-            gameDirectory = file("run/gametest")
-            systemProperty "thaumictinkerer.validationDir", file("build/reports/backport").absolutePath
-            programArgument "--world"
-            programArgument file("build/gametestworld").absolutePath
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
         configureEach {
             systemProperty 'forge.logging.markers', 'REGISTRIES'
@@ -143,22 +133,4 @@ tasks.named('runServer') {
 
 tasks.matching { it.name.startsWith("prepare") && it.name.endsWith("Run") }.configureEach {
     outputs.cacheIf { false }
-}
-
-def gameTestLog = layout.projectDirectory.file("run/gametest/logs/latest.log").asFile
-def gameTestProperties = layout.projectDirectory.file("run/gametest/server.properties").asFile
-tasks.named('runGameTestServer') {
-    doFirst {
-        gameTestLog.delete()
-        gameTestProperties.parentFile.mkdirs()
-        if (!gameTestProperties.exists()) {
-            gameTestProperties.text = ""
-        }
-    }
-    doLast {
-        def log = gameTestLog
-        if (!log.isFile() || !log.text.contains("Enabled Gametest Namespaces: [thaumictinkerer]") || !(log.text =~ /All [1-9][0-9]* required tests passed/)) {
-            throw new GradleException("GameTest server did not report a completed successful test run")
-        }
-    }
 }

@@ -2,7 +2,7 @@
 
 Порт Thaumic Tinkerer 2.5 (MC 1.7.10, Vazkii, pixlepix, nekosune) как аддона к Thaumcraft 4: Reforged (`~/projects/thaumcraft-4-reforged`, далее база) на Minecraft 1.21.1 и NeoForge. Ветка `mc/1.21.1` переносит весь контент `main`. Логика, числа, рецепты, тексты и ассеты оригинала переносятся 1:1, техническая часть пишется на современных API.
 
-Файл описывает, как развивать и портировать мод. Статусы фаз, счётчики тестов, даты прогонов и пути к логам сюда не пишутся. Новая строка добавляется только если без неё агент сделает ошибку: неочевидное правило API, обязательный порядок шагов или намеренное отступление от TT, которое иначе «починят» обратно.
+Файл описывает, как развивать и портировать мод. Статусы фаз, даты прогонов и пути к логам сюда не пишутся. Новая строка добавляется только если без неё агент сделает ошибку: неочевидное правило API, обязательный порядок шагов или намеренное отступление от TT, которое иначе «починят» обратно.
 
 ## Принципы
 
@@ -21,10 +21,9 @@
 - MC 1.21.1, NeoForge 21.1.256, ModDevGradle 2.0.148, JEI 19.57.0.451, TerraBlender 1.21.1-4.1.0.1, Curios 9.5.1+1.21.1, тулчейн Java 21. Gradle запускается на Java 25. Версии совпадают с базой.
 - JDK: `export JAVA_HOME=/opt/homebrew/opt/openjdk@25`, системной `java` нет.
 - Python 3, скрипты `tools/` без внешних зависимостей.
-- База подключена composite build: `includeBuild("../thaumcraft-4-reforged")` в `settings.gradle`, зависимость `implementation "thaumcraft:thaumcraft-4-reforged:1.0"`. Репозиторий базы должен лежать рядом. Gradle собирает его jar сам, в `runClient`, `runServer`, `runGameTestServer` оба мода видны как моды. Изменения необходимого API оформляются отдельными коммитами в ветке базы `mc/1.21.1`.
+- База подключена composite build: `includeBuild("../thaumcraft-4-reforged")` в `settings.gradle`, зависимость `implementation "thaumcraft:thaumcraft-4-reforged:1.0"`. Репозиторий базы должен лежать рядом. Gradle собирает его jar сам, в `runClient` и `runServer` оба мода видны как моды. Изменения необходимого API оформляются отдельными коммитами в ветке базы `mc/1.21.1`.
 - `neoforge.mods.toml`: зависимость от `thaumcraft` обязательная, `ordering="AFTER"`, поэтому конструктор аддона выполняется после конструктора базы. Исследования и рецепты регистрируются из конструктора аддона.
-- `runGameTestServer` фильтрует namespace `thaumictinkerer`; тесты базы не идут. В 1.21.1 фильтр генераторов смотрит namespace структуры: генератор пишет копию платформы базы как `thaumictinkerer:test/platform`. `TtGameTestHelper` компенсирует сдвиг Y на 1, координаты сценариев остаются как в main.
-- Каталоги клиента, сервера и тестов раздельные: `run/client`, `run/server`, `run/gametest`. Для обычного сервера нужен `run/server/eula.txt` с `eula=true`. Тестовый мир в `build/gametestworld`.
+- Каталоги клиента и сервера раздельные: `run/client`, `run/server`. Для обычного сервера нужен `run/server/eula.txt` с `eula=true`.
 
 ## Справочники (gitignore)
 
@@ -50,13 +49,13 @@
 
 ## Раскладка по фичам
 
-Образец: `darkquartz/DarkQuartzFeature`, `test/DarkQuartzGameTests`, `tools/gen_dark_quartz.py`, `tools/lang/dark_quartz/`.
+Образец: `darkquartz/DarkQuartzFeature`, `tools/gen_dark_quartz.py`, `tools/lang/dark_quartz/`.
 
 - Фича живёт в `thaumictinkerer/<feature>/` и отдаёт один класс `<Feature>Feature`: статические `DeferredHolder` в общие реестры (`ModItems.ITEMS`, `ModBlocks.BLOCKS` через `ModBlocks.withItem`, `ModBlockEntities` и т.д.), методы `load()` (пустой, нужен для загрузки класса), `research()`, `recipes()`, при необходимости `aspects(AspectRegistry)`.
-- В общих файлах фича добавляет по одной строке: `Features.java` (в `load`, `research`, `recipes`, `aspects`, `tests`), `client/ClientFeatures.java` (экраны, рендереры), `tools/features.txt` (имя генератора). Эти файлы с `merge=union` в `.gitattributes`, строки писать отдельными операторами. Клиентские хуки фичи в `client/<feature>/`, прочие клиентские события через собственный `@EventBusSubscriber(value = Dist.CLIENT)`.
+- В общих файлах фича добавляет по одной строке: `Features.java` (в `load`, `research`, `recipes`, `aspects`), `client/ClientFeatures.java` (экраны, рендереры), `tools/features.txt` (имя генератора). Эти файлы с `merge=union` в `.gitattributes`, строки писать отдельными операторами. Клиентские хуки фичи в `client/<feature>/`, прочие клиентские события через собственный `@EventBusSubscriber(value = Dist.CLIENT)`.
 - `Features.load()` вызывается в конструкторе до привязки реестров к шине, `recipes()` и `research()` после (рецепты первыми, как в базе), aspects через `AspectSync.addRegistrar(Features::aspects)`.
 - Генератор `tools/gen_<feature>.py` экспортирует `generate(ctx)` (`ctx` это модуль `gen_resources`: `generated_item`, `block_item`, `cube_all`, `cube_column`, `cube_bottom_top`, `simple_state`, `blockstate`, `self_drop`, `mineable`, `shaped`, `shapeless`, `smelting`, `tag_both`, `stairs(name, top, side)`, `slab(name, top, side, double_model)`). Ручной lang в `tools/lang/<feature>/{en_us,ru_ru}.json`, ru_ru берётся из переведённого TT, недостающее переводится самостоятельно.
-- GameTest фичи в `test/<Feature>GameTests.java` на `TtGameTestSuite` (реализация через `@GameTestGenerator`) (`new TtGameTestSuite("name").add("test", body)`, регистрация `register(bus)` строкой в `Features.tests`). Общие проверки инфраструктуры в `CoreGameTests`.
+- GameTest в проекте не пишутся, поведение проверяет пользователь в игре.
 - Новая фича не правит `ModItems`/`ModBlocks`/`gen_resources.py`/`convert_assets.py`, если нужного хелпера нет, его добавляют отдельным коммитом.
 
 ## Исследования
@@ -67,14 +66,14 @@
 - `KamiResearchItem`: concealed, скрытые родители считаются лениво в `parentsHidden()` (все исследования `TT_CATEGORY`, BASICS, GOLEMANCY, ARTIFICE, ALCHEMY, THAUMATURGY без потерянных, виртуальных, триггерных, без родителей, KAMI, MINILITH*, *KAMI), потому что конструктор аддона идёт до тегов и фильтр `isAvailable` в конструкторе даёт неверный результат. Исследование доступно только при `Config.kamiEnabled()`, KAMI-контент регистрируется всегда.
 - Конфиг в конструкторе недоступен: условия читаются в момент запроса (`Config.kamiEnabled()`, `imbuedFire()` и т.д. возвращают умолчание, пока `SPEC` не загружен). Блоки и предметы регистрируются всегда, отключается доступность исследований и поведение.
 - Префиксы `[TT]`/`[TTKami]` в тексте исследования воспроизведены ключами `ttinkerer.research_text(_kami).KEY`, которые `convert_assets.py` строит из `tc.research_text.KEY`; `textKey()` выбирает их при `Config.tooltipIndicators()`.
-- `tools/extract_tt_research.py` строит `tools/tt_research.json` из исходников TT (74 исследования), GameTest `research_matches_tt_table` сверяет с ним реестр: позиции, родители, аспекты, флаги, warp, страницы. Сложность в таблице уже ограничена до 1..3, ключи рецептов страниц сопоставляются с суффиксом `_<...>` (SUMMON, DARK_QUARTZ0_COAL). После правки исследования таблицу не менять руками, а сверять с TT.
+- `tools/extract_tt_research.py` строит `tools/tt_research.json` из исходников TT (74 исследования), справочник для сверки позиций, родителей, аспектов, флагов, warp и страниц. Сложность в таблице уже ограничена до 1..3, ключи рецептов страниц сопоставляются с суффиксом `_<...>` (SUMMON, DARK_QUARTZ0_COAL). После правки исследования таблицу не менять руками, а сверять с TT.
 - `TtResearch.kamiResearch()`/`setKamiResearch` хранит исследование KAMI для команды `KamiUnlocked`.
 
 ## Рецепты
 
 - `crafting/TtRecipes` поверх `TcRecipes.register`: `arcane(key, research, result, aspects, pattern, 'A', ingredient, ...)`, `arcaneShapeless`, `infusion(key[, research], result, instability, aspects, central, components...)`, `crucible(key, result, catalyst, aspects)`, `vanilla(key, research, recipePath, result)` (`CraftingRecipeRef` на обычный рецепт из `data/thaumictinkerer/recipe`). Ключи TT сохраняются как есть, повтор ключа (в том числе с базой) бросает `IllegalStateException`.
 - Обычные рецепты верстака пишет генератор (`ctx.shaped`), зеркальные варианты TT (лестницы) не дублируются, ваниль зеркалит сама. Если у TT два рецепта с одним ключом, регистрируются оба ключа (`DARK_QUARTZ0`, `DARK_QUARTZ0_COAL`) и обе ссылки идут в одну страницу.
-- `python3 tools/extract_tt_recipes.py --compare <дамп>` строит `tools/tt_recipes.json` из TT и сверяет с дампом рецептов `TcRecipes.all()` (дамп пишет временный GameTest в JSON-формате `tools/compare_recipes.py`). Рецепты тигля `INFUSED_POTIONSPOT0..3` в TT привязаны к несуществующему исследованию и в TC4 никогда не срабатывают, поэтому у них исследование `INFUSED_POTIONS`. `INFUSED_INKWELL` без исследования намеренно как в TT.
+- `python3 tools/extract_tt_recipes.py --compare <дамп>` строит `tools/tt_recipes.json` из TT и сверяет с дампом рецептов `TcRecipes.all()` (дамп пишет временный код в JSON-формате `tools/compare_recipes.py`). Рецепты тигля `INFUSED_POTIONSPOT0..3` в TT привязаны к несуществующему исследованию и в TC4 никогда не срабатывают, поэтому у них исследование `INFUSED_POTIONS`. `INFUSED_INKWELL` без исследования намеренно как в TT.
 - `python3 tools/tc4_ref.py ConfigItems.itemResource 14` печатает id и состояние базы (`ConfigBlocks.x meta`, `Items.x meta`, `Blocks.x`, имя oredict, мета `*` для всех). `--all` пишет `tools/tc4_refs.json` (коммитится). Oredict даёт теги `#c:...` как в `convert_recipes.py` базы.
 
 ## Прочее
@@ -115,7 +114,6 @@
 2. Поведение базы смотреть в её `CLAUDE.md` и коде, расширять только через API базы выше.
 3. Версионно-зависимые вызовы спрятать в шов.
 4. Ресурсы через генератор фичи, тексты по ключам lang (строки, захардкоженные в TT, выносить в `tools/lang/<feature>`).
-5. GameTest на ключевую логику в `test/`, регистрация через `TtGameTestSuite`, который сохраняет имена и изоляцию сценариев на API 1.21.1.
 
 ## Проверки
 
@@ -128,7 +126,6 @@ python3 tools/check_seams.py
 python3 tools/inventory.py --check --strict
 python3 tools/validate_backport.py
 ./gradlew build
-./gradlew runGameTestServer
 ```
 
 - Повторная генерация не должна менять файлы.

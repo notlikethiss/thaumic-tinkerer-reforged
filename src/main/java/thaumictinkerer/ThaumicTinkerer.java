@@ -20,8 +20,6 @@ import thaumictinkerer.registry.ModMenus;
 import thaumictinkerer.registry.ModRecipes;
 import thaumictinkerer.registry.ModSounds;
 import thaumictinkerer.research.TtResearch;
-import thaumictinkerer.test.CoreGameTests;
-import thaumictinkerer.test.SmokeGameTests;
 
 @Mod(ThaumicTinkerer.MODID)
 public class ThaumicTinkerer {
@@ -46,9 +44,6 @@ public class ThaumicTinkerer {
         Features.recipes();
         Features.research();
         AspectSync.addRegistrar(Features::aspects);
-        SmokeGameTests.register(modEventBus);
-        CoreGameTests.register(modEventBus);
-        Features.tests(modEventBus);
     }
 
     public static ResourceLocation id(String path) {
