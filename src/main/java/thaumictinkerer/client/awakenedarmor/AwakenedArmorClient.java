@@ -5,15 +5,19 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
+import net.minecraft.client.renderer.fog.FogData;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelType;
+import net.minecraft.world.level.material.FogType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.ViewportEvent;
 import thaumictinkerer.ThaumicTinkerer;
 import thaumictinkerer.awakenedarmor.AwakenedArmor;
 import thaumictinkerer.awakenedarmor.AwakenedArmorFeature;
@@ -24,6 +28,7 @@ import thaumictinkerer.network.ToggleArmorPayload;
 @EventBusSubscriber(modid = ThaumicTinkerer.MODID, value = Dist.CLIENT)
 public final class AwakenedArmorClient {
     private static final KeyMapping.Category CATEGORY = new KeyMapping.Category(ThaumicTinkerer.id("main"));
+    private static final float LAVA_FOG_END = 5.0F;
     public static final KeyMapping TOGGLE = new KeyMapping("ttinkerer.ttmisc.toggleArmor", InputConstants.KEY_U, CATEGORY);
 
     private AwakenedArmorClient() {
@@ -52,6 +57,22 @@ public final class AwakenedArmorClient {
                 TtClientNetwork.sendToServer(new ToggleArmorPayload(!AwakenedArmor.isEnabled(player)));
             }
         }
+    }
+
+    @SubscribeEvent
+    static void onRenderFog(ViewportEvent.RenderFog event) {
+        if (event.getType() != FogType.LAVA
+            || !(event.getCamera().entity() instanceof Player player)
+            || player.isSpectator()
+            || player.hasEffect(MobEffects.FIRE_RESISTANCE)
+            || !AwakenedArmor.convertsFire(player)) {
+            return;
+        }
+        FogData fog = event.getFogData();
+        fog.environmentalStart = 0.0F;
+        fog.environmentalEnd = LAVA_FOG_END;
+        fog.skyEnd = LAVA_FOG_END;
+        fog.cloudEnd = LAVA_FOG_END;
     }
 
     @SubscribeEvent

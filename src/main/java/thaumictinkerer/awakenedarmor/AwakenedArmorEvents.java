@@ -21,10 +21,11 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.damagesource.DamageContainer;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import thaumictinkerer.Config;
 import thaumictinkerer.ThaumicTinkerer;
@@ -35,7 +36,6 @@ import thaumictinkerer.gas.BrightNitorItem;
 public final class AwakenedArmorEvents {
     public static final Identifier STEP_MODIFIER = ThaumicTinkerer.id("awakened_boots_step");
     public static final double STEP_BONUS = 0.4;
-    public static final int FIRE_RESISTANCE_AMPLIFIER = 10;
     public static final int HASTE_AMPLIFIER = 1;
     public static final int HASTE_DURATION = 2;
     public static final float JUMP_BOOST = 0.3F;
@@ -97,7 +97,6 @@ public final class AwakenedArmorEvents {
         if (!AwakenedArmor.isActive(player, EquipmentSlot.LEGS, AwakenedArmorFeature.LEGGINGS.get())) {
             return;
         }
-        refresh(player, MobEffects.FIRE_RESISTANCE, AwakenedArmorFeature.EFFECT_DURATION, FIRE_RESISTANCE_AMPLIFIER);
         Level level = player.level();
         int x = Mth.floor(player.getX());
         int y = (int) player.getY() + 1;
@@ -200,7 +199,6 @@ public final class AwakenedArmorEvents {
                     updateFlight(serverPlayer);
                 }
             }
-            case LEGS -> removeOwned(player, MobEffects.FIRE_RESISTANCE, FIRE_RESISTANCE_AMPLIFIER);
             case FEET -> {
                 removeOwned(player, MobEffects.HASTE, HASTE_AMPLIFIER);
                 updateStepHeight(player);
@@ -242,13 +240,19 @@ public final class AwakenedArmorEvents {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    static void onIncomingDamage(LivingIncomingDamageEvent event) {
+    static void onDamage(LivingDamageEvent.Pre event) {
         if (event.getEntity() instanceof Player player
             && !player.level().isClientSide()
             && event.getSource().is(DamageTypeTags.IS_FIRE)
-            && AwakenedArmor.isActive(player, EquipmentSlot.LEGS, AwakenedArmorFeature.LEGGINGS.get())) {
-            event.setCanceled(true);
-            player.heal(event.getAmount());
+            && AwakenedArmor.convertsFire(player)) {
+            DamageContainer container = event.getContainer();
+            float amount = container.getNewDamage()
+                + container.getReduction(DamageContainer.Reduction.ARMOR)
+                + container.getReduction(DamageContainer.Reduction.ENCHANTMENTS)
+                + container.getReduction(DamageContainer.Reduction.MOB_EFFECTS)
+                + container.getReduction(DamageContainer.Reduction.INNATE_RESISTANCE);
+            event.setNewDamage(0.0F);
+            player.heal(amount);
         }
     }
 }
