@@ -21,11 +21,10 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.damagesource.DamageContainer;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import thaumictinkerer.Config;
 import thaumictinkerer.ThaumicTinkerer;
@@ -240,19 +239,24 @@ public final class AwakenedArmorEvents {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    static void onDamage(LivingDamageEvent.Pre event) {
-        if (event.getEntity() instanceof Player player
-            && !player.level().isClientSide()
-            && event.getSource().is(DamageTypeTags.IS_FIRE)
-            && AwakenedArmor.convertsFire(player)) {
-            DamageContainer container = event.getContainer();
-            float amount = container.getNewDamage()
-                + container.getReduction(DamageContainer.Reduction.ARMOR)
-                + container.getReduction(DamageContainer.Reduction.ENCHANTMENTS)
-                + container.getReduction(DamageContainer.Reduction.MOB_EFFECTS)
-                + container.getReduction(DamageContainer.Reduction.INNATE_RESISTANCE);
-            event.setNewDamage(0.0F);
-            player.heal(amount);
+    static void onIncomingDamage(LivingIncomingDamageEvent event) {
+        if (!(event.getEntity() instanceof Player player)
+            || player.level().isClientSide()
+            || !event.getSource().is(DamageTypeTags.IS_FIRE)
+            || !AwakenedArmor.convertsFire(player)) {
+            return;
         }
+        event.setCanceled(true);
+        float amount = event.getAmount();
+        if (player.damageCooldownTime > 10 && !event.getSource().is(DamageTypeTags.BYPASSES_COOLDOWN)) {
+            if (amount > player.lastHurt) {
+                player.heal(amount - player.lastHurt);
+                player.lastHurt = amount;
+            }
+            return;
+        }
+        player.lastHurt = amount;
+        player.damageCooldownTime = event.getContainer().getPostAttackInvulnerabilityTicks();
+        player.heal(amount);
     }
 }
