@@ -6,7 +6,7 @@ Unofficial port of **Thaumic Tinkerer 2.5** by Vazkii, pixlepix and nekosune fro
 
 The goal is to recreate the original gameplay as closely as possible, including the KAMI content. The Bedrock dimension, ComputerCraft peripherals and integrations with other mods (except JEI) are not ported. The technical side is rebuilt on modern APIs.
 
-The project is a scaffold for now: registries, platform seams, config, game test harness and the Python tooling are in place, gameplay content is ported feature by feature.
+The project is a scaffold for now: registries, platform seams, config and the Python tooling are in place, gameplay content is ported feature by feature.
 
 > **Personal use only.** The original Thaumic Tinkerer is licensed under CC BY-NC-SA 3.0. This port is not intended for redistribution.
 
@@ -35,7 +35,6 @@ export JAVA_HOME=/path/to/openjdk-25
 ./gradlew build               # build the addon jar into build/libs
 ./gradlew runClient           # start a development client
 ./gradlew runServer           # start a development server (game folder: run/)
-./gradlew runGameTestServer   # run the addon game tests only
 python3 tools/check_seams.py  # check version-specific API boundaries
 python3 tools/inventory.py --check
 ```

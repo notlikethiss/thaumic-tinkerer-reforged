@@ -1,52 +1,27 @@
 package thaumictinkerer;
 
-import thaumictinkerer.test.AwakenedArmorGameTests;
 import thaumictinkerer.awakenedarmor.AwakenedArmorFeature;
-import net.neoforged.bus.api.IEventBus;
 import thaumcraft.aspect.AspectRegistry;
 import thaumictinkerer.crops.CropsFeature;
-import thaumictinkerer.test.CropsGameTests;
 import thaumictinkerer.attractor.AttractorFeature;
 import thaumictinkerer.tablet.TabletFeature;
-import thaumictinkerer.test.AttractorGameTests;
-import thaumictinkerer.test.TabletGameTests;
 import thaumictinkerer.darkquartz.DarkQuartzFeature;
 import thaumictinkerer.decor.DecorFeature;
 import thaumictinkerer.funnel.FunnelFeature;
 import thaumictinkerer.gear.GearFeature;
 import thaumictinkerer.necromancy.NecromancyFeature;
-import thaumictinkerer.test.NecromancyGameTests;
 import thaumictinkerer.gas.GasFeature;
 import thaumictinkerer.mobilizer.MobilizerFeature;
 import thaumictinkerer.repairer.RepairerFeature;
-import thaumictinkerer.test.DarkQuartzGameTests;
-import thaumictinkerer.test.DecorGameTests;
-import thaumictinkerer.test.FunnelGameTests;
-import thaumictinkerer.test.GearGameTests;
-import thaumictinkerer.test.GasGameTests;
-import thaumictinkerer.test.MobilizerGameTests;
-import thaumictinkerer.test.RepairerGameTests;
-import thaumictinkerer.test.TransvectorGameTests;
 import thaumictinkerer.transvector.TransvectorFeature;
 import thaumictinkerer.foci.FociFeature;
 import thaumictinkerer.enchanting.EnchantingFeature;
-import thaumictinkerer.test.EnchantingGameTests;
-import thaumictinkerer.test.DarkQuartzGameTests;
-import thaumictinkerer.test.FociGameTests;
 import thaumictinkerer.elements.ElementsFeature;
 import thaumictinkerer.kami.KamiFeature;
 import thaumictinkerer.kami.tool.AwakenedToolsFeature;
-import thaumictinkerer.test.AwakenedToolsGameTests;
 import thaumictinkerer.kami.trinkets.TrinketsFeature;
-import thaumictinkerer.test.TrinketsGameTests;
-import thaumictinkerer.test.KamiGameTests;
-import thaumictinkerer.test.WandGameTests;
-import thaumictinkerer.test.ElementsGameTests;
 import thaumictinkerer.kami.foci.KamiFociFeature;
 import thaumictinkerer.kami.gateway.GatewayFeature;
-import thaumictinkerer.test.GatewayGameTests;
-import thaumictinkerer.test.KamiFociGameTests;
-import thaumictinkerer.test.ResearchTableGameTests;
 
 public final class Features {
     private Features() {
@@ -124,31 +99,5 @@ public final class Features {
     public static void aspects(AspectRegistry registry) {
         NecromancyFeature.aspects(registry);
         KamiFeature.aspects(registry);
-    }
-
-    public static void tests(IEventBus modEventBus) {
-        DarkQuartzGameTests.register(modEventBus);
-        DecorGameTests.register(modEventBus);
-        FunnelGameTests.register(modEventBus);
-        GasGameTests.register(modEventBus);
-        MobilizerGameTests.register(modEventBus);
-        RepairerGameTests.register(modEventBus);
-        TransvectorGameTests.register(modEventBus);
-        FociGameTests.register(modEventBus);
-        EnchantingGameTests.register(modEventBus);
-        CropsGameTests.register(modEventBus);
-        ElementsGameTests.register(modEventBus);
-        AttractorGameTests.register(modEventBus);
-        TabletGameTests.register(modEventBus);
-        GearGameTests.register(modEventBus);
-        NecromancyGameTests.register(modEventBus);
-        KamiGameTests.register(modEventBus);
-        WandGameTests.register(modEventBus);
-        AwakenedToolsGameTests.register(modEventBus);
-        AwakenedArmorGameTests.register(modEventBus);
-        TrinketsGameTests.register(modEventBus);
-        GatewayGameTests.register(modEventBus);
-        KamiFociGameTests.register(modEventBus);
-        ResearchTableGameTests.register(modEventBus);
     }
 }

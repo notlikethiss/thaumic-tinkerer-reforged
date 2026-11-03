@@ -19,15 +19,25 @@ public enum CropKind implements StringRepresentable {
     }
 
     public static CropKind of(Aspect aspect) {
-        return switch (aspect) {
-            case AIR -> AER;
-            case FIRE -> IGNIS;
-            case WATER -> AQUA;
-            case EARTH -> TERRA;
-            case ORDER -> ORDO;
-            case ENTROPY -> PERDITIO;
-            default -> GENERIC;
-        };
+        if (aspect == Aspect.AIR) {
+            return AER;
+        }
+        if (aspect == Aspect.FIRE) {
+            return IGNIS;
+        }
+        if (aspect == Aspect.WATER) {
+            return AQUA;
+        }
+        if (aspect == Aspect.EARTH) {
+            return TERRA;
+        }
+        if (aspect == Aspect.ORDER) {
+            return ORDO;
+        }
+        if (aspect == Aspect.ENTROPY) {
+            return PERDITIO;
+        }
+        return GENERIC;
     }
 
     @Override
